@@ -4,8 +4,6 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletSession;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
@@ -17,6 +15,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import life.qbic.logging.Log4j2Logger;
+import life.qbic.logging.Logger;
 import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 
 @Theme("mytheme")
@@ -24,7 +24,8 @@ import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 @Widgetset("life.qbic.AppWidgetSet")
 public class MyPortletUI extends UI {
 
-    private static Log log = LogFactoryUtil.getLog(MyPortletUI.class);
+    private static Logger logger = new Log4j2Logger(MyPortletUI.class);
+
 
     @Override
     protected void init(VaadinRequest request) {
@@ -71,7 +72,7 @@ public class MyPortletUI extends UI {
         try {
             result = UserLocalServiceUtil.getUsersCount();
         } catch (SystemException e) {
-            log.error(e);
+            logger.error(e.getMessage());
         }
 
         return result;
