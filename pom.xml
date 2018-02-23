@@ -3,9 +3,9 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>life.qbic</groupId>
-	<artifactId>portlet-base</artifactId>
-	<version>1.1</version>
-	<name>Portlet Template</name>
+	<artifactId>statistics-view</artifactId>
+	<version>1.0</version>
+	<name>Statistics_View</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -127,7 +127,7 @@
 			<artifactId>portal-service</artifactId>
 			<version>${liferay.version}</version>
 			<!-- compile for local testing - provided for portlet -->
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -135,7 +135,7 @@
 			<artifactId>util-java</artifactId>
 			<version>${liferay.version}</version>
 			<!-- compile for local testing - provided for portlet -->
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>

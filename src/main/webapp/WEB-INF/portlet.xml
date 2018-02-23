@@ -7,9 +7,9 @@
 	version="2.0">
 
 	<portlet>
-		<description>This is a template of a QBiC portlet</description>
-		<portlet-name>Portlet Template</portlet-name>
-		<display-name>Portlet Template</display-name>
+		<description>This is a portlet showing some basics qbic data.</description>
+		<portlet-name>Statistics_View</portlet-name>
+		<display-name>Statistics_View</display-name>
 
 		<portlet-class>com.vaadin.server.VaadinPortlet</portlet-class>
 
@@ -30,8 +30,8 @@
 
 
 		<portlet-info>
-			<title>Portlet Template</title>
-			<short-title>Portlet Template</short-title>
+			<title>Statistics_View</title>
+			<short-title>Statistics_View</short-title>
 			<keywords>Vaadin 7</keywords>
 		</portlet-info>
 
