@@ -8,7 +8,7 @@
 
 		<init-param>
 			<param-name>UI</param-name>
-			<param-value>life.qbic.MyPortletUI</param-value>
+			<param-value>life.qbic.StatisticsViewUI</param-value>
 		</init-param>
 
 	</servlet>
