@@ -1,8 +1,8 @@
-package life.qbic.presenter;
+package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import life.qbic.model.BasicTimelineModel;
-import life.qbic.view.BasicTimelineView;
+import life.qbic.view.charts.BasicTimelineView;
 
 public class TemperaturePresenter implements ChartPresenter<BasicTimelineModel, BasicTimelineView> {
 

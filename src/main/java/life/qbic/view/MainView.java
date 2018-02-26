@@ -7,6 +7,8 @@ import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.BasicBarModel;
 import life.qbic.model.BasicTimelineModel;
+import life.qbic.view.charts.BasicBarView;
+import life.qbic.view.charts.BasicTimelineView;
 
 public class MainView {
 

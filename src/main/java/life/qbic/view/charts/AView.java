@@ -1,4 +1,4 @@
-package life.qbic.view;
+package life.qbic.view.charts;
 
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;

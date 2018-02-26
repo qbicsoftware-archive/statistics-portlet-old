@@ -1,4 +1,4 @@
-package life.qbic.presenter;
+package life.qbic.presenter.charts;
 
 public interface ChartPresenter<T,V> {
 

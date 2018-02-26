@@ -1,5 +1,7 @@
 package life.qbic.presenter;
 
+import life.qbic.presenter.charts.HistoryPresenter;
+import life.qbic.presenter.charts.TemperaturePresenter;
 import life.qbic.view.MainView;
 
 public class MainPresenter {

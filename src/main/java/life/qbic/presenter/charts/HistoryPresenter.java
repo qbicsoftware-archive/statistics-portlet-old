@@ -1,9 +1,9 @@
-package life.qbic.presenter;
+package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.SolidColor;
 import life.qbic.model.BasicBarModel;
-import life.qbic.view.BasicBarView;
+import life.qbic.view.charts.BasicBarView;
 
 public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarView> {
 
