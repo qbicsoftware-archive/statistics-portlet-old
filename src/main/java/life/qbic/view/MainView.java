@@ -6,6 +6,7 @@ import life.qbic.StatisticsViewUI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.BasicBarModel;
+import life.qbic.model.BasicTimelineModel;
 
 public class MainView {
 
@@ -25,11 +26,18 @@ public class MainView {
 
     }
 
-    public void addBarPlot(BasicBarView barView, BasicBarModel model){
+    public void addBarPlot(BasicBarView barView, BasicBarModel model, String title){
         VerticalLayout barTab = new VerticalLayout();
         barView.draw(model);
         barTab.addComponent(barView.getChart());
-        this.tabSheet.addTab(barTab).setCaption(model.getDescription());
+        this.tabSheet.addTab(barTab).setCaption(title);
+    }
+
+    public void addTimelinePlot(BasicTimelineView timelineView, BasicTimelineModel model, String title){
+        VerticalLayout barTab = new VerticalLayout();
+        timelineView.draw(model);
+        barTab.addComponent(timelineView.getChart());
+        this.tabSheet.addTab(barTab).setCaption(title);
     }
 
 }

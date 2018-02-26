@@ -14,7 +14,7 @@ public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarV
     private final BasicBarModel model;
 
 
-    public HistoryPresenter(String description){
+    public HistoryPresenter(){
         barView = new BasicBarView();
 
         yAxisTitle = new AxisTitle("Population (millions)");
@@ -37,7 +37,7 @@ public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarV
         PlotOptionsBar plot = new PlotOptionsBar();
         plot.setDataLabels(new DataLabels(true));
 
-        model = new BasicBarModel(description, barView.getConfiguration(), "Historic World Population by Region",
+        model = new BasicBarModel(barView.getConfiguration(), "Historic World Population by Region",
                 "Source: Wikipedia.org", null, yAxisTitle, tooltip, legend, plot);
 
         model.addXCategorie("Africa", "America", "Asia", "Europe", "Oceania");

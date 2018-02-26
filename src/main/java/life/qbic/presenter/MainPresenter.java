@@ -9,12 +9,17 @@ public class MainPresenter {
     public MainPresenter(MainView mainView) {
         this.mainView = mainView;
 
-        addHistoryPlot("number 1");
-        addHistoryPlot("number 2");
+        addHistoryPlot();
+        addTimelinePlot();
     }
 
-    public void addHistoryPlot(String description) {
-        HistoryPresenter historyPresenter = new HistoryPresenter(description);
-        this.mainView.addBarPlot(historyPresenter.getView(), historyPresenter.getModel());
+    public void addHistoryPlot() {
+        HistoryPresenter historyPresenter = new HistoryPresenter();
+        this.mainView.addBarPlot(historyPresenter.getView(), historyPresenter.getModel(), "Barplot Example");
+    }
+
+    private void addTimelinePlot(){
+        TemperaturPresenter temperaturPresenter = new TemperaturPresenter();
+        this.mainView.addTimelinePlot(temperaturPresenter.getView(), temperaturPresenter.getModel(), "Timeline Example");
     }
 }
