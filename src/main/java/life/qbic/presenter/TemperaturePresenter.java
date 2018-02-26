@@ -4,7 +4,7 @@ import com.vaadin.addon.charts.model.*;
 import life.qbic.model.BasicTimelineModel;
 import life.qbic.view.BasicTimelineView;
 
-public class TemperaturPresenter implements ChartPresenter<BasicTimelineModel, BasicTimelineView> {
+public class TemperaturePresenter implements ChartPresenter<BasicTimelineModel, BasicTimelineView> {
 
     private final BasicTimelineView timelineView;
     private final AxisTitle yAxisTitle;
@@ -12,7 +12,7 @@ public class TemperaturPresenter implements ChartPresenter<BasicTimelineModel, B
     private final Legend legend;
     private final BasicTimelineModel model;
 
-    public TemperaturPresenter(){
+    public TemperaturePresenter(){
         timelineView = new BasicTimelineView();
 
         yAxisTitle = new AxisTitle("Temperature (°C)");

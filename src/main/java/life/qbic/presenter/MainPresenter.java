@@ -19,7 +19,7 @@ public class MainPresenter {
     }
 
     private void addTimelinePlot(){
-        TemperaturPresenter temperaturPresenter = new TemperaturPresenter();
+        TemperaturePresenter temperaturPresenter = new TemperaturePresenter();
         this.mainView.addTimelinePlot(temperaturPresenter.getView(), temperaturPresenter.getModel(), "Timeline Example");
     }
 }

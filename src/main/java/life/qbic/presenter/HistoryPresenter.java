@@ -42,6 +42,10 @@ public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarV
 
         model.addXCategorie("Africa", "America", "Asia", "Europe", "Oceania");
         model.setyMin(0);
+
+        //TODO later: something should be triggered in the presenter when there is an update on openBIS(or each interval)
+        //TODO then all models should be triggered to update (e.g. querying the DB in parallel?), which will then trigger a view update (or when the thread finished, update view)
+        //TODO -> data should not actually be hold here
         model.addData(new ListSeries("Year 1800", 107, 31, 635, 203, 2),
                 new ListSeries("Year 1900", 133, 156, 947, 408, 6),
                 new ListSeries("Year 2008", 973, 914, 4054, 732, 34));
