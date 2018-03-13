@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BasicTimelineModel extends AModel {
+public class BasicLineModel extends AModel {
 
     private final List<Series> series;
 
-    public BasicTimelineModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
-                              Tooltip tooltip, Legend legend, PlotOptionsLine options){
+    public BasicLineModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
+                          Tooltip tooltip, Legend legend, PlotOptionsLine options){
 
         super(configuration, title, subtitle, xAxisTitle, yAxisTitle, legend);
 

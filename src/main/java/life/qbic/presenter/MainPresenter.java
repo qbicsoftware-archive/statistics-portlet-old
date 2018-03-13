@@ -13,7 +13,7 @@ public class MainPresenter {
 
     public MainPresenter(MainView mainView) {
         this.mainView = mainView;
-        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/statistics-data-retrieval-openbis/config.yml");
+        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/statistics-data-retrieval-openbis/config.yaml");
 
         addHistoryPlot();
         addTimelinePlot();

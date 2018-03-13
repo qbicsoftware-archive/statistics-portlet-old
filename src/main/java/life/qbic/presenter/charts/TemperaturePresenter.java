@@ -1,18 +1,20 @@
 package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
-import life.qbic.model.charts.BasicTimelineModel;
+import life.qbic.model.charts.BasicLineModel;
 import life.qbic.model.data.ChartConfig;
-import life.qbic.view.charts.BasicTimelineView;
+import life.qbic.view.charts.BasicLineView;
 
-public class TemperaturePresenter implements ChartPresenter<BasicTimelineModel, BasicTimelineView> {
+import java.util.Arrays;
 
-    private final BasicTimelineView timelineView;
-    private BasicTimelineModel model;
+public class TemperaturePresenter implements ChartPresenter<BasicLineModel, BasicLineView> {
+
+    private final BasicLineView timelineView;
+    private BasicLineModel model;
     private final ChartConfig chartConfig;
 
     public TemperaturePresenter(ChartConfig chartConfig){
-        timelineView = new BasicTimelineView();
+        timelineView = new BasicLineView();
         this.chartConfig = chartConfig;
         addChartSettings();
         addChartData();
@@ -38,7 +40,7 @@ public class TemperaturePresenter implements ChartPresenter<BasicTimelineModel, 
         PlotOptionsLine plotOptions = new PlotOptionsLine();
         plotOptions.getDataLabels().setEnabled(true);
 
-        model = new BasicTimelineModel(timelineView.getConfiguration(),
+        model = new BasicLineModel(timelineView.getConfiguration(),
                                         chartConfig.getSettings().getTitle(),
                                         chartConfig.getSettings().getSubtitle(),
                                         new AxisTitle(chartConfig.getSettings().getxAxisTitle()),
@@ -55,20 +57,21 @@ public class TemperaturePresenter implements ChartPresenter<BasicTimelineModel, 
 
     @Override
     public void addChartData(){
-        String[] keySet = chartConfig.getData().keySet().toArray(new String[chartConfig.getData().keySet().size()]);
+        Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
+        String[] keySet = Arrays.copyOf(objectArray, objectArray.length, String[].class);
 
         for (String aKeySet : keySet)
-            model.addData(new ListSeries(aKeySet,
+            model.addData(new ListSeries(String.valueOf(aKeySet),
                     chartConfig.getData().get(aKeySet).toArray(new Double[chartConfig.getData().get(aKeySet).size()])));
     }
 
     @Override
-    public BasicTimelineModel getModel() {
+    public BasicLineModel getModel() {
         return model;
     }
 
     @Override
-    public BasicTimelineView getView() {
+    public BasicLineView getView() {
         return timelineView;
     }
 }

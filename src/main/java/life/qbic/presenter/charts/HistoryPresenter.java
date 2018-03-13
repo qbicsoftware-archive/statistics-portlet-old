@@ -6,6 +6,8 @@ import life.qbic.model.charts.BasicBarModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.view.charts.BasicBarView;
 
+import java.util.Arrays;
+
 public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarView> {
 
     private final BasicBarView barView;
@@ -51,8 +53,10 @@ public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarV
 
     @Override
     public void addChartData() {
-        String[] keySet = chartConfig.getData().keySet().toArray(new String[chartConfig.getData().keySet().size()]);
-        for (String aKeySet : keySet) {
+        Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
+        Integer[] keySet = Arrays.asList(objectArray).toArray(new Integer[objectArray.length]);
+        Arrays.sort(keySet);
+        for (Integer aKeySet : keySet) {
             model.addData(new ListSeries("Year ".concat(aKeySet.toString()),
                     chartConfig.getData().get(aKeySet).toArray(new Number[chartConfig.getData().get(aKeySet).size()])));
         }

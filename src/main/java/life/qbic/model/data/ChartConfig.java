@@ -6,7 +6,7 @@ import java.util.Map;
 public class ChartConfig {
 
     private ChartSettings settings;
-    private Map<String,ArrayList<Object>> data;
+    private Map<Object,ArrayList<Object>> data;
 
     public ChartSettings getSettings() {
         return settings;
@@ -16,11 +16,11 @@ public class ChartConfig {
         this.settings = settings;
     }
 
-    public Map<String,ArrayList<Object>>  getData() {
+    public Map<Object,ArrayList<Object>>  getData() {
         return data;
     }
 
-    public void setData(Map<String,ArrayList<Object>> data) {
+    public void setData(Map<Object,ArrayList<Object>> data) {
         this.data = data;
     }
 }
