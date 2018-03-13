@@ -4,13 +4,13 @@ import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
 import com.vaadin.addon.charts.model.Configuration;
 import com.vaadin.ui.Component;
-import life.qbic.model.AModel;
+import life.qbic.model.charts.AModel;
 
 public abstract class AView {
 
-    protected final Chart chart;
+    private final Chart chart;
 
-    public AView(ChartType type){
+    AView(ChartType type){
         this.chart = new Chart(type);
     }
 

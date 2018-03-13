@@ -5,26 +5,25 @@ import com.vaadin.ui.VerticalLayout;
 import life.qbic.StatisticsViewUI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.model.BasicBarModel;
-import life.qbic.model.BasicTimelineModel;
+import life.qbic.model.charts.BasicBarModel;
+import life.qbic.model.charts.BasicTimelineModel;
 import life.qbic.view.charts.BasicBarView;
 import life.qbic.view.charts.BasicTimelineView;
 
 public class MainView {
 
-    //Presenter shoudl then be created for each individual chart to allow customization
+    //Presenter should then be created for each individual chart to allow customization
     private static Logger logger = new Log4j2Logger(StatisticsViewUI.class);
 
-    private final VerticalLayout layout;
     private final TabSheet tabSheet;
 
     public MainView(StatisticsViewUI statisticsViewUI){
-        layout = new VerticalLayout();
+        VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         statisticsViewUI.setContent(layout);
 
         this.tabSheet = new TabSheet();
-        this.layout.addComponent(tabSheet);
+        layout.addComponent(tabSheet);
 
     }
 

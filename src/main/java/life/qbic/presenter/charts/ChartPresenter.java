@@ -1,6 +1,10 @@
 package life.qbic.presenter.charts;
 
-public interface ChartPresenter<T,V> {
+interface ChartPresenter<T,V> {
+
+    void addChartSettings();
+
+    void addChartData();
 
     T getModel();
 

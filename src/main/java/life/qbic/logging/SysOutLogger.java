@@ -9,7 +9,7 @@ import java.util.Date;
 public class SysOutLogger implements Logger {
     public enum LogLevel {
         info, debug, warn, error
-    };
+    }
 
     private String className;
     private LogLevel loglevel = LogLevel.info;

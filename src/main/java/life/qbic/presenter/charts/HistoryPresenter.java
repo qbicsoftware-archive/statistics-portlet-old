@@ -2,28 +2,33 @@ package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.SolidColor;
-import life.qbic.model.BasicBarModel;
+import life.qbic.model.charts.BasicBarModel;
+import life.qbic.model.data.ChartConfig;
 import life.qbic.view.charts.BasicBarView;
 
 public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarView> {
 
     private final BasicBarView barView;
-    private final AxisTitle yAxisTitle;
-    private final Tooltip tooltip;
-    private final Legend legend;
-    private final BasicBarModel model;
+    private  BasicBarModel model;
+    private  final ChartConfig chartConfig;
 
 
-    public HistoryPresenter(){
+    public HistoryPresenter(ChartConfig chartConfig){
         barView = new BasicBarView();
+        this.chartConfig = chartConfig;
+        addChartSettings();
+        addChartData();
+    }
 
-        yAxisTitle = new AxisTitle("Population (millions)");
+    @Override
+    public void addChartSettings() {
+        AxisTitle yAxisTitle = new AxisTitle(chartConfig.getSettings().getyAxisTitle());
         yAxisTitle.setAlign(VerticalAlign.MIDDLE);
 
-        tooltip = new Tooltip();
+        Tooltip tooltip = new Tooltip();
         tooltip.setFormatter("this.series.name +': '+ this.y +' millions'");
 
-        legend = new Legend();
+        Legend legend = new Legend();
         legend.setLayout(LayoutDirection.VERTICAL);
         legend.setAlign(HorizontalAlign.RIGHT);
         legend.setVerticalAlign(VerticalAlign.TOP);
@@ -37,21 +42,22 @@ public class HistoryPresenter implements ChartPresenter<BasicBarModel, BasicBarV
         PlotOptionsBar plot = new PlotOptionsBar();
         plot.setDataLabels(new DataLabels(true));
 
-        model = new BasicBarModel(barView.getConfiguration(), "Historic World Population by Region",
-                "Source: Wikipedia.org", null, yAxisTitle, tooltip, legend, plot);
+        model = new BasicBarModel(barView.getConfiguration(), chartConfig.getSettings().getTitle(),
+                chartConfig.getSettings().getSubtitle(), new AxisTitle(chartConfig.getSettings().getxAxisTitle()), yAxisTitle, tooltip, legend, plot);
 
-        model.addXCategorie("Africa", "America", "Asia", "Europe", "Oceania");
+        model.addXCategorie(chartConfig.getSettings().getxCategories().toArray(new String[chartConfig.getSettings().getxCategories().size()]));
         model.setyMin(0);
-
-        //TODO later: something should be triggered in the presenter when there is an update on openBIS(or each interval)
-        //TODO then all models should be triggered to update (e.g. querying the DB in parallel?), which will then trigger a view update (or when the thread finished, update view)
-        //TODO -> data should not actually be hold here
-        model.addData(new ListSeries("Year 1800", 107, 31, 635, 203, 2),
-                new ListSeries("Year 1900", 133, 156, 947, 408, 6),
-                new ListSeries("Year 2008", 973, 914, 4054, 732, 34));
-
-
     }
+
+    @Override
+    public void addChartData() {
+        String[] keySet = chartConfig.getData().keySet().toArray(new String[chartConfig.getData().keySet().size()]);
+        for (String aKeySet : keySet) {
+            model.addData(new ListSeries("Year ".concat(aKeySet.toString()),
+                    chartConfig.getData().get(aKeySet).toArray(new Number[chartConfig.getData().get(aKeySet).size()])));
+        }
+    }
+
 
     public BasicBarModel getModel() {
         return model;
