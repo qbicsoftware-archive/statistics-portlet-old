@@ -1,8 +1,8 @@
 package life.qbic.presenter;
 
 import life.qbic.model.data.MainConfig;
-import life.qbic.presenter.charts.HistoryPresenter;
-import life.qbic.presenter.charts.TemperaturePresenter;
+import life.qbic.presenter.charts.OrganismCountPieChartPresenter;
+import life.qbic.presenter.charts.OrganismCountPresenter;
 import life.qbic.utils.YAMLParser;
 import life.qbic.view.MainView;
 
@@ -15,17 +15,19 @@ public class MainPresenter {
         this.mainView = mainView;
         this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/statistics-data-retrieval-openbis/config.yaml");
 
-        addHistoryPlot();
-        addTimelinePlot();
+
+        addOrganismCount();
+        addOrganismCountPie();
     }
 
-    private void addHistoryPlot() {
-        HistoryPresenter historyPresenter = new HistoryPresenter(mainConfig.getCharts().get("basicbarmodel"));
-        this.mainView.addBarPlot(historyPresenter.getView(), historyPresenter.getModel(), "Barplot Example");
+    private void addOrganismCount(){
+        OrganismCountPresenter organismCountPresenter = new OrganismCountPresenter(mainConfig.getCharts().get("organismCount"));
+        this.mainView.addColumnPlot(organismCountPresenter.getView(), organismCountPresenter.getModel(), "Organism Count");
     }
 
-    private void addTimelinePlot(){
-        TemperaturePresenter temperaturPresenter = new TemperaturePresenter(mainConfig.getCharts().get("temperatur"));
-        this.mainView.addTimelinePlot(temperaturPresenter.getView(), temperaturPresenter.getModel(), "Timeline Example");
+    private void addOrganismCountPie(){
+        OrganismCountPieChartPresenter organismCountPiePresenter = new OrganismCountPieChartPresenter(mainConfig.getCharts().get("organismCount"));
+        this.mainView.addPieChart(organismCountPiePresenter.getView(), organismCountPiePresenter.getModel(), "Organism Pie");
     }
+
 }

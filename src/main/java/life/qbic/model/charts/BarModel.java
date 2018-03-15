@@ -6,25 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BasicLineModel extends AModel {
+public class BarModel extends AModel {
 
     private final List<Series> series;
 
-    public BasicLineModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
-                          Tooltip tooltip, Legend legend, PlotOptionsLine options){
+    public BarModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
+                         Tooltip tooltip, Legend legend, PlotOptionsBar options){
 
-        super(configuration, title, subtitle, xAxisTitle, yAxisTitle, legend);
+        super(configuration, title, subtitle, xAxisTitle, yAxisTitle, tooltip, legend);
 
-        this.configuration.setTooltip(tooltip);
-
-        PlotOptionsLine options1 = options;
-        options1.getDataLabels().setEnabled(true);
         this.configuration.setPlotOptions(options);
-
         this.series = new ArrayList<>();
         this.configuration.setSeries(series);
-
-        this.configuration.disableCredits();
 
     }
 
@@ -43,4 +36,5 @@ public class BasicLineModel extends AModel {
     public void clearData(){
         this.series.clear();
     }
+
 }

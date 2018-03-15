@@ -4,9 +4,9 @@ import com.vaadin.addon.charts.model.ChartType;
 import life.qbic.view.charts.AView;
 
 
-public class BasicBarView extends AView {
+public class BarView extends AView {
 
-    public BasicBarView(){
+    public BarView(){
         super(ChartType.BAR);
     }
 }

@@ -2,9 +2,9 @@ package life.qbic.view.charts;
 
 import com.vaadin.addon.charts.model.ChartType;
 
-public class BasicLineView extends AView {
+public class LineView extends AView {
 
-    public BasicLineView(){
+    public LineView(){
         super(ChartType.LINE);
 
     }

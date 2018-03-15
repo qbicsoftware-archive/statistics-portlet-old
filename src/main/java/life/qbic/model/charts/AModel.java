@@ -10,7 +10,7 @@ public abstract class AModel {
 
 
     AModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
-           Legend legend){
+           Tooltip tooltip, Legend legend){
 
         this.configuration = configuration;
         this.configuration.setTitle(title);
@@ -21,6 +21,8 @@ public abstract class AModel {
 
         this.yAxis = configuration.getyAxis();
         this.yAxis.setTitle(yAxisTitle);
+
+        this.configuration.setTooltip(tooltip);
 
         this.configuration.setLegend(legend);
     }
