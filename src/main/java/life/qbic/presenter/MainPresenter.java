@@ -50,7 +50,7 @@ public class MainPresenter {
 
         //hard coding this name is unavoidable
         DomainCountPieChartPresenter organismCountPiePresenter =
-                new DomainCountPieChartPresenter(mainConfig.getCharts().get("domainCount"), subCharts);
+                new DomainCountPieChartPresenter(mainConfig.getCharts().get("Domain"), subCharts);
 
         TabView domainCountTab = new TabView(organismCountPiePresenter.getView(), organismCountPiePresenter.getModel());
 

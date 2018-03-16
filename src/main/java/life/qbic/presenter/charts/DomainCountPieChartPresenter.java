@@ -37,7 +37,7 @@ public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel,
         legend.setEnabled(false);
 
         this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
-                chartConfig.getSettings().getSubtitle(), tooltip, legend, plot);
+                null, tooltip, legend, plot);
 
     }
 
