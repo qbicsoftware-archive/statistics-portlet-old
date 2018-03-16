@@ -11,7 +11,7 @@ public class Log4j2Logger implements Logger, Serializable {
      *
      */
     private static final long serialVersionUID = -7780269050491615333L;
-    org.apache.logging.log4j.Logger logger;
+    private final org.apache.logging.log4j.Logger logger;
 
     public Log4j2Logger(Class<?> c) {
         logger = LogManager.getLogger(c);

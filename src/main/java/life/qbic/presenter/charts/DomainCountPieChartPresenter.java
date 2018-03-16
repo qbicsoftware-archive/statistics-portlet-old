@@ -27,10 +27,8 @@ public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel,
     public void addChartSettings() {
 
         PlotOptionsPie plot = new PlotOptionsPie();
-        DataLabels labels = new DataLabels(true);
-        labels.setAlign(HorizontalAlign.LEFT);
-        labels.setSoftConnector(true);
-        plot.setDataLabels(labels);
+
+        plot.setDataLabels(new DataLabels(true));
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> Samples'");
@@ -39,15 +37,20 @@ public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel,
         legend.setEnabled(false);
 
         this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
-                 null, tooltip, legend, plot);
+                chartConfig.getSettings().getSubtitle(), tooltip, legend, plot);
 
     }
 
     @Override
     public void addChartData() {
+
+        //This is necessary to get from Object to required String arrays
         Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
-        Arrays.sort(keySet);
+
+        Arrays.sort(keySet); //do this to ensure data is displayed in same order every time
+
+        //Actually adding of data
         for (String aKeySet : keySet) {
             for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
                 model.addData(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
@@ -58,14 +61,11 @@ public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel,
 
     private void addChartListener(){
 
-        view.getChart().addPointClickListener(new PointClickListener() {
-            @Override
-            public void onClick(PointClickEvent event) {
-                list.clear();
-                //TODO avoid hard coding of any names
-                if(model.getDataName(event).equals("Bacteria") || model.getDataName(event).equals("Viruses")|| model.getDataName(event).equals("Eukaryota")) {
-                    list.add(new DomainCountPieChartPresenter(subCharts.get(model.getDataName(event)), new HashMap<>()));
-                }
+        view.getChart().addPointClickListener((PointClickListener) event -> {
+            list.clear();
+            //TODO avoid hard coding of any names
+            if(model.getDataName(event).equals("Bacteria") || model.getDataName(event).equals("Viruses")|| model.getDataName(event).equals("Eukaryota")) {
+                list.add(new DomainCountPieChartPresenter(subCharts.get(model.getDataName(event)), new HashMap<>()));
             }
         });
     }

@@ -30,7 +30,7 @@ public class MainPresenter {
 
     }
 
-    //Careful: Order matters! Determines in which order tabs are displaced.
+    //Careful: Order matters! Determines in which order tabs are displayed.
     private void addCharts(){
         addOrganismCountPie();
     }

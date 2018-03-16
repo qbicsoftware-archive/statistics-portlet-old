@@ -36,7 +36,7 @@ public class BarModel extends AModel {
     }
 
     public void addData(ListSeries... listSeries){
-        Arrays.stream(listSeries).forEach(this.series::add);
+        this.series.addAll(Arrays.asList(listSeries));
     }
 
     public void clearData(){

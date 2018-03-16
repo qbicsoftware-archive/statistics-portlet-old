@@ -5,8 +5,6 @@ import com.vaadin.ui.VerticalLayout;
 import life.qbic.StatisticsViewUI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.model.charts.ColumnModel;
-import life.qbic.view.charts.ColumnView;
 
 public class MainView {
 

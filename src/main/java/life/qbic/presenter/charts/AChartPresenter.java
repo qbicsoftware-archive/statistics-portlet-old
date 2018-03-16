@@ -6,7 +6,7 @@ import life.qbic.model.data.ChartConfig;
 public abstract class AChartPresenter<T,V> {
 
     final ChartConfig chartConfig;
-    V view;
+    final V view;
     T model;
 
     AChartPresenter(ChartConfig chartConfig, V view){

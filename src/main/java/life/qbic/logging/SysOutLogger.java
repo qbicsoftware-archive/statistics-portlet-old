@@ -11,7 +11,7 @@ public class SysOutLogger implements Logger {
         info, debug, warn, error
     }
 
-    private String className;
+    private final String className;
     private LogLevel loglevel = LogLevel.info;
     private boolean isDebug = false;
     private boolean isInfo = true;
