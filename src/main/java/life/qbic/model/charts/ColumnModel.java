@@ -9,15 +9,21 @@ import java.util.List;
 public class ColumnModel  extends AModel {
 
     private final List<Series> series;
+    private final XAxis xAxis;
+    private final YAxis yAxis;
 
-    public ColumnModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
-                         Tooltip tooltip, Legend legend, PlotOptionsColumn options){
+    public ColumnModel(Configuration configuration, String title, String subtitle,
+                         Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsColumn options){
 
-        super(configuration, title, subtitle, xAxisTitle, yAxisTitle, tooltip, legend);
+        super(configuration, title, subtitle, tooltip, legend);
 
         this.configuration.setPlotOptions(options);
         this.series = new ArrayList<>();
         this.configuration.setSeries(series);
+        xAxis = this.configuration.getxAxis();
+        yAxis = this.configuration.getyAxis();
+        xAxis.setTitle(xAxisTitle);
+        yAxis.setTitle(yAxisTitle);
 
     }
 

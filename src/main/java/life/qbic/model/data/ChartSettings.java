@@ -58,4 +58,5 @@ public class ChartSettings {
     public void setyAxisTitle(String yAxisTitle) {
         this.yAxisTitle = yAxisTitle;
     }
+
 }

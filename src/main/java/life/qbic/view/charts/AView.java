@@ -22,7 +22,7 @@ public abstract class AView {
         chart.drawChart(model.getConfiguration());
     }
 
-    public Component getChart() {
+    public Chart getChart() {
         return chart;
     }
 

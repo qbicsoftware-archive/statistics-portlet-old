@@ -9,16 +9,22 @@ import java.util.List;
 public class LineModel extends AModel {
 
     private final List<Series> series;
+    private final XAxis xAxis;
+    private final YAxis yAxis;
 
-    public LineModel(Configuration configuration, String title, String subtitle, AxisTitle xAxisTitle, AxisTitle yAxisTitle,
-                          Tooltip tooltip, Legend legend, PlotOptionsLine options){
+    public LineModel(Configuration configuration, String title, String subtitle,
+                          Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsLine options){
 
-        super(configuration, title, subtitle, xAxisTitle, yAxisTitle, tooltip, legend);
+        super(configuration, title, subtitle, tooltip, legend);
 
         this.configuration.setPlotOptions(options);
 
         this.series = new ArrayList<>();
         this.configuration.setSeries(series);
+        xAxis = this.configuration.getxAxis();
+        yAxis = this.configuration.getyAxis();
+        xAxis.setTitle(xAxisTitle);
+        yAxis.setTitle(yAxisTitle);
 
     }
 
