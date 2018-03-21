@@ -1,4 +1,4 @@
-package life.qbic;
+package life.qbic.main;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;

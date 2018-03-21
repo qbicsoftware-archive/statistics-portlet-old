@@ -43,4 +43,9 @@ public class BarModel extends AModel {
         this.series.clear();
     }
 
+    @Override
+    public Configuration getConfiguration() {
+        return super.getConfiguration();
+    }
+
 }

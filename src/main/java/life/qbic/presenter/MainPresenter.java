@@ -5,7 +5,7 @@ import life.qbic.model.charts.PieChartModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
 import life.qbic.presenter.charts.AChartPresenter;
-import life.qbic.presenter.charts.DomainCountPieChartPresenter;
+import life.qbic.presenter.charts.SuperKingdomCountPieChartPresenter;
 import life.qbic.utils.YAMLParser;
 import life.qbic.view.MainView;
 import life.qbic.view.charts.PieChartView;
@@ -27,7 +27,6 @@ public class MainPresenter {
         this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/statistics-data-retrieval-openbis/config.yaml");
 
         addCharts();
-
     }
 
     //Careful: Order matters! Determines in which order tabs are displayed.
@@ -35,22 +34,22 @@ public class MainPresenter {
         addOrganismCountPie();
     }
 
-//    private void addOrganismCount(){
-//        AChartPresenter<ColumnModel,ColumnView> organismCountPresenter = new OrganismCountPresenter(mainConfig.getCharts().get("domainCount"));
-//        this.mainView.addColumnPlot(organismCountPresenter.getView(), organismCountPresenter.getModel(), "Domain Count");
-//    }
-
     private void addOrganismCountPie(){
-        Map<String, ChartConfig> subCharts = new HashMap<>();
+        Map<String, ChartConfig> speciesCharts = new HashMap<>();
 
         //TODO avoid hard coding these names
-        subCharts.put("Eukaryota", mainConfig.getCharts().get("Eukaryota"));
-        subCharts.put("Bacteria", mainConfig.getCharts().get("Bacteria"));
-        subCharts.put("Viruses", mainConfig.getCharts().get("Viruses"));
+        speciesCharts.put("Eukaryota_Species", mainConfig.getCharts().get("Eukaryota_Species"));
+        speciesCharts.put("Bacteria_Species", mainConfig.getCharts().get("Bacteria_Species"));
+        speciesCharts.put("Viruses_Species", mainConfig.getCharts().get("Viruses_Species"));
+
+        Map<String, ChartConfig> genusCharts = new HashMap<>();
+        genusCharts.put("Eukaryota_Genus", mainConfig.getCharts().get("Eukaryota_Genus"));
+        genusCharts.put("Bacteria_Genus", mainConfig.getCharts().get("Bacteria_Genus"));
+        genusCharts.put("Viruses_Genus", mainConfig.getCharts().get("Viruses_Genus"));
 
         //hard coding this name is unavoidable
-        DomainCountPieChartPresenter organismCountPiePresenter =
-                new DomainCountPieChartPresenter(mainConfig.getCharts().get("Domain"), subCharts);
+        SuperKingdomCountPieChartPresenter organismCountPiePresenter =
+                new SuperKingdomCountPieChartPresenter(mainConfig.getCharts().get("Domain"), genusCharts, speciesCharts, mainConfig.getCharts().get("OrganismGenus"));
 
         TabView domainCountTab = new TabView(organismCountPiePresenter.getView(), organismCountPiePresenter.getModel());
 
@@ -62,7 +61,6 @@ public class MainPresenter {
                 c.getRemoved().forEach(l -> domainCountTab.removeChart(l.getView().getChart()));
             }
         });
-
         domainCountTab.getReturnButton().addClickListener(clickEvent -> domainCountTab.addMainChart());
     }
 

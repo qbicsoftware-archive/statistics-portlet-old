@@ -2,7 +2,7 @@ package life.qbic.view;
 
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
-import life.qbic.StatisticsViewUI;
+import life.qbic.main.StatisticsViewUI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 

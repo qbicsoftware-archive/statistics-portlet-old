@@ -12,8 +12,7 @@ public abstract class AChartPresenter<T,V> {
     AChartPresenter(ChartConfig chartConfig, V view){
         this.view = view;
         this.chartConfig = chartConfig;
-        addChartSettings();
-        addChartData();
+
     }
 
     public T getModel(){
@@ -27,4 +26,6 @@ public abstract class AChartPresenter<T,V> {
     abstract void addChartSettings();
 
     abstract void addChartData();
+
+    abstract void addChartListener();
 }

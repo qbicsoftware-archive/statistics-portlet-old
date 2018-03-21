@@ -5,9 +5,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 import life.qbic.model.charts.AModel;
-import life.qbic.model.charts.PieChartModel;
 import life.qbic.view.charts.AView;
-import life.qbic.view.charts.PieChartView;
 
 
 public class TabView {
@@ -45,13 +43,10 @@ public class TabView {
         charts.removeComponent(chart);
     }
 
-    public void addSubChart(PieChartModel pieChartModel, PieChartView pieChartView){
+    public void addSubChart(AModel model, AView view){
         charts.removeAllComponents();
-        pieChartView.draw(pieChartModel);
-        charts.addComponents(pieChartView.getChart(), returnButton);
+        view.draw(model);
+        charts.addComponents(view.getChart(), returnButton);
         charts.setComponentAlignment(returnButton, Alignment.TOP_RIGHT);
     }
-    //TODO there can be more addChart methods to allow different subchart types with a parent piechart
-
-
 }

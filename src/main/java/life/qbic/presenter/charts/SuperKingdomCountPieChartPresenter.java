@@ -1,26 +1,37 @@
 package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
-import com.vaadin.addon.charts.PointClickEvent;
 import com.vaadin.addon.charts.PointClickListener;
+import com.vaadin.addon.charts.model.style.Color;
+import com.vaadin.addon.charts.themes.ValoLightTheme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import life.qbic.model.charts.PieChartModel;
 import life.qbic.model.data.ChartConfig;
+import life.qbic.presenter.utils.Helper;
+import life.qbic.presenter.utils.SuperKingdoms;
 import life.qbic.view.charts.PieChartView;
 
 import java.util.*;
 
-public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel, PieChartView>{
+public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChartModel, PieChartView>{
 
-    //TODO ObservableLists are javafx constructs, can this be avoided?
+    //TODO ObservableLists are javafx constructs, can this be avoided? -> think about this some more
     private final ObservableList<AChartPresenter<PieChartModel, PieChartView>> list = FXCollections.observableArrayList();
-    private final Map<String,ChartConfig> subCharts;
+    private final Map<String,ChartConfig> speciesConfig;
+    private final Map<String,ChartConfig> genusConfig;
+    private final ChartConfig speciesGenusMap;
 
-    public DomainCountPieChartPresenter(ChartConfig chartConfig, Map<String, ChartConfig> subCharts){
+
+    public SuperKingdomCountPieChartPresenter(ChartConfig chartConfig, Map<String, ChartConfig> genusConfig, Map<String, ChartConfig> speciesConfig, ChartConfig speciesGenusMap){
         super(chartConfig, new PieChartView());
+        this.speciesConfig = speciesConfig;
+        this.genusConfig = genusConfig;
+        this.speciesGenusMap = speciesGenusMap;
+
+        addChartSettings();
+        addChartData();
         addChartListener();
-        this.subCharts = subCharts;
     }
 
     @Override
@@ -48,24 +59,23 @@ public class DomainCountPieChartPresenter extends AChartPresenter<PieChartModel,
         Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
-        Arrays.sort(keySet); //do this to ensure data is displayed in same order every time
-
+        Color[] innerColors = Arrays.copyOf(Helper.colors, chartConfig.getSettings().getxCategories().size());
         //Actually adding of data
         for (String aKeySet : keySet) {
             for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
                 model.addData(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
-                                                 (Number) chartConfig.getData().get(aKeySet).get(i)));
+                                                 (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Helper.colors.length]));
             }
         }
     }
 
-    private void addChartListener(){
-
+    @Override
+    public void addChartListener(){
         view.getChart().addPointClickListener((PointClickListener) event -> {
             list.clear();
-            //TODO avoid hard coding of any names
-            if(model.getDataName(event).equals("Bacteria") || model.getDataName(event).equals("Viruses")|| model.getDataName(event).equals("Eukaryota")) {
-                list.add(new DomainCountPieChartPresenter(subCharts.get(model.getDataName(event)), new HashMap<>()));
+            if(SuperKingdoms.getList().contains(model.getDataName(event))) {
+                list.add(new GenusSpeciesCountDonutPieChartPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
+                                                                    speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap));
             }
         });
     }

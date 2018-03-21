@@ -22,6 +22,11 @@ public class PieChartModel extends AModel{
         Arrays.stream(dataSeries).forEach(this.series::add);
     }
 
+    public void addDonatPieData(DataSeries... dataSeries){
+        this.configuration.setSeries(dataSeries);
+    }
+
+
     public void clearData(){
         this.series.clear();
     }
@@ -30,5 +35,9 @@ public class PieChartModel extends AModel{
         return series.get(event.getPointIndex()).getName();
     }
 
+    @Override
+    public Configuration getConfiguration() {
+        return super.getConfiguration();
+    }
 
 }
