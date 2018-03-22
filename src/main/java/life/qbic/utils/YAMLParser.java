@@ -1,5 +1,7 @@
 package life.qbic.utils;
 
+import life.qbic.logging.Log4j2Logger;
+import life.qbic.logging.Logger;
 import life.qbic.model.data.MainConfig;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -14,6 +16,9 @@ import java.io.IOException;
  */
 public final class YAMLParser {
 
+    static Logger logger = new Log4j2Logger(YAMLParser.class);
+
+
     public static MainConfig parseConfig(String inputFile){
 
         DumperOptions options = new DumperOptions();
@@ -26,8 +31,12 @@ public final class YAMLParser {
         MainConfig mainConfig;
         try{
             mainConfig = yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
+            logger.info("Successfully parsed YAML config file");
+
         }catch(IOException e){
             e.printStackTrace();
+            logger.error("Parsing of YAML file failed. Reason: " + e.getMessage());
+
             mainConfig = new MainConfig();
         }
 
