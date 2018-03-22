@@ -35,7 +35,7 @@ public class MainPresenter {
     //Careful: Order matters! Determines in which order tabs are displayed.
     private void addCharts(){
         addOrganismCountPie();
-        //TODO 4: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
+        //TODO 5: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
     }
 
     private void addOrganismCountPie(){

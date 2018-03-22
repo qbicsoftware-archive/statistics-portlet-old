@@ -31,6 +31,6 @@ public abstract class AView {
         return chart;
     }
 
-    //TODO 5: If your Chart TYPE does not exist extend this chart
+    //TODO 3: If your Chart TYPE does not exist extend this class
 
 }

@@ -2,27 +2,46 @@
 
 This portlet visualizes QBiC related data and statistics on the landing page.
 
-## Ideas ##
-Please see the Trello card on Statistics View
 
 ## How to add a new Graph ##
 
-0. Assume data already exists in the yaml config file.
+In order to add a new chart, the core task is to add a new AChartPresenter in the presenter.charts package. However,
+depending if your chart type already exists more steps may be required. They are marked in the code with TODOs.
 
-1. Check if your plot type already exists in the model.charts package (e.g. Barplot, Lineplot, etc.). 
-    If your data requires a new plot type , create one following the same schema as the others. 
-    (https://demo.vaadin.com/charts/ is a comprehensive guide on existing vaadin charts).
-    If your chart type requires more model options, add the required methods.
+Prereq: Your data already exists in the yaml config file. If not then please implement it in https://github.com/qbicsoftware/statistics-data-retrieval
 
-2. If you had to create a new model, you most likely have to create a new plot type in the view.charts package.
-    Create it similar to the other classes in that sub-package.
+1. Ensure that the following classes are synced with the eponymic classes from data retrieval tool:
+    * ChartNames
+    * Potentially other lexica enum classes
+    * model.data.ChartConfig
+    * model.data.ChartSetting
+    * model.data.MainConfig
     
-3. Create a new MyPlotPresenter, which implements the ChartPresenter interface, similar to the other
-    presenters in the presenter.charts package.
+2. Check if your plot type already exists in the model.charts package (e.g. Barplot, Lineplot, etc.). 
+    If your data requires a new plot type, create one following the same schema as the others. Your model class
+    needs to extend AModel.
+    https://demo.vaadin.com/charts/ is a comprehensive guide on existing vaadin charts.
+    
+    If your chart requires more model fields or methods, add them.
 
-4. In the MainPresenter add a methode 'addMyPlot'. Create a new MyPlotPresenter object and add it to the mainView object.
+3. If you had to create a new model, you have to create a new plot type in the view.charts package.
+    Create it similar to the other classes in that sub-package by extending AView.
+    
+4. Create a new MyPlotPresenter, which implements the AChartPresenter interface, similar to the other
+    presenters in the presenter.charts package. 
+    
+    Example: SuperKingdomCountPresenter with the sub charts of GenusSpeciesCountPresenter
+    
+5. Call your new ChartPresenter from the MainPresenter by creating a new 'addMyPlot' with the following tasks:
+    1) Get your ChartConfigs 
+    2) Create a new AChartPresenter object of type MyPlotPresenter
+    3) Set a new Tab 
+    4) Add Button and SubChartsListener 
+    5) Add Tab to mainView
+
     The title in the mainView.addMyPlotType method is later shown to the user as tab title. When accessing the chart data from the config file,
     it is absolutely necessary, that you use the correct name (First layer below 'charts', shows all data divided by plots).
+    If you followed step 1, it should appear in the ChartNames. 
 
 
 

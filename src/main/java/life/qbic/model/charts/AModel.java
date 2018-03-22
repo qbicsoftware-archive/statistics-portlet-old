@@ -28,6 +28,6 @@ public abstract class AModel {
         return configuration;
     }
 
-    //TODO 1: If your chart TYPE does not exists yet, extend this class
+    //TODO 2: If your chart TYPE does not exists yet, extend this class
 
 }

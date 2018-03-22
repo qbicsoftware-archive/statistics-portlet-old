@@ -41,5 +41,5 @@ public abstract class AChartPresenter<T,V> {
 
     abstract void addChartListener();
 
-    //TODO 2: Extend this class in order to create a new presenter. As examples you can look at the SuperKingdomCountPresenter or GenusSpeciesCountPresenter
+    //TODO 4: Extend this class in order to create a new presenter. As examples you can look at the SuperKingdomCountPresenter or GenusSpeciesCountPresenter
 }
