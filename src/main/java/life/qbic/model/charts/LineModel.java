@@ -44,8 +44,4 @@ public class LineModel extends AModel {
         this.series.clear();
     }
 
-    @Override
-    public Configuration getConfiguration() {
-        return super.getConfiguration();
-    }
 }

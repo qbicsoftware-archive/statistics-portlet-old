@@ -8,11 +8,12 @@ import java.util.Random;
 
 public final class Helper {
 
-    public static Color[] colors = new ValoLightTheme().getColors();
+    public static final Color[] colors = new ValoLightTheme().getColors();
+    private static Random rand = new Random(0);
+
 
     public static SolidColor getRandomOphaque(Color c) {
 
-        Random rand = new Random(0);
 
         String cStr = c.toString().substring(1);
 

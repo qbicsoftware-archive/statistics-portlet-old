@@ -3,21 +3,16 @@ package life.qbic.presenter.charts;
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.PointClickListener;
 import com.vaadin.addon.charts.model.style.Color;
-import com.vaadin.addon.charts.themes.ValoLightTheme;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import life.qbic.model.charts.PieChartModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.presenter.utils.Helper;
-import life.qbic.presenter.utils.SuperKingdoms;
+import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.view.charts.PieChartView;
 
 import java.util.*;
 
 public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChartModel, PieChartView>{
 
-    //TODO ObservableLists are javafx constructs, can this be avoided? -> think about this some more
-    private final ObservableList<AChartPresenter<PieChartModel, PieChartView>> list = FXCollections.observableArrayList();
     private final Map<String,ChartConfig> speciesConfig;
     private final Map<String,ChartConfig> genusConfig;
     private final ChartConfig speciesGenusMap;
@@ -35,7 +30,7 @@ public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChart
     }
 
     @Override
-    public void addChartSettings() {
+    void addChartSettings() {
 
         PlotOptionsPie plot = new PlotOptionsPie();
 
@@ -53,7 +48,7 @@ public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChart
     }
 
     @Override
-    public void addChartData() {
+    void addChartData() {
 
         //This is necessary to get from Object to required String arrays
         Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
@@ -70,18 +65,14 @@ public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChart
     }
 
     @Override
-    public void addChartListener(){
+    void addChartListener(){
         view.getChart().addPointClickListener((PointClickListener) event -> {
-            list.clear();
+            subCharts.clear();
             if(SuperKingdoms.getList().contains(model.getDataName(event))) {
-                list.add(new GenusSpeciesCountDonutPieChartPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
+                subCharts.add(new GenusSpeciesCountDonutPieChartPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
                                                                     speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap));
             }
         });
-    }
-
-    public ObservableList<AChartPresenter<PieChartModel, PieChartView>> getList() {
-        return list;
     }
 
 }

@@ -27,8 +27,6 @@ public final class YAMLParser {
             mainConfig = new MainConfig();
         }
 
-        System.out.println(mainConfig);
-
         return mainConfig;
     }
 }

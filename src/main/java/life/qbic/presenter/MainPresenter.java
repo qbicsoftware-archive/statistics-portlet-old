@@ -1,23 +1,22 @@
 package life.qbic.presenter;
 
 import javafx.collections.ListChangeListener;
-import life.qbic.model.charts.PieChartModel;
+import life.qbic.model.charts.AModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
 import life.qbic.presenter.charts.AChartPresenter;
 import life.qbic.presenter.charts.SuperKingdomCountPieChartPresenter;
+import life.qbic.presenter.utils.lexica.ChartNames;
+import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.utils.YAMLParser;
 import life.qbic.view.MainView;
-import life.qbic.view.charts.PieChartView;
+import life.qbic.view.charts.AView;
 import life.qbic.view.TabView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainPresenter {
-
-    //TODO when more charts are added there is prob an obvious way of how to add an level of abstraction,
-    //TODO as likely most of them have subcharts and return buttons etc
 
     private final MainView mainView;
     private final MainConfig mainConfig;
@@ -35,33 +34,48 @@ public class MainPresenter {
     }
 
     private void addOrganismCountPie(){
+
+        //Get needed configs
         Map<String, ChartConfig> speciesCharts = new HashMap<>();
-
-        //TODO avoid hard coding these names
-        speciesCharts.put("Eukaryota_Species", mainConfig.getCharts().get("Eukaryota_Species"));
-        speciesCharts.put("Bacteria_Species", mainConfig.getCharts().get("Bacteria_Species"));
-        speciesCharts.put("Viruses_Species", mainConfig.getCharts().get("Viruses_Species"));
-
         Map<String, ChartConfig> genusCharts = new HashMap<>();
-        genusCharts.put("Eukaryota_Genus", mainConfig.getCharts().get("Eukaryota_Genus"));
-        genusCharts.put("Bacteria_Genus", mainConfig.getCharts().get("Bacteria_Genus"));
-        genusCharts.put("Viruses_Genus", mainConfig.getCharts().get("Viruses_Genus"));
 
-        //hard coding this name is unavoidable
+        for(String chartName : ChartNames.getList()){
+            if(SuperKingdoms.getList().contains(chartName.split("_")[0])){
+                if(chartName.split("_")[1].equals("Species")) {
+                    speciesCharts.put(chartName, mainConfig.getCharts().get(chartName));
+                }else if (chartName.split("_")[1].equals("Genus")){
+                    genusCharts.put(chartName, mainConfig.getCharts().get(chartName));
+                }
+            }
+        }
+
+        //Create Presenter
         SuperKingdomCountPieChartPresenter organismCountPiePresenter =
-                new SuperKingdomCountPieChartPresenter(mainConfig.getCharts().get("Domain"), genusCharts, speciesCharts, mainConfig.getCharts().get("OrganismGenus"));
+                new SuperKingdomCountPieChartPresenter(mainConfig.getCharts().get(ChartNames.Domain.toString()),
+                                                        genusCharts,
+                                                        speciesCharts,
+                                                        mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
 
-        TabView domainCountTab = new TabView(organismCountPiePresenter.getView(), organismCountPiePresenter.getModel());
+        //Set new tab
+        TabView domainCountTab = new TabView(organismCountPiePresenter.getView(),
+                                             organismCountPiePresenter.getModel());
+        addListenerForSubcharts(domainCountTab, organismCountPiePresenter);
+        addReturnButtonListener(domainCountTab);
 
         this.mainView.addChart(domainCountTab, "Organisms");
 
-        organismCountPiePresenter.getList().addListener((ListChangeListener<? super AChartPresenter<PieChartModel,PieChartView>>) c -> {
-            while(c.next()){
-                c.getAddedSubList().forEach(l -> domainCountTab.addSubChart(l.getModel(), l.getView()));
-                c.getRemoved().forEach(l -> domainCountTab.removeChart(l.getView().getChart()));
-            }
-        });
-        domainCountTab.getReturnButton().addClickListener(clickEvent -> domainCountTab.addMainChart());
     }
 
+    private void addReturnButtonListener(TabView tabView){
+        tabView.getReturnButton().addClickListener(clickEvent -> tabView.addMainChart());
+    }
+
+    private void addListenerForSubcharts(TabView tabView, AChartPresenter presenter){
+        presenter.getSubCharts().addListener((ListChangeListener<? super AChartPresenter<AModel, AView>>) c -> {
+            while(c.next()){
+                c.getAddedSubList().forEach(l -> tabView.addSubChart(l.getModel(), l.getView()));
+                c.getRemoved().forEach(l -> tabView.removeChart(l.getView().getChart()));
+            }
+        });
+    }
 }

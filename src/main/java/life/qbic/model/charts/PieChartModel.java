@@ -35,9 +35,4 @@ public class PieChartModel extends AModel{
         return series.get(event.getPointIndex()).getName();
     }
 
-    @Override
-    public Configuration getConfiguration() {
-        return super.getConfiguration();
-    }
-
 }
