@@ -2,6 +2,11 @@ package life.qbic.model.data;
 
 import java.util.ArrayList;
 
+/**
+ * @author fhanssen
+ *  * This needs to be synced with the ChartSetting class from the data tool.
+ * Don't delete any Getters or Setters, even if they are shown as unused. SnakeYAMl requieres them.
+ */
 public class ChartSettings {
 
     private ArrayList<Object> xCategories;

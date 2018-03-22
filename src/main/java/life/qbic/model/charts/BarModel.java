@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author fhanssen
+ * Example: https://demo.vaadin.com/charts/#BasicBar
+ */
 public class BarModel extends AModel {
 
     private final List<Series> series;

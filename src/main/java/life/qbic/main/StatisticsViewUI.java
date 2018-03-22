@@ -9,6 +9,11 @@ import life.qbic.logging.Logger;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.view.MainView;
 
+/**
+ * @author fhanssen
+ * Functions as Main class by creating Vaadin UI.
+ */
+
 @Theme("mytheme")
 @SuppressWarnings("serial")
 @Widgetset("life.qbic.AppWidgetSet")

@@ -9,14 +9,17 @@ import life.qbic.view.charts.PieChartView;
 
 import java.util.*;
 
-class GenusSpeciesCountDonutPieChartPresenter extends AChartPresenter<PieChartModel, PieChartView>{
+/**
+ * @author fhanssen
+ */
+class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChartView>{
 
     private final ChartConfig speciesConfig;
     private final Map<String, List<String>> genusSpeciesMap;
     private PlotOptionsPie innerPieOptions;
     private PlotOptionsPie outerPieOptions;
 
-    GenusSpeciesCountDonutPieChartPresenter(ChartConfig genusConfig, ChartConfig speciesConfig, ChartConfig speciesGenusMap) {
+    GenusSpeciesCountPresenter(ChartConfig genusConfig, ChartConfig speciesConfig, ChartConfig speciesGenusMap) {
         super(genusConfig, new PieChartView());
         this.speciesConfig = speciesConfig;
         this.genusSpeciesMap = generateGenusToSpeciesMap(speciesGenusMap);

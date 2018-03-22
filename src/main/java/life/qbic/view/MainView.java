@@ -6,6 +6,9 @@ import life.qbic.main.StatisticsViewUI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 
+/**
+ * @author fhanssen
+ */
 public class MainView {
 
     private static Logger logger = new Log4j2Logger(StatisticsViewUI.class);

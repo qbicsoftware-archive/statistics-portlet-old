@@ -7,7 +7,9 @@ import com.vaadin.ui.VerticalLayout;
 import life.qbic.model.charts.AModel;
 import life.qbic.view.charts.AView;
 
-
+/**
+ * @author fhanssen
+ */
 public class TabView {
 
     private final VerticalLayout charts = new VerticalLayout();

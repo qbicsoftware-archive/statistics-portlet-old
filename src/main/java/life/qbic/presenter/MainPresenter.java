@@ -5,7 +5,7 @@ import life.qbic.model.charts.AModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
 import life.qbic.presenter.charts.AChartPresenter;
-import life.qbic.presenter.charts.SuperKingdomCountPieChartPresenter;
+import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.utils.lexica.ChartNames;
 import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.utils.YAMLParser;
@@ -16,6 +16,10 @@ import life.qbic.view.TabView;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author fhanssen
+ * HAndles input onfig and adds charts serially. Handles button presses and listens to observabeLists in SubPresenters
+ */
 public class MainPresenter {
 
     private final MainView mainView;
@@ -31,6 +35,7 @@ public class MainPresenter {
     //Careful: Order matters! Determines in which order tabs are displayed.
     private void addCharts(){
         addOrganismCountPie();
+        //TODO 4: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
     }
 
     private void addOrganismCountPie(){
@@ -50,8 +55,8 @@ public class MainPresenter {
         }
 
         //Create Presenter
-        SuperKingdomCountPieChartPresenter organismCountPiePresenter =
-                new SuperKingdomCountPieChartPresenter(mainConfig.getCharts().get(ChartNames.Domain.toString()),
+        SuperKingdomCountPresenter organismCountPiePresenter =
+                new SuperKingdomCountPresenter(mainConfig.getCharts().get(ChartNames.SuperKingdom.toString()),
                                                         genusCharts,
                                                         speciesCharts,
                                                         mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
@@ -59,9 +64,12 @@ public class MainPresenter {
         //Set new tab
         TabView domainCountTab = new TabView(organismCountPiePresenter.getView(),
                                              organismCountPiePresenter.getModel());
+
+        //Add Listener
         addListenerForSubcharts(domainCountTab, organismCountPiePresenter);
         addReturnButtonListener(domainCountTab);
 
+        //Add Tab to MainView
         this.mainView.addChart(domainCountTab, "Organisms");
 
     }

@@ -11,14 +11,17 @@ import life.qbic.view.charts.PieChartView;
 
 import java.util.*;
 
-public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChartModel, PieChartView>{
+/**
+ * @author fhanssen
+ */
+public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, PieChartView>{
 
     private final Map<String,ChartConfig> speciesConfig;
     private final Map<String,ChartConfig> genusConfig;
     private final ChartConfig speciesGenusMap;
 
 
-    public SuperKingdomCountPieChartPresenter(ChartConfig chartConfig, Map<String, ChartConfig> genusConfig, Map<String, ChartConfig> speciesConfig, ChartConfig speciesGenusMap){
+    public SuperKingdomCountPresenter(ChartConfig chartConfig, Map<String, ChartConfig> genusConfig, Map<String, ChartConfig> speciesConfig, ChartConfig speciesGenusMap){
         super(chartConfig, new PieChartView());
         this.speciesConfig = speciesConfig;
         this.genusConfig = genusConfig;
@@ -69,7 +72,7 @@ public class SuperKingdomCountPieChartPresenter extends AChartPresenter<PieChart
         view.getChart().addPointClickListener((PointClickListener) event -> {
             subCharts.clear();
             if(SuperKingdoms.getList().contains(model.getDataName(event))) {
-                subCharts.add(new GenusSpeciesCountDonutPieChartPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
+                subCharts.add(new GenusSpeciesCountPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
                                                                     speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap));
             }
         });

@@ -2,6 +2,12 @@ package life.qbic.model.charts;
 
 import com.vaadin.addon.charts.model.*;
 
+/**
+ * @author fhanssen
+ * This abstract class holds all fields and methods needed for a general Chart, mainly the configuration file. When
+ * adding a new chart type (such as Scatter Plot or so) a new chart model needs be added. A comprehensive
+ * guide on Vaadin charts can be found here: https://demo.vaadin.com/charts/
+ */
 public abstract class AModel {
 
     final Configuration configuration;
@@ -21,5 +27,7 @@ public abstract class AModel {
     public Configuration getConfiguration() {
         return configuration;
     }
+
+    //TODO 1: If your chart TYPE does not exists yet, extend this class
 
 }

@@ -6,6 +6,10 @@ import com.vaadin.addon.charts.themes.ValoLightTheme;
 
 import java.util.Random;
 
+/**
+ * @author fhanssen
+ * Helper methods likely used in many presenters.
+ */
 public final class Helper {
 
     public static final Color[] colors = new ValoLightTheme().getColors();

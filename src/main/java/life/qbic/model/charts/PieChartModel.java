@@ -5,6 +5,10 @@ import com.vaadin.addon.charts.PointClickEvent;
 
 import java.util.Arrays;
 
+/**
+ * @author fhanssen
+ * Example: https://demo.vaadin.com/charts/#PieChart , https://demo.vaadin.com/charts/#DonutChart
+ */
 public class PieChartModel extends AModel{
 
     private final DataSeries series;

@@ -7,6 +7,11 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * @author fhanssen
+ * Read given config file. DON'T change the DumperOptions, unless you are absolutely sure of what you are doing.
+ * This has to be synced with the Writer in the data portlet.
+ */
 public final class YAMLParser {
 
     public static MainConfig parseConfig(String inputFile){
@@ -14,7 +19,6 @@ public final class YAMLParser {
         DumperOptions options = new DumperOptions();
 
         //this option needs to agree with the respective option set in the writer
-        //TODO: may make sense to put the yaml io options in a mutual mainConfig, so changing it in one place doesn't lead to inconsistencies
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         options.setPrettyFlow(true);
         Yaml yaml = new Yaml(options);
