@@ -11,7 +11,7 @@ import life.qbic.logging.Logger;
  */
 public class MainView {
 
-    private static Logger logger = new Log4j2Logger(StatisticsViewUI.class);
+    private static Logger logger = new Log4j2Logger(MainView.class);
 
     private final TabSheet tabSheet;
 
@@ -25,6 +25,8 @@ public class MainView {
     }
 
     public void addChart(TabView tabView, String title){
+
         this.tabSheet.addTab(tabView.getTab()).setCaption(title);
+        logger.info("A new tab with titel " + title +" was added.");
     }
 }

@@ -1,6 +1,8 @@
 package life.qbic.presenter;
 
 import javafx.collections.ListChangeListener;
+import life.qbic.logging.Log4j2Logger;
+import life.qbic.logging.Logger;
 import life.qbic.model.charts.AModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
@@ -18,9 +20,12 @@ import java.util.Map;
 
 /**
  * @author fhanssen
- * HAndles input onfig and adds charts serially. Handles button presses and listens to observabeLists in SubPresenters
+ * Handles input onfig and adds charts serially. Handles button presses and listens to observabeLists in SubPresenters
  */
 public class MainPresenter {
+
+    static Logger logger = new Log4j2Logger(MainPresenter.class);
+
 
     private final MainView mainView;
     private final MainConfig mainConfig;
@@ -71,11 +76,17 @@ public class MainPresenter {
 
         //Add Tab to MainView
         this.mainView.addChart(domainCountTab, "Organisms");
+        logger.info("Organism tab was added");
+
 
     }
 
     private void addReturnButtonListener(TabView tabView){
-        tabView.getReturnButton().addClickListener(clickEvent -> tabView.addMainChart());
+        tabView.getReturnButton().addClickListener(clickEvent -> {
+            logger.info("Return button was pressed");
+            tabView.addMainChart();
+
+        });
     }
 
     private void addListenerForSubcharts(TabView tabView, AChartPresenter presenter){
@@ -84,6 +95,7 @@ public class MainPresenter {
                 c.getAddedSubList().forEach(l -> tabView.addSubChart(l.getModel(), l.getView()));
                 c.getRemoved().forEach(l -> tabView.removeChart(l.getView().getChart()));
             }
+            logger.info("ObservableList of " + presenter.getClass() + " changed");
         });
     }
 }

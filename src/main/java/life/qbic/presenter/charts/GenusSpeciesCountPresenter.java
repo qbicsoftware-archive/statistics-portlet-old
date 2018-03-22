@@ -71,6 +71,8 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
         this.view.getConfiguration().addyAxis(new YAxis());
         this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
                 null, tooltip, null, new PlotOptionsPie());
+
+        logger.info("Settings were added to a chart of GenusSpeciesCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
     }
 
     @Override
@@ -117,6 +119,9 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
         outerSeries.setData(Arrays.asList(outerItems));
 
         model.addDonatPieData(innerSeries, outerSeries);
+
+        logger.info("Data was added to a chart of GenusSpeciesCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+
     }
 
     private Number getSpeciesCount(String species, String dataKey){

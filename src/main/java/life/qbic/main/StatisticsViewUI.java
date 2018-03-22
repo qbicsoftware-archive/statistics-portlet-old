@@ -6,6 +6,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
+import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.view.MainView;
 
@@ -24,8 +25,18 @@ public class StatisticsViewUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+
+        if(LiferayAndVaadinUtils.isLiferayPortlet()){
+            logger.info("User: " + LiferayAndVaadinUtils.getUser().getScreenName());
+        }else{
+            logger.info("Not in liferay environment");
+        }
         MainView mainView = new MainView(this);
-        MainPresenter mainPresenter = new MainPresenter(mainView);
+        try {
+            MainPresenter mainPresenter = new MainPresenter(mainView);
+        }catch(Exception e){
+            logger.error("Portlet failed due to: " + e.getMessage());
+        }
     }
 
 

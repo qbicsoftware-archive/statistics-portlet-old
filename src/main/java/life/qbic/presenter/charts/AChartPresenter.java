@@ -2,6 +2,8 @@ package life.qbic.presenter.charts;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import life.qbic.logging.Log4j2Logger;
+import life.qbic.logging.Logger;
 import life.qbic.model.data.ChartConfig;
 
 /**
@@ -10,6 +12,9 @@ import life.qbic.model.data.ChartConfig;
  * model and view type.
  */
 public abstract class AChartPresenter<T,V> {
+
+    static Logger logger = new Log4j2Logger(AChartPresenter.class);
+
 
     final ChartConfig chartConfig;
     final V view;

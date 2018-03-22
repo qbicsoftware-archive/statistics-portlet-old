@@ -1,6 +1,9 @@
 package life.qbic.model.charts;
 
 import com.vaadin.addon.charts.model.*;
+import life.qbic.logging.Log4j2Logger;
+import life.qbic.logging.Logger;
+import life.qbic.main.StatisticsViewUI;
 
 /**
  * @author fhanssen
@@ -9,6 +12,8 @@ import com.vaadin.addon.charts.model.*;
  * guide on Vaadin charts can be found here: https://demo.vaadin.com/charts/
  */
 public abstract class AModel {
+
+    private static Logger logger = new Log4j2Logger(AModel.class);
 
     final Configuration configuration;
 
@@ -22,6 +27,8 @@ public abstract class AModel {
         this.configuration.setTooltip(tooltip);
 
         this.configuration.setLegend(legend);
+
+        logger.info("New chart model for " + title + " was successfully created");
     }
 
     public Configuration getConfiguration() {

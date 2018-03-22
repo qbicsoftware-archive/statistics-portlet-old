@@ -48,6 +48,9 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
         this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
                 null, tooltip, legend, plot);
 
+        logger.info("Settings were added to a chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+
+
     }
 
     @Override
@@ -65,16 +68,21 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
                                                  (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Helper.colors.length]));
             }
         }
+
+        logger.info("Data was added to a chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+
     }
 
     @Override
     void addChartListener(){
         view.getChart().addPointClickListener((PointClickListener) event -> {
+            logger.info("Chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
             subCharts.clear();
             if(SuperKingdoms.getList().contains(model.getDataName(event))) {
                 subCharts.add(new GenusSpeciesCountPresenter(genusConfig.get(model.getDataName(event).concat("_Genus")),
                                                                     speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap));
             }
+
         });
     }
 
