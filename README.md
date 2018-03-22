@@ -42,6 +42,8 @@ Prereq: Your data already exists in the yaml config file. If not then please imp
     The title in the mainView.addMyPlotType method is later shown to the user as tab title. When accessing the chart data from the config file,
     it is absolutely necessary, that you use the correct name (First layer below 'charts', shows all data divided by plots).
     If you followed step 1, it should appear in the ChartNames. 
+    
+6. Add logging
 
 
 
