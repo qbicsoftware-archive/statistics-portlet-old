@@ -35,6 +35,7 @@ public class StatisticsViewUI extends UI {
         try {
             MainPresenter mainPresenter = new MainPresenter(mainView);
         }catch(Exception e){
+            e.printStackTrace();
             logger.error("Portlet failed due to: " + e.getMessage());
         }
     }

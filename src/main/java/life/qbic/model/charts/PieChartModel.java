@@ -2,6 +2,7 @@ package life.qbic.model.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.PointClickEvent;
+import life.qbic.model.AModel;
 
 import java.util.Arrays;
 
@@ -9,7 +10,7 @@ import java.util.Arrays;
  * @author fhanssen
  * Example: https://demo.vaadin.com/charts/#PieChart , https://demo.vaadin.com/charts/#DonutChart
  */
-public class PieChartModel extends AModel{
+public class PieChartModel extends AChartModel {
 
     private final DataSeries series;
 

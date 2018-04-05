@@ -1,9 +1,11 @@
-package life.qbic.view.charts;
+package life.qbic.view;
 
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
 import com.vaadin.addon.charts.model.Configuration;
-import life.qbic.model.charts.AModel;
+import com.vaadin.ui.GridLayout;
+import life.qbic.model.AModel;
+
 
 /**
  * @author fhanssen
@@ -13,22 +15,7 @@ import life.qbic.model.charts.AModel;
  */
 public abstract class AView {
 
-    private final Chart chart;
-
-    AView(ChartType type){
-        this.chart = new Chart(type);
-    }
-
-    public Configuration getConfiguration(){
-        return this.chart.getConfiguration();
-    }
-
-    public void draw(AModel model){
-        chart.drawChart(model.getConfiguration());
-    }
-
-    public Chart getChart() {
-        return chart;
+    public AView(){
     }
 
     //TODO 3: If your Chart TYPE does not exist extend this class

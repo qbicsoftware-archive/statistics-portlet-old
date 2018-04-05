@@ -20,6 +20,7 @@ public class MainView {
         layout.setMargin(true);
         statisticsViewUI.setContent(layout);
 
+
         this.tabSheet = new TabSheet();
         layout.addComponent(tabSheet);
     }

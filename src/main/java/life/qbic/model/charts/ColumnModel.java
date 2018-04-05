@@ -1,6 +1,7 @@
 package life.qbic.model.charts;
 
 import com.vaadin.addon.charts.model.*;
+import life.qbic.model.AModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author fhanssen
  * Example: https://demo.vaadin.com/charts/#BasicColumn
  */
-public class ColumnModel  extends AModel {
+public class ColumnModel  extends AChartModel {
 
     private final List<Series> series;
     private final XAxis xAxis;

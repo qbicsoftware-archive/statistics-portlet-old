@@ -1,9 +1,8 @@
-package life.qbic.model.charts;
+package life.qbic.model;
 
 import com.vaadin.addon.charts.model.*;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.main.StatisticsViewUI;
 
 /**
  * @author fhanssen
@@ -15,24 +14,9 @@ public abstract class AModel {
 
     private static Logger logger = new Log4j2Logger(AModel.class);
 
-    final Configuration configuration;
-
-    AModel(Configuration configuration, String title, String subtitle,
-           Tooltip tooltip, Legend legend){
-
-        this.configuration = configuration;
-        this.configuration.setTitle(title);
-        this.configuration.setSubTitle(subtitle);
-
-        this.configuration.setTooltip(tooltip);
-
-        this.configuration.setLegend(legend);
+    public AModel(String title, String subtitle){
 
         logger.info("New chart model for " + title + " was successfully created");
-    }
-
-    public Configuration getConfiguration() {
-        return configuration;
     }
 
     //TODO 2: If your chart TYPE does not exists yet, extend this class

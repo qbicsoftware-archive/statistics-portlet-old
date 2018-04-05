@@ -17,7 +17,9 @@ public enum ChartNames {
     Eukaryota_Species("Eukaryota_Species"),
     Bacteria_Species("Bacteria_Species"),
     Viruses_Species("Viruses_Species"),
-    Species_Genus("Species_Genus");
+    Species_Genus("Species_Genus"),
+    Workflow("Workflow");
+
     //TODO 1: Sync ChartNames with the eponymic class Chart names in the data retrieval tool
 
 
