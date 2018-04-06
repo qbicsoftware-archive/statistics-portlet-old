@@ -1,5 +1,8 @@
 package life.qbic.model.components;
 
+/**
+ * @author fhanssen
+ */
 public class GitHubLabels extends AComponent{
 
 

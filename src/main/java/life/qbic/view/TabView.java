@@ -15,7 +15,7 @@ import life.qbic.view.tabs.AView;
  */
 public class TabView {
 
-    private static Logger logger = new Log4j2Logger(TabView.class);
+    private static final Logger logger = new Log4j2Logger(TabView.class);
 
 
     private final VerticalLayout charts = new VerticalLayout();

@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
  */
 public abstract class AView {
 
-    public AView(){
+    protected AView(){
     }
 
     abstract public Component getComponent();

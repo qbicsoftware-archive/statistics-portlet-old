@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class MainPresenter {
 
-    static Logger logger = new Log4j2Logger(MainPresenter.class);
+    private static final Logger logger = new Log4j2Logger(MainPresenter.class);
 
 
     private final MainView mainView;

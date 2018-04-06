@@ -4,7 +4,6 @@ import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
 import com.vaadin.addon.charts.model.Configuration;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.GridLayout;
 import life.qbic.model.view.charts.AChartModel;
 import life.qbic.view.tabs.AView;
 

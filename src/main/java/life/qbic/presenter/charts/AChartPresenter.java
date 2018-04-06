@@ -1,15 +1,10 @@
 package life.qbic.presenter.charts;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.data.ChartConfig;
-import life.qbic.model.view.AModel;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
-import life.qbic.view.tabs.AView;
 
 /**
  * @author fhanssen

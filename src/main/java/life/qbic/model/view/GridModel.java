@@ -3,15 +3,14 @@ package life.qbic.model.view;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.components.AComponent;
-import life.qbic.model.components.GitHubLabels;
-import life.qbic.model.view.charts.AChartModel;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO abstract GitHUbLabels
+/**
+ * @author fhanssen
+ */
 public class GridModel implements AModel<AComponent> {
 
     private static final Logger logger = new Log4j2Logger(GridModel.class);

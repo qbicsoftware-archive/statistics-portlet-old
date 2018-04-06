@@ -4,6 +4,9 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
 
+/**
+ * @author fhanssen
+ */
 public class GridView extends AView {
 
     private final GridLayout gridLayout;

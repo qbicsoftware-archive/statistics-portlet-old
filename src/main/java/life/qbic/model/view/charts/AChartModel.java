@@ -19,7 +19,7 @@ public abstract class AChartModel<T extends AbstractSeries> implements AModel<T>
 
     final Configuration configuration;
 
-    public AChartModel(Configuration configuration, String title, String subtitle,
+    AChartModel(Configuration configuration, String title, String subtitle,
                 Tooltip tooltip, Legend legend, AbstractPlotOptions plotOptions){
 
         this.configuration = configuration;
