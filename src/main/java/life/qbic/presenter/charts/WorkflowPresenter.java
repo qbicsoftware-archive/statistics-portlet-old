@@ -47,7 +47,7 @@ public class WorkflowPresenter extends AChartPresenter<GridModel, GridView> {
                 String[] title = ((String) chartConfig.getSettings().getxCategories().get(i)).split("/");
                 model.addData(new GitHubLabels(title[title.length - 2].concat("/").concat(title[title.length - 1]),
                         (String) chartConfig.getSettings().getyCategories().get(i),
-                        (int) chartConfig.getData().get(aKeySet).get(i)));
+                        (int)(double) chartConfig.getData().get(aKeySet).get(i)));
             }
         }
 
