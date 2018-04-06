@@ -25,7 +25,7 @@ public class MainView {
         layout.addComponent(tabSheet);
     }
 
-    public void addChart(TabView tabView, String title){
+    public void addTabView(TabView tabView, String title){
 
         this.tabSheet.addTab(tabView.getTab()).setCaption(title);
         logger.info("A new tab with titel " + title +" was added.");

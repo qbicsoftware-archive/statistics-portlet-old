@@ -20,7 +20,7 @@ import life.qbic.view.MainView;
 @Widgetset("life.qbic.AppWidgetSet")
 public class StatisticsViewUI extends UI {
 
-    private static Logger logger = new Log4j2Logger(StatisticsViewUI.class);
+    private static final Logger logger = new Log4j2Logger(StatisticsViewUI.class);
 
 
     @Override

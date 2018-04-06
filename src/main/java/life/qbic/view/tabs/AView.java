@@ -1,11 +1,7 @@
-package life.qbic.view;
+package life.qbic.view.tabs;
 
-import com.vaadin.addon.charts.Chart;
-import com.vaadin.addon.charts.model.ChartType;
-import com.vaadin.addon.charts.model.Configuration;
-import com.vaadin.ui.GridLayout;
-import life.qbic.model.AModel;
 
+import com.vaadin.ui.Component;
 
 /**
  * @author fhanssen
@@ -18,6 +14,7 @@ public abstract class AView {
     public AView(){
     }
 
+    abstract public Component getComponent();
     //TODO 3: If your Chart TYPE does not exist extend this class
 
 }

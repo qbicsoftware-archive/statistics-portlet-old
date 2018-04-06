@@ -1,14 +1,14 @@
 package life.qbic.view;
 
-import com.vaadin.addon.charts.Chart;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.model.AModel;
-import life.qbic.model.charts.AChartModel;
-import life.qbic.view.charts.AChartView;
+import life.qbic.model.view.AModel;
+import life.qbic.model.view.charts.AChartModel;
+import life.qbic.view.tabs.charts.AChartView;
+import life.qbic.view.tabs.AView;
 
 /**
  * @author fhanssen
@@ -40,35 +40,33 @@ public class TabView {
         return returnButton;
     }
 
-    public void addMainChart(){
+    public void addMainComponent(){
         charts.removeAllComponents();
-        logger.info("Charts were removed from tab.");
+        logger.info("All components were removed from tab.");
 
-        ((AChartView)mainView).draw((AChartModel) mainModel);
-        charts.addComponent(((AChartView)mainView).getChart());
-        logger.info("Main Chart was added.");
-    }
+        if(mainView instanceof AChartView) {
+            ((AChartView) mainView).draw((AChartModel) mainModel);
+        }
 
-    public void addGrid(){
-        charts.removeAllComponents();
-        charts.addComponent(((GridView)mainView).getGridLayout());
-        charts.setComponentAlignment(((GridView)mainView).getGridLayout(), Alignment.MIDDLE_CENTER);
+        charts.addComponent(mainView.getComponent());
+        charts.setComponentAlignment((mainView).getComponent(), Alignment.MIDDLE_CENTER);
 
-    }
-
-    public void removeChart(Chart chart){
-        charts.removeComponent(chart);
-        logger.info("Chart was removed from tab.");
+        logger.info("Main component was added.");
 
     }
 
-    public void addSubChart(AModel model, AView view){
+
+    public void addSubComponent(AModel model, AView view){
         charts.removeAllComponents();
-        logger.info("Charts were removed from tab.");
-        ((AChartView)mainView).draw((AChartModel) model);
-        charts.addComponents(((AChartView)view).getChart(), returnButton);
+        logger.info("Components were removed from tab.");
+
+        if(view instanceof AChartView) {
+            ((AChartView)view).draw((AChartModel) model);
+        }
+        charts.addComponents(view.getComponent(), returnButton);
         charts.setComponentAlignment(returnButton, Alignment.TOP_RIGHT);
-        logger.info("Subchart and return button was added to tab.");
+
+        logger.info("Sub-component and return button was added to tab.");
 
     }
 }

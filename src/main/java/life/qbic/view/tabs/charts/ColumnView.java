@@ -1,7 +1,6 @@
-package life.qbic.view.charts;
+package life.qbic.view.tabs.charts;
 
 import com.vaadin.addon.charts.model.ChartType;
-import life.qbic.view.AView;
 
 /**
  * @author fhanssen

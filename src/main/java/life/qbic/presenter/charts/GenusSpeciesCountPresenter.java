@@ -2,10 +2,12 @@ package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.SolidColor;
-import life.qbic.model.charts.PieChartModel;
+import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.model.data.ChartConfig;
 import life.qbic.presenter.utils.Helper;
-import life.qbic.view.charts.PieChartView;
+import life.qbic.view.MainView;
+import life.qbic.view.TabView;
+import life.qbic.view.tabs.charts.PieChartView;
 
 import java.util.*;
 
@@ -19,15 +21,14 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
     private PlotOptionsPie innerPieOptions;
     private PlotOptionsPie outerPieOptions;
 
-    GenusSpeciesCountPresenter(ChartConfig genusConfig, ChartConfig speciesConfig, ChartConfig speciesGenusMap) {
-        super(genusConfig, new PieChartView());
+    GenusSpeciesCountPresenter(MainView mainView, ChartConfig genusConfig, ChartConfig speciesConfig, ChartConfig speciesGenusMap) {
+        super(genusConfig,mainView, new PieChartView());
         this.speciesConfig = speciesConfig;
         this.genusSpeciesMap = generateGenusToSpeciesMap(speciesGenusMap);
 
         addChartSettings();
         addChartData();
         addChartListener();
-
     }
 
     private Map<String, List<String>> generateGenusToSpeciesMap(ChartConfig speciesGenusConfig){
@@ -72,7 +73,7 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
         this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
                 null, tooltip, null, new PlotOptionsPie());
 
-        logger.info("Settings were added to a chart of GenusSpeciesCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+        logger.info("Settings were added to a chart of "+ this.getClass() + " with chart titel: " + this.view.getConfiguration().getTitle().getText());
     }
 
     @Override
@@ -120,7 +121,7 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
 
         model.addDonatPieData(innerSeries, outerSeries);
 
-        logger.info("Data was added to a chart of GenusSpeciesCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+        logger.info("Data was added to a chart of " + this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText());
 
     }
 
@@ -138,5 +139,14 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
     @Override
     void addChartListener(){
 
+    }
+
+    @Override
+    public void specifyView(TabView tabView, String title){
+
+        //Add to existing tab
+        tabView.addSubComponent(model, view);
+
+        logger.info("View was added in " + this.getClass() + " for " +  this.view.getConfiguration().getTitle().getText() );
     }
 }

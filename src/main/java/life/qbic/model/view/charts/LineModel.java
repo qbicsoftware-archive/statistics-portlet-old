@@ -1,7 +1,6 @@
-package life.qbic.model.charts;
+package life.qbic.model.view.charts;
 
 import com.vaadin.addon.charts.model.*;
-import life.qbic.model.AModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ import java.util.List;
  * @author fhanssen
  * Example: https://demo.vaadin.com/charts/#BasicLine
  */
-public class LineModel extends AChartModel {
+public class LineModel extends AChartModel<ListSeries> {
 
     private final List<Series> series;
     private final XAxis xAxis;
@@ -20,14 +19,12 @@ public class LineModel extends AChartModel {
     public LineModel(Configuration configuration, String title, String subtitle,
                           Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsLine options){
 
-        super(configuration, title, subtitle, tooltip, legend);
+        super(configuration, title, subtitle, tooltip, legend, options);
 
-        this.configuration.setPlotOptions(options);
-
-        this.series = new ArrayList<>();
-        this.configuration.setSeries(series);
-        xAxis = this.configuration.getxAxis();
-        yAxis = this.configuration.getyAxis();
+        series = new ArrayList<>();
+        super.configuration.setSeries(series);
+        xAxis = super.configuration.getxAxis();
+        yAxis = super.configuration.getyAxis();
         xAxis.setTitle(xAxisTitle);
         yAxis.setTitle(yAxisTitle);
 
@@ -42,11 +39,11 @@ public class LineModel extends AChartModel {
     }
 
     public void addData(ListSeries... listSeries){
-        this.series.addAll(Arrays.asList(listSeries));
+        series.addAll(Arrays.asList(listSeries));
     }
 
     public void clearData(){
-        this.series.clear();
+        series.clear();
     }
 
 }

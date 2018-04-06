@@ -1,13 +1,15 @@
 package life.qbic.model.components;
 
-public class GitHubLabels {
+public class GitHubLabels extends AComponent{
+
 
     private final String title;
     private final String description;
     private final int count;
     private final String url;
 
-    public GitHubLabels(String title, String description, int count, String url){
+    public GitHubLabels(String title, String description, int count){
+        super();
         this.title = title;
         this.description = description.equals("null") ? "" : description;
         this.count = count;

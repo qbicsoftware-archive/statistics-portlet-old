@@ -1,10 +1,15 @@
 package life.qbic.presenter.charts;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.data.ChartConfig;
+import life.qbic.model.view.AModel;
+import life.qbic.view.MainView;
+import life.qbic.view.TabView;
+import life.qbic.view.tabs.AView;
 
 /**
  * @author fhanssen
@@ -13,18 +18,19 @@ import life.qbic.model.data.ChartConfig;
  */
 public abstract class AChartPresenter<T,V> {
 
-    static Logger logger = new Log4j2Logger(AChartPresenter.class);
+    static final Logger logger = new Log4j2Logger(AChartPresenter.class);
 
 
     final ChartConfig chartConfig;
     final V view;
+    final MainView mainView;
     T model;
-    //TODO ObservableLists are javafx constructs, can this be avoided? -> think about this some more
-    final ObservableList<AChartPresenter> subCharts = FXCollections.observableArrayList();
+    TabView tabView;
 
-    AChartPresenter(ChartConfig chartConfig, V view){
+    AChartPresenter(ChartConfig chartConfig, MainView mainView,  V view){
         this.view = view;
         this.chartConfig = chartConfig;
+        this.mainView = mainView;
 
     }
 
@@ -36,8 +42,12 @@ public abstract class AChartPresenter<T,V> {
         return view;
     }
 
-    public ObservableList<AChartPresenter> getSubCharts() {
-        return subCharts;
+    void setTabView(TabView temp){
+        this.tabView = temp;
+    }
+
+    public TabView getTabView() {
+        return tabView;
     }
 
     abstract void addChartSettings();
@@ -45,6 +55,8 @@ public abstract class AChartPresenter<T,V> {
     abstract void addChartData();
 
     abstract void addChartListener();
+
+    abstract public void specifyView(TabView tabView, String title);
 
     //TODO 4: Extend this class in order to create a new presenter. As examples you can look at the SuperKingdomCountPresenter or GenusSpeciesCountPresenter
 }

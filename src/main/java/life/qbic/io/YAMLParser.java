@@ -1,4 +1,4 @@
-package life.qbic.utils;
+package life.qbic.io;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public final class YAMLParser {
 
-    static Logger logger = new Log4j2Logger(YAMLParser.class);
+    private final static Logger logger = new Log4j2Logger(YAMLParser.class);
 
 
     public static MainConfig parseConfig(String inputFile){

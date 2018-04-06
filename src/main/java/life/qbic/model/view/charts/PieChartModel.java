@@ -1,39 +1,38 @@
-package life.qbic.model.charts;
+package life.qbic.model.view.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.PointClickEvent;
-import life.qbic.model.AModel;
 
 import java.util.Arrays;
+
 
 /**
  * @author fhanssen
  * Example: https://demo.vaadin.com/charts/#PieChart , https://demo.vaadin.com/charts/#DonutChart
  */
-public class PieChartModel extends AChartModel {
+public class PieChartModel extends AChartModel<DataSeries> {
 
     private final DataSeries series;
 
     public PieChartModel(Configuration configuration, String title, String subtitle, Tooltip tooltip, Legend legend, PlotOptionsPie options) {
-        super(configuration, title, subtitle, tooltip, legend);
+        super(configuration, title, subtitle, tooltip, legend,options);
 
-        this.configuration.setPlotOptions(options);
-        this.series = new DataSeries();
-        this.configuration.setSeries(series);
+        series = new DataSeries();
+        super.configuration.setSeries(series);
     }
 
 
-    public void addData(DataSeriesItem... dataSeries){
-        Arrays.stream(dataSeries).forEach(this.series::add);
+    public void addData(DataSeries... dataSeries){
+        Arrays.stream(dataSeries).forEach(dataSerie -> dataSerie.getData().forEach(series::add));
     }
 
     public void addDonatPieData(DataSeries... dataSeries){
-        this.configuration.setSeries(dataSeries);
+        configuration.setSeries(dataSeries);
     }
 
 
     public void clearData(){
-        this.series.clear();
+        series.clear();
     }
 
     public String getDataName(PointClickEvent event){
