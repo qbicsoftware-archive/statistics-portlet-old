@@ -6,6 +6,7 @@ import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
 import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.charts.WorkflowPresenter;
+import life.qbic.presenter.utils.lexica.ChartNames;
 import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.io.YAMLParser;
 import life.qbic.view.MainView;
