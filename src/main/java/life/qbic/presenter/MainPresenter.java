@@ -6,7 +6,6 @@ import life.qbic.model.data.ChartConfig;
 import life.qbic.model.data.MainConfig;
 import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.charts.WorkflowPresenter;
-import life.qbic.presenter.utils.lexica.ChartNames;
 import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.io.YAMLParser;
 import life.qbic.view.MainView;
@@ -14,6 +13,8 @@ import life.qbic.view.TabView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+
 
 /**
  * @author fhanssen
@@ -29,7 +30,7 @@ public class MainPresenter {
 
     public MainPresenter(MainView mainView) {
         this.mainView = mainView;
-        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/statistics-data-retrieval-openbis/config.yaml");
+        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
 
         addCharts();
     }
