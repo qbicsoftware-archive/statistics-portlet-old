@@ -1,0 +1,3 @@
+[submodule "qbic-statistics-core"]
+	path = qbic-statistics-core
+	url = https://github.com/qbicsoftware/qbic-statistics-core
