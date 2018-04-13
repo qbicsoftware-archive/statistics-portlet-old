@@ -2,9 +2,9 @@ package life.qbic.presenter.charts;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.model.data.ChartConfig;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
+import submodule.data.ChartConfig;
 
 /**
  * @author fhanssen

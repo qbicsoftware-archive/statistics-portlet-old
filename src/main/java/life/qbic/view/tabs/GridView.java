@@ -22,6 +22,7 @@ public class GridView extends AView {
         this.gridLayout.setMargin(margin);
         this.gridLayout.setSpacing(spacing);
         this.gridLayout.setSizeFull();
+        this.gridLayout.setStyleName("workflow");
 
         this.gridLayout.setHideEmptyRowsAndColumns(true);
 
