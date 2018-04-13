@@ -4,6 +4,7 @@ import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import submodule.data.MainConfig;
 
 import java.io.FileInputStream;
 import java.io.IOException;

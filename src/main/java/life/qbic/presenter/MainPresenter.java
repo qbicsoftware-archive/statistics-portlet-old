@@ -5,10 +5,15 @@ import life.qbic.logging.Logger;
 import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.charts.WorkflowPresenter;
 import life.qbic.io.YAMLParser;
+import life.qbic.presenter.utils.lexica.ChartNames;
+import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
+import submodule.data.ChartConfig;
+import submodule.data.MainConfig;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -43,8 +48,8 @@ public class MainPresenter {
         Map<String, ChartConfig> speciesCharts = new HashMap<>();
         Map<String, ChartConfig> genusCharts = new HashMap<>();
 
-        for(String chartName : life.qbic.utils.lexica.ChartNames.getList()){
-            if(life.qbic.utils.lexica.SuperKingdoms.getList().contains(chartName.split("_")[0])){
+        for(String chartName : ChartNames.getList()){
+            if(SuperKingdoms.getList().contains(chartName.split("_")[0])){
                 if(chartName.split("_")[1].equals("Species")) {
                     speciesCharts.put(chartName, mainConfig.getCharts().get(chartName));
                 }else if (chartName.split("_")[1].equals("Genus")){
@@ -56,10 +61,10 @@ public class MainPresenter {
         //Create Presenter
         SuperKingdomCountPresenter organismCountPiePresenter =
                 new SuperKingdomCountPresenter(this.mainView,
-                                                    mainConfig.getCharts().get(life.qbic.utils.lexica.ChartNames.SuperKingdom.toString()),
+                                                    mainConfig.getCharts().get(ChartNames.SuperKingdom.toString()),
                                                         genusCharts,
                                                         speciesCharts,
-                                                        mainConfig.getCharts().get(life.qbic.utils.lexica.ChartNames.Species_Genus.toString()));
+                                                        mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
 
 
         organismCountPiePresenter.specifyView( new TabView(organismCountPiePresenter.getView(),
@@ -74,7 +79,7 @@ public class MainPresenter {
 
     private void addWorkflowGrid(){
 
-        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts().get(life.qbic.utils.lexica.ChartNames.Workflow.toString()), mainView);
+        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts().get(ChartNames.Workflow.toString()), mainView);
         workflowPresenter.specifyView(new TabView(workflowPresenter.getView(), workflowPresenter.getModel()),
                                     "Workflows");
 
