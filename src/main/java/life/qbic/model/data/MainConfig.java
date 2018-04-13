@@ -1,6 +1,8 @@
 package life.qbic.model.data;
 
+
 import java.util.Map;
+
 
 /**
  * @author fhanssen
