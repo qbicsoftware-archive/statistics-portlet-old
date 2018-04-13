@@ -5,12 +5,13 @@ import life.qbic.logging.Logger;
 import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.charts.WorkflowPresenter;
 import life.qbic.io.YAMLParser;
-import life.qbic.presenter.utils.lexica.ChartNames;
-import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
 import submodule.data.ChartConfig;
 import submodule.data.MainConfig;
+import submodule.lexica.ChartNames;
+import submodule.lexica.Kingdoms;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class MainPresenter {
         Map<String, ChartConfig> genusCharts = new HashMap<>();
 
         for(String chartName : ChartNames.getList()){
-            if(SuperKingdoms.getList().contains(chartName.split("_")[0])){
+            if(Kingdoms.getList().contains(chartName.split("_")[0])){
                 if(chartName.split("_")[1].equals("Species")) {
                     speciesCharts.put(chartName, mainConfig.getCharts().get(chartName));
                 }else if (chartName.split("_")[1].equals("Genus")){

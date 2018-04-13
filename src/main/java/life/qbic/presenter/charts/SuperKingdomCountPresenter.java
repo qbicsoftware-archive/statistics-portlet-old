@@ -6,11 +6,11 @@ import com.vaadin.addon.charts.PointClickListener;
 import com.vaadin.addon.charts.model.style.Color;
 import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.utils.Helper;
-import life.qbic.presenter.utils.lexica.SuperKingdoms;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieChartView;
 import submodule.data.ChartConfig;
+import submodule.lexica.Kingdoms;
 
 import java.util.*;
 
@@ -84,7 +84,7 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
     void addChartListener(){
         ((Chart)view.getComponent()).addPointClickListener((PointClickListener) event -> {
             logger.info("Chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
-            if(SuperKingdoms.getList().contains(model.getDataName(event))) {
+            if(Kingdoms.getList().contains(model.getDataName(event))) {
                 GenusSpeciesCountPresenter p = new GenusSpeciesCountPresenter(mainView, genusConfig.get(model.getDataName(event).concat("_Genus")),
                         speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap);
 
