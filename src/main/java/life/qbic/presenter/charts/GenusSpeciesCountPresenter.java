@@ -2,8 +2,8 @@ package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.SolidColor;
-import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.model.data.ChartConfig;
+import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.utils.Helper;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
