@@ -7,10 +7,10 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import life.qbic.model.view.GridModel;
 import life.qbic.model.components.GitHubLabels;
-import life.qbic.model.data.ChartConfig;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.GridView;
+import submodule.data.ChartConfig;
 
 import java.util.Arrays;
 
