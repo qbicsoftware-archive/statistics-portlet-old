@@ -76,14 +76,14 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
             }
         }
 
-        logger.info("Data was added to a chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+        logger.info("Data was added to a chart of  " + this.getClass() + "  with chart titel: " + this.view.getConfiguration().getTitle().getText());
 
     }
 
     @Override
     void addChartListener(){
         ((Chart)view.getComponent()).addPointClickListener((PointClickListener) event -> {
-            logger.info("Chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
+            logger.info("Chart of "+ this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
             if(Kingdoms.getList().contains(model.getDataName(event))) {
                 GenusSpeciesCountPresenter p = new GenusSpeciesCountPresenter(mainView, genusConfig.get(model.getDataName(event).concat("_Genus")),
                         speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap);
