@@ -80,9 +80,20 @@ public class MainPresenter {
 
     private void addWorkflowGrid(){
 
-        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts().get(ChartNames.Workflow.toString()), mainView);
+        Map<String, ChartConfig> availWorkflows = new HashMap<>();
+        mainConfig.getCharts().keySet().forEach(key ->{
+            if(key.startsWith(ChartNames.Available_Workflows_.toString())){
+                availWorkflows.put(key, mainConfig.getCharts().get(key));
+            }
+        });
+        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts()
+                                                                    .get(ChartNames.Workflow_Execution_Counts.toString()),
+                                                                    mainView,
+                                                                    availWorkflows);
         workflowPresenter.specifyView(new TabView(workflowPresenter.getView(), workflowPresenter.getModel()),
                                     "Workflows");
+
+        addReturnButtonListener(workflowPresenter.getTabView());
 
         logger.info("Workflow tab was added");
 

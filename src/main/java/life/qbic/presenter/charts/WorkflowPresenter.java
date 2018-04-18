@@ -1,26 +1,32 @@
 package life.qbic.presenter.charts;
 
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable;
-import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.*;
-import life.qbic.model.view.GridModel;
-import life.qbic.model.components.GitHubLabels;
+import com.vaadin.addon.charts.Chart;
+import com.vaadin.addon.charts.PointClickListener;
+import com.vaadin.addon.charts.model.*;
+import com.vaadin.addon.charts.model.style.Color;
+import life.qbic.model.view.charts.PieChartModel;
+import life.qbic.presenter.utils.Helper;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
-import life.qbic.view.tabs.GridView;
+import life.qbic.view.tabs.charts.PieChartView;
 import submodule.data.ChartConfig;
+import submodule.lexica.ChartNames;
+import submodule.lexica.Kingdoms;
 
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * @author fhanssen
  */
-public class WorkflowPresenter extends AChartPresenter<GridModel, GridView> {
+public class WorkflowPresenter extends AChartPresenter<PieChartModel, PieChartView> {
 
-    public WorkflowPresenter(ChartConfig workflowConfig, MainView mainView) {
-        super(workflowConfig, mainView, new GridView(3, 0, true, true));
+    private final Map<String, ChartConfig> availableWorkflows;
+
+    public WorkflowPresenter(ChartConfig workflowConfig, MainView mainView, Map<String, ChartConfig> availableWorkflows) {
+        super(workflowConfig, mainView, new PieChartView());
+
+        this.availableWorkflows = availableWorkflows;
 
         addChartSettings();
         addChartData();
@@ -29,8 +35,20 @@ public class WorkflowPresenter extends AChartPresenter<GridModel, GridView> {
 
     @Override
     void addChartSettings() {
-        model = new GridModel("title", "subtitle");
-        logger.info("Settings were added to " + this.getClass() + " with chart title: " + this.model.getTitle());
+
+        PlotOptionsPie plot = new PlotOptionsPie();
+
+        plot.setDataLabels(new DataLabels(true));
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> times executed <br> Click to show available workflows'");
+
+        Legend legend = new Legend();
+        legend.setEnabled(false);
+
+        model = new PieChartModel(this.view.getConfiguration(),chartConfig.getSettings().getTitle(),
+                chartConfig.getSettings().getSubtitle(), tooltip, legend, plot);
+        logger.info("Settings were added to " + this.getClass() + " with chart title: " + this.view.getConfiguration().getTitle().getText());
     }
 
     @Override
@@ -40,14 +58,14 @@ public class WorkflowPresenter extends AChartPresenter<GridModel, GridView> {
         Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
+        Color[] innerColors = Arrays.copyOf(Helper.colors, chartConfig.getSettings().getxCategories().size());
+
 
         //Actually adding of data
         for (String aKeySet : keySet) {
             for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
-                String[] title = ((String) chartConfig.getSettings().getxCategories().get(i)).split("/");
-                model.addData(new GitHubLabels(title[title.length - 2].concat("/").concat(title[title.length - 1]),
-                        (String) chartConfig.getSettings().getyCategories().get(i),
-                        (int)(double) chartConfig.getData().get(aKeySet).get(i)));
+                model.addData(new DataSeries(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
+                        (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Helper.colors.length])));
             }
         }
 
@@ -57,47 +75,29 @@ public class WorkflowPresenter extends AChartPresenter<GridModel, GridView> {
 
     @Override
     void addChartListener() {
+        ((Chart)view.getComponent()).addPointClickListener((PointClickListener) event -> {
+            logger.info("Chart of "+ this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
+            if(availableWorkflows.keySet().contains(ChartNames.Available_Workflows_.toString().concat(model.getDataName(event)))) {
+                AvailableWorkflowPresenter p = new AvailableWorkflowPresenter(mainView, availableWorkflows.get(ChartNames.Available_Workflows_.toString().concat(model.getDataName(event))));
 
+                p.specifyView(this.tabView, "");
+            }
+
+        });
     }
 
     @Override
     public void specifyView(TabView tabView, String title) {
 
-        for (Object labels : model.getData()) {
-            setGridItemLayout((GitHubLabels) labels);
-        }
-
-        //Set new Tab
+        //Set new tab
         super.setTabView(tabView);
         super.tabView.addMainComponent();
         super.mainView.addTabView(super.tabView, title);
 
-        logger.info("Tab was added in " + this.getClass() + " for " +  model.getTitle());
+        logger.info("Tab was added in " + this.getClass() + " for " +  this.view.getConfiguration().getTitle().getText() );
+
+
 
     }
 
-    private void setGridItemLayout(GitHubLabels labels) {
-
-        Panel panel = new Panel(labels.getTitle());
-        panel.setSizeFull();
-
-        Label star = new Label(FontAwesome.STAR_O.getHtml() + " " + labels.getCount(), ContentMode.HTML);
-
-        Link link = new Link("",
-                new ExternalResource(labels.getUrl()));
-        link.setIcon(FontAwesome.valueOf("GITHUB_SQUARE"));
-
-        HorizontalLayout horizontalLayout = new HorizontalLayout(link, star);
-        horizontalLayout.setSpacing(true);
-        horizontalLayout.setComponentAlignment(star, Alignment.TOP_RIGHT);
-        horizontalLayout.setComponentAlignment(link, Alignment.TOP_RIGHT);
-
-        VerticalLayout verticalLayout = new VerticalLayout(horizontalLayout, new Label(labels.getDescription(), ContentMode.TEXT));
-        verticalLayout.setWidth(100, Sizeable.Unit.PERCENTAGE);
-        verticalLayout.setMargin(true);
-
-        panel.setContent(verticalLayout);
-        view.addGridComponents(panel);
-
-    }
 }
