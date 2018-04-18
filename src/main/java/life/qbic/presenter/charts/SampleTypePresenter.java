@@ -11,24 +11,26 @@ import submodule.data.ChartConfig;
 
 import java.util.Arrays;
 
-public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel, PieChartView> {
+public class SampleTypePresenter extends AChartPresenter<PieChartModel, PieChartView> {
 
-    public ProjectTechnologiesPresenter(MainView mainView, ChartConfig projectsConfig){
-        super(projectsConfig,mainView, new PieChartView());
+    public SampleTypePresenter(MainView mainView, ChartConfig chartConfig){
+        super( chartConfig, mainView, new PieChartView());
 
         addChartSettings();
         addChartData();
         addChartListener();
+
     }
 
     @Override
     void addChartSettings() {
+
         PlotOptionsPie plot = new PlotOptionsPie();
 
         plot.setDataLabels(new DataLabels(true));
 
         Tooltip tooltip = new Tooltip();
-        tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> Projects'");
+        tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> Samples'");
 
         Legend legend = new Legend();
         legend.setEnabled(false);
@@ -39,11 +41,11 @@ public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel,
         logger.info("Settings were added to a chart of "+ this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText());
 
 
+
     }
 
     @Override
     void addChartData() {
-
         //This is necessary to get from Object to required String arrays
         Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);

@@ -76,7 +76,7 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
             }
         }
 
-        logger.info("Data was added to a chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+        logger.info("Data was added to a chart of  " + this.getClass() + "  with chart titel: " + this.view.getConfiguration().getTitle().getText());
 
     }
 

@@ -60,7 +60,7 @@ public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridV
 
     @Override
     public void specifyView(TabView tabView, String title) {
-        
+
         for (Object labels : model.getData()) {
             setGridItemLayout((GitHubLabels) labels);
         }
