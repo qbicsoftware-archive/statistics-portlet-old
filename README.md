@@ -9,7 +9,7 @@ Created by Friederike Hanssen (friederike.hanssen@student.uni-tuebingen.de).
 
 ## Description
 
-###How to add a new Graph
+### How to add a new Graph ###
 
 In order to add a new chart, the core task is to add a new AChartPresenter in the presenter.charts package. However,
 depending if your chart type already exists more steps may be required. They are marked in the code with TODOs.
