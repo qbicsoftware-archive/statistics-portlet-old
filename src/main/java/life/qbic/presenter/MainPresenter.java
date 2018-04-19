@@ -2,6 +2,8 @@ package life.qbic.presenter;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
+import life.qbic.presenter.charts.ProjectTechnologiesPresenter;
+import life.qbic.presenter.charts.SampleTypePresenter;
 import life.qbic.presenter.charts.SuperKingdomCountPresenter;
 import life.qbic.presenter.charts.WorkflowPresenter;
 import life.qbic.io.YAMLParser;
@@ -40,6 +42,8 @@ public class MainPresenter {
     private void addCharts(){
         addOrganismCountPie();
         addWorkflowGrid();
+        addSampleCountPie();
+        addProjectCountsPie();
         //TODO 5: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
     }
 
@@ -62,15 +66,15 @@ public class MainPresenter {
         //Create Presenter
         SuperKingdomCountPresenter organismCountPiePresenter =
                 new SuperKingdomCountPresenter(this.mainView,
-                                                    mainConfig.getCharts().get(ChartNames.SuperKingdom.toString()),
-                                                        genusCharts,
-                                                        speciesCharts,
-                                                        mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
+                        mainConfig.getCharts().get(ChartNames.SuperKingdom.toString()),
+                        genusCharts,
+                        speciesCharts,
+                        mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
 
 
         organismCountPiePresenter.specifyView( new TabView(organismCountPiePresenter.getView(),
-                                                         organismCountPiePresenter.getModel()),
-                                            "Organisms");
+                        organismCountPiePresenter.getModel()),
+                "Organisms");
         addReturnButtonListener(organismCountPiePresenter.getTabView());
 
         logger.info("Organism tab was added");
@@ -80,11 +84,56 @@ public class MainPresenter {
 
     private void addWorkflowGrid(){
 
-        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts().get(ChartNames.Workflow.toString()), mainView);
+        Map<String, ChartConfig> availWorkflows = new HashMap<>();
+        mainConfig.getCharts().keySet().forEach(key ->{
+            if(key.startsWith(ChartNames.Available_Workflows_.toString())){
+                availWorkflows.put(key, mainConfig.getCharts().get(key));
+            }
+        });
+        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts()
+                .get(ChartNames.Workflow_Execution_Counts.toString()),
+                mainView,
+                availWorkflows);
         workflowPresenter.specifyView(new TabView(workflowPresenter.getView(), workflowPresenter.getModel()),
-                                    "Workflows");
+                "Workflows");
+
+        addReturnButtonListener(workflowPresenter.getTabView());
 
         logger.info("Workflow tab was added");
+
+    }
+
+    private void addSampleCountPie(){
+
+        //Create Presenter
+        SampleTypePresenter sampleTypePresenter =
+                new SampleTypePresenter(this.mainView,
+                        mainConfig.getCharts().get(ChartNames.Sample_Types.toString()));
+
+
+        sampleTypePresenter.specifyView( new TabView(sampleTypePresenter.getView(),
+                        sampleTypePresenter.getModel()),
+                "Sample Types");
+
+        logger.info("Sample tab was added");
+
+
+    }
+
+    private void addProjectCountsPie(){
+
+        //Create Presenter
+        ProjectTechnologiesPresenter projectTechnologiesPresenter =
+                new ProjectTechnologiesPresenter(this.mainView,
+                        mainConfig.getCharts().get(ChartNames.Projects_Technology.toString()));
+
+
+        projectTechnologiesPresenter.specifyView( new TabView(projectTechnologiesPresenter.getView(),
+                        projectTechnologiesPresenter.getModel()),
+                "Projects");
+
+        logger.info("Projects tab was added");
+
 
     }
 

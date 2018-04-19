@@ -17,7 +17,7 @@ public class BarModel extends AChartModel<ListSeries>{
     private final YAxis yAxis;
 
     public BarModel(Configuration configuration, String title, String subtitle,
-                         Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle,PlotOptionsBar options){
+                    Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle,PlotOptionsBar options){
 
         super(configuration, title, subtitle, tooltip, legend, options);
 

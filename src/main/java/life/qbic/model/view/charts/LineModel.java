@@ -17,7 +17,7 @@ public class LineModel extends AChartModel<ListSeries> {
     private final YAxis yAxis;
 
     public LineModel(Configuration configuration, String title, String subtitle,
-                          Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsLine options){
+                     Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsLine options){
 
         super(configuration, title, subtitle, tooltip, legend, options);
 

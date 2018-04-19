@@ -5,9 +5,9 @@ import com.vaadin.addon.charts.model.ChartType;
 /**
  * @author fhanssen
  */
-public class PieChartView extends AChartView {
+public class PieView extends AChartView {
 
-    public PieChartView() {
+    public PieView() {
         super(ChartType.PIE);
     }
 }

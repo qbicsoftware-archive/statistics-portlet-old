@@ -3,7 +3,7 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>Statistics_View</portlet-name>
+		<portlet-name>statistics-portlet</portlet-name>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

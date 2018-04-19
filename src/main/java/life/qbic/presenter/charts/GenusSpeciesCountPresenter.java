@@ -6,7 +6,7 @@ import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.utils.Helper;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
-import life.qbic.view.tabs.charts.PieChartView;
+import life.qbic.view.tabs.charts.PieView;
 import submodule.data.ChartConfig;
 
 import java.util.*;
@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * @author fhanssen
  */
-class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChartView>{
+class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieView>{
 
     private final ChartConfig speciesConfig;
     private final Map<String, List<String>> genusSpeciesMap;
@@ -22,7 +22,7 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieChart
     private PlotOptionsPie outerPieOptions;
 
     GenusSpeciesCountPresenter(MainView mainView, ChartConfig genusConfig, ChartConfig speciesConfig, ChartConfig speciesGenusMap) {
-        super(genusConfig,mainView, new PieChartView());
+        super(genusConfig,mainView, new PieView());
         this.speciesConfig = speciesConfig;
         this.genusSpeciesMap = generateGenusToSpeciesMap(speciesGenusMap);
 

@@ -17,7 +17,7 @@ public class ColumnModel extends AChartModel<ListSeries>{
     private final YAxis yAxis;
 
     public ColumnModel(Configuration configuration, String title, String subtitle,
-                         Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsColumn options){
+                       Tooltip tooltip, Legend legend, AxisTitle xAxisTitle, AxisTitle yAxisTitle, PlotOptionsColumn options){
 
         super(configuration, title, subtitle, tooltip, legend,options);
 

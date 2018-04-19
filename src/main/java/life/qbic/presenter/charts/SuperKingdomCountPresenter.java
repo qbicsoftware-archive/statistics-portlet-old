@@ -8,7 +8,7 @@ import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.utils.Helper;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
-import life.qbic.view.tabs.charts.PieChartView;
+import life.qbic.view.tabs.charts.PieView;
 import submodule.data.ChartConfig;
 import submodule.lexica.Kingdoms;
 
@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * @author fhanssen
  */
-public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, PieChartView>{
+public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, PieView>{
 
     private final Map<String, ChartConfig> speciesConfig;
     private final Map<String,ChartConfig> genusConfig;
@@ -29,7 +29,7 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
                                       Map<String, ChartConfig> speciesConfig,
                                       ChartConfig speciesGenusMap){
 
-        super(chartConfig,mainView, new PieChartView());
+        super(chartConfig,mainView, new PieView());
         this.speciesConfig = speciesConfig;
         this.genusConfig = genusConfig;
         this.speciesGenusMap = speciesGenusMap;
@@ -72,18 +72,18 @@ public class SuperKingdomCountPresenter extends AChartPresenter<PieChartModel, P
         for (String aKeySet : keySet) {
             for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
                 model.addData(new DataSeries(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
-                                                 (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Helper.colors.length])));
+                        (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Helper.colors.length])));
             }
         }
 
-        logger.info("Data was added to a chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText());
+        logger.info("Data was added to a chart of  " + this.getClass() + "  with chart titel: " + this.view.getConfiguration().getTitle().getText());
 
     }
 
     @Override
     void addChartListener(){
         ((Chart)view.getComponent()).addPointClickListener((PointClickListener) event -> {
-            logger.info("Chart of SuperKingdomCountPresenter with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
+            logger.info("Chart of "+ this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText() +" was clicked at " + model.getDataName(event));
             if(Kingdoms.getList().contains(model.getDataName(event))) {
                 GenusSpeciesCountPresenter p = new GenusSpeciesCountPresenter(mainView, genusConfig.get(model.getDataName(event).concat("_Genus")),
                         speciesConfig.get(model.getDataName(event).concat("_Species")), speciesGenusMap);

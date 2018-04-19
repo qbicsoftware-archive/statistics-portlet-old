@@ -1,5 +1,6 @@
 package life.qbic.main;
 
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
@@ -10,11 +11,6 @@ import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.view.MainView;
 
-/**
- * @author fhanssen
- * Functions as Main class by creating Vaadin UI.
- */
-
 @Theme("mytheme")
 @SuppressWarnings("serial")
 @Widgetset("life.qbic.AppWidgetSet")
@@ -22,10 +18,8 @@ public class StatisticsViewUI extends UI {
 
     private static final Logger logger = new Log4j2Logger(StatisticsViewUI.class);
 
-
     @Override
     protected void init(VaadinRequest request) {
-
         if(LiferayAndVaadinUtils.isLiferayPortlet()){
             logger.info("User: " + LiferayAndVaadinUtils.getUser().getScreenName());
         }else{
@@ -38,7 +32,7 @@ public class StatisticsViewUI extends UI {
             e.printStackTrace();
             logger.error("Portlet failed due to: " + e.getMessage());
         }
-    }
 
+    }
 
 }
