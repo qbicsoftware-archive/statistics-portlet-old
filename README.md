@@ -16,11 +16,16 @@ depending if your chart type already exists more steps may be required. They are
 
 Prereq: Your data already exists in the yaml config file. If not then please implement it in https://github.com/qbicsoftware/statistics-data-retrieval
 
-1. Ensure that the submodule classes are up-to-date:
+1.  After an initial clone, you need to initialize the submodule with:
+    
+    ``git submodule update --init``
+    
+    Ensure that the submodule classes are up-to-date:
     
     ``git submodule foreach git pull origin master``
 
-    The submodule classes are now updated automatically. 
+    The submodule classes are now updated automatically. This step as to be repeated anytime the submodule has new 
+    changes you want to use.
     Otherwise, your submodule will point to the time-point in history, it was updated last.
     
 2. Check if your plot type already exists in the model.charts package (e.g. Barplot, Lineplot, etc.). 
