@@ -3,7 +3,7 @@ package life.qbic.presenter.charts;
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.SolidColor;
 import life.qbic.model.view.charts.PieChartModel;
-import life.qbic.presenter.utils.Helper;
+import life.qbic.presenter.utils.Colors;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieView;
@@ -95,7 +95,7 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieView>
             }
         }
 
-        innerSeries.setData(innerNames, innerValues, Arrays.copyOf(Helper.colors, chartConfig.getSettings().getxCategories().size()));
+        innerSeries.setData(innerNames, innerValues, Arrays.copyOf(Colors.getSolidColors(), chartConfig.getSettings().getxCategories().size()));
 
         //Add data for Species
         DataSeries outerSeries = new DataSeries("Samples");
@@ -111,7 +111,7 @@ class GenusSpeciesCountPresenter extends AChartPresenter<PieChartModel, PieView>
             for (int i = 0; i < innerNames.length; i++) {
                 List<String> speciesPerGenus = genusSpeciesMap.get(innerNames[i]);
                 for(String s : speciesPerGenus) {
-                    outerItems[counter] = new DataSeriesItem(s, getSpeciesCount(s, (String)dataCategory), Helper.getRandomOphaque(Helper.colors[i % Helper.colors.length]));
+                    outerItems[counter] = new DataSeriesItem(s, getSpeciesCount(s, (String)dataCategory), Colors.getRandomOphaque(Colors.getSolidColors()[i % Colors.getSolidColors().length]));
                     counter++;
                 }
             }

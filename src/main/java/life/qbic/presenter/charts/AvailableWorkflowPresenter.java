@@ -13,7 +13,9 @@ import life.qbic.view.tabs.GridView;
 import submodule.data.ChartConfig;
 
 import java.util.Arrays;
-
+/**
+ * @author fhanssen
+ */
 public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridView> {
 
     AvailableWorkflowPresenter(MainView mainView, ChartConfig chartConfig){
