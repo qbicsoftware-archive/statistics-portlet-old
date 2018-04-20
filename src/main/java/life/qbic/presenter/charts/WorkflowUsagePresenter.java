@@ -18,11 +18,11 @@ import java.util.Map;
 /**
  * @author fhanssen
  */
-public class WorkflowPresenter extends AChartPresenter<PieChartModel, PieView> {
+public class WorkflowUsagePresenter extends AChartPresenter<PieChartModel, PieView> {
 
     private final Map<String, ChartConfig> availableWorkflows;
 
-    public WorkflowPresenter(ChartConfig workflowConfig, MainView mainView, Map<String, ChartConfig> availableWorkflows) {
+    public WorkflowUsagePresenter(ChartConfig workflowConfig, MainView mainView, Map<String, ChartConfig> availableWorkflows) {
         super(workflowConfig, mainView, new PieView());
 
         this.availableWorkflows = availableWorkflows;

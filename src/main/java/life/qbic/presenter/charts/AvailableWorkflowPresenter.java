@@ -61,9 +61,11 @@ public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridV
     @Override
     public void specifyView(TabView tabView, String title) {
 
+        this.view.setRows(model.getData().size()/3 + 1);
         for (Object labels : model.getData()) {
             setGridItemLayout((GitHubLabels) labels);
         }
+
 
         tabView.addSubComponent(model, view);
 
@@ -74,7 +76,7 @@ public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridV
     private void setGridItemLayout(GitHubLabels labels) {
 
         Panel panel = new Panel(labels.getTitle());
-        panel.setSizeFull();
+
 
         Label star = new Label(FontAwesome.STAR_O.getHtml() + " " + labels.getCount(), ContentMode.HTML);
 

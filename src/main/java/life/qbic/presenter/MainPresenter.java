@@ -2,10 +2,7 @@ package life.qbic.presenter;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.presenter.charts.ProjectTechnologiesPresenter;
-import life.qbic.presenter.charts.SampleTypePresenter;
-import life.qbic.presenter.charts.SuperKingdomCountPresenter;
-import life.qbic.presenter.charts.WorkflowPresenter;
+import life.qbic.presenter.charts.*;
 import life.qbic.io.YAMLParser;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
@@ -90,14 +87,14 @@ public class MainPresenter {
                 availWorkflows.put(key, mainConfig.getCharts().get(key));
             }
         });
-        WorkflowPresenter workflowPresenter = new WorkflowPresenter(mainConfig.getCharts()
+        WorkflowUsagePresenter workflowUsagePresenter = new WorkflowUsagePresenter(mainConfig.getCharts()
                 .get(ChartNames.Workflow_Execution_Counts.toString()),
                 mainView,
                 availWorkflows);
-        workflowPresenter.specifyView(new TabView(workflowPresenter.getView(), workflowPresenter.getModel()),
+        workflowUsagePresenter.specifyView(new TabView(workflowUsagePresenter.getView(), workflowUsagePresenter.getModel()),
                 "Workflows");
 
-        addReturnButtonListener(workflowPresenter.getTabView());
+        addReturnButtonListener(workflowUsagePresenter.getTabView());
 
         logger.info("Workflow tab was added");
 
@@ -117,6 +114,18 @@ public class MainPresenter {
 
         logger.info("Sample tab was added");
 
+        //Create Presenter
+        SampleTypeBarPresenter sampleTypeBarPresenter =
+                new SampleTypeBarPresenter(this.mainView,
+                        mainConfig.getCharts().get(ChartNames.Sample_Types.toString()));
+
+
+        sampleTypeBarPresenter.specifyView( new TabView(sampleTypeBarPresenter.getView(),
+                        sampleTypeBarPresenter.getModel()),
+                "Sample Types");
+
+        logger.info("Sample tab was added");
+
 
     }
 
@@ -130,6 +139,18 @@ public class MainPresenter {
 
         projectTechnologiesPresenter.specifyView( new TabView(projectTechnologiesPresenter.getView(),
                         projectTechnologiesPresenter.getModel()),
+                "Projects");
+
+        logger.info("Projects tab was added");
+
+        //Create Presenter
+        ProjectTechColumnPresenter projectTechColumnPresenter =
+                new ProjectTechColumnPresenter(this.mainView,
+                        mainConfig.getCharts().get(ChartNames.Projects_Technology.toString()));
+
+
+        projectTechColumnPresenter.specifyView( new TabView(projectTechColumnPresenter.getView(),
+                        projectTechColumnPresenter.getModel()),
                 "Projects");
 
         logger.info("Projects tab was added");
