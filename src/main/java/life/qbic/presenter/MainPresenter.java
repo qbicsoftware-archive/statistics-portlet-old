@@ -30,7 +30,7 @@ public class MainPresenter {
 
     public MainPresenter(MainView mainView) {
         this.mainView = mainView;
-        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
+        this.mainConfig = YAMLParser.parseConfig("/home/luser/liferay-portal-6.2-ce-ga4/config.yaml");
 
         addCharts();
     }
