@@ -2,21 +2,22 @@ package life.qbic.presenter.charts;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.Color;
-import life.qbic.model.view.charts.PieChartModel;
+import life.qbic.model.view.charts.ColumnModel;
 import life.qbic.presenter.utils.Colors;
 import life.qbic.view.MainView;
 import life.qbic.view.TabView;
-import life.qbic.view.tabs.charts.PieView;
+import life.qbic.view.tabs.charts.ColumnView;
 import submodule.data.ChartConfig;
 
 import java.util.Arrays;
 /**
  * @author fhanssen
  */
-public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel, PieView> {
+public class ProjectTechColumnPresenter extends AChartPresenter <ColumnModel, ColumnView> {
 
-    public ProjectTechnologiesPresenter(MainView mainView, ChartConfig projectsConfig){
-        super(projectsConfig,mainView, new PieView());
+
+    public ProjectTechColumnPresenter(MainView mainView, ChartConfig chartConfig){
+        super(chartConfig, mainView, new ColumnView());
 
         addChartSettings();
         addChartData();
@@ -25,7 +26,7 @@ public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel,
 
     @Override
     void addChartSettings() {
-        PlotOptionsPie plot = new PlotOptionsPie();
+        PlotOptionsColumn plot = new PlotOptionsColumn();
 
         plot.setDataLabels(new DataLabels(true));
 
@@ -35,11 +36,12 @@ public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel,
         Legend legend = new Legend();
         legend.setEnabled(false);
 
-        this.model = new PieChartModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
-                null, tooltip, legend, plot);
 
+        this.model = new ColumnModel(this.view.getConfiguration(), chartConfig.getSettings().getTitle(),
+                null, tooltip, legend, new AxisTitle(chartConfig.getSettings().getxAxisTitle()), new AxisTitle(chartConfig.getSettings().getyAxisTitle()), plot);
+
+        this.model.setXAxisType(AxisType.CATEGORY);
         logger.info("Settings were added to a chart of "+ this.getClass() +" with chart titel: " + this.view.getConfiguration().getTitle().getText());
-
 
     }
 
@@ -52,15 +54,17 @@ public class ProjectTechnologiesPresenter extends AChartPresenter<PieChartModel,
 
         Color[] innerColors = Arrays.copyOf(Colors.getSolidColors(), chartConfig.getSettings().getxCategories().size());
         //Actually adding of data
+
+        DataSeries series = new DataSeries();
         for (String aKeySet : keySet) {
             for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
-                model.addData(new DataSeries(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
-                        (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Colors.getSolidColors().length])));
+                series.add(new DataSeriesItem((String) chartConfig.getSettings().getxCategories().get(i),
+                        (Number) chartConfig.getData().get(aKeySet).get(i), innerColors[i % Colors.getSolidColors().length]));
             }
         }
 
-        logger.info("Data was added to a chart of " + this.getClass() + " with chart titel: " + this.view.getConfiguration().getTitle().getText());
-
+        model.addXCategorie(chartConfig.getSettings().getxCategories().toArray(new String[0]));
+        model.addData(series);
 
     }
 

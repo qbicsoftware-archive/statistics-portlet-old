@@ -8,11 +8,11 @@ import java.util.Random;
 
 /**
  * @author fhanssen
- * Helper methods likely used in many presenters.
+ * Colors methods likely used in many presenters.
  */
-public final class Helper {
+public final class Colors {
 
-    public static final Color[] colors = new ValoLightTheme().getColors();
+    private static final Color[] solidColors = new ValoLightTheme().getColors();
     private static Random rand = new Random(0);
 
 
@@ -28,5 +28,9 @@ public final class Helper {
         double opacity = (50 + rand.nextInt(95 - 50)) / 100.0;
 
         return new SolidColor(r, g, b, opacity);
+    }
+
+    public static Color[] getSolidColors(){
+        return solidColors;
     }
 }

@@ -1,5 +1,6 @@
 package life.qbic.view.tabs;
 
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Panel;
@@ -30,14 +31,18 @@ public class GridView extends AView {
 
     public void addGridComponents(Panel component){
 
+        component.setSizeFull();
+        component.setHeight(150, Sizeable.Unit.PIXELS);
         gridLayout.addComponent(component);
-        gridLayout.setColumnExpandRatio(gridLayout.getCursorX(), 0.0f);
-        gridLayout.setRowExpandRatio(gridLayout.getCursorY(), 0.0f);
 
     }
 
     @Override
     public Component getComponent() {
         return gridLayout;
+    }
+
+    public void setRows(int rows){
+        gridLayout.setRows(rows);
     }
 }

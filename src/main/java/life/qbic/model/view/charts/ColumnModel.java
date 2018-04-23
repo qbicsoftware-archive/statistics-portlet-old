@@ -42,6 +42,14 @@ public class ColumnModel extends AChartModel<ListSeries>{
         series.addAll(Arrays.asList(listSeries));
     }
 
+    public void addData(DataSeries... dataSeries){
+        series.addAll(Arrays.asList(dataSeries));
+    }
+
+    public void setXAxisType(AxisType type){
+        xAxis.setType(type);
+    }
+
     public void clearData(){
         series.clear();
     }
