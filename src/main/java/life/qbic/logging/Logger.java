@@ -15,7 +15,7 @@ public interface Logger {
      *
      * @param message string to log
      */
-    public void debug(String message);
+    void debug(String message);
 
     /**
      * Logs info messages (used for important non-error messages, for real problems use warn/error
@@ -25,14 +25,14 @@ public interface Logger {
      * @see #error(String)
      * @param message string to log
      */
-    public void info(String message);
+    void info(String message);
 
     /**
      * Logs non-critical error messages
      *
      * @param message string to log
      */
-    public void warn(String message);
+    void warn(String message);
 
     /**
      * Logs error messages (severe faults). If you need more output see
@@ -40,7 +40,7 @@ public interface Logger {
      * @see #error(String, Throwable)
      * @param message string to log
      */
-    public void error(String message);
+    void error(String message);
 
     /**
      * Logs error message (severe fault) and adds the top 10 lines of the stack trace (to not overload
@@ -49,7 +49,7 @@ public interface Logger {
      * @param message string to log
      * @param t throwable to expand log
      */
-    public void error(String message, Throwable t);
+    void error(String message, Throwable t);
 
     /**
      * Logs error message (severe fault) and adds the top 10 lines of the stack trace (to not overload
@@ -58,6 +58,6 @@ public interface Logger {
      * @param message string to log
      * @param stackTraceElement StackTraceElement to expand log
      */
-    public void error(String message, StackTraceElement[] stackTraceElement);
+    void error(String message, StackTraceElement[] stackTraceElement);
 
 }

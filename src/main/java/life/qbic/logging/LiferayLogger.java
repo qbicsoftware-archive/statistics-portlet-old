@@ -7,7 +7,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class LiferayLogger implements Logger {
 
-    private Log liferayLog;
+    private final Log liferayLog;
 
     public LiferayLogger(Class<?> c) {
         liferayLog = LogFactoryUtil.getLog(c);
