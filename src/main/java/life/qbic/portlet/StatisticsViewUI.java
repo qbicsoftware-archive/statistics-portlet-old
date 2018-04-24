@@ -43,9 +43,9 @@ public class StatisticsViewUI extends QBiCPortletUI {
 
         try {
             MainPresenter mainPresenter = new MainPresenter(this);
+            mainPresenter.addCharts();
         }catch(Exception e){
-            e.printStackTrace();
-            logger.error("Portlet failed due to: " + e.getMessage());
+            logger.error("Portlet failed due to: " + e);
         }
 
         return layout;

@@ -1,6 +1,9 @@
 package life.qbic.presenter;
 
 
+import com.vaadin.data.util.filter.Not;
+import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.io.YAMLParser;
@@ -11,6 +14,7 @@ import life.qbic.presenter.tabs.projects.ProjectTechnologiesPresenter;
 import life.qbic.presenter.tabs.samples.SampleTypeBarPresenter;
 import life.qbic.presenter.tabs.samples.SampleTypePresenter;
 import life.qbic.presenter.tabs.workflows.WorkflowUsagePresenter;
+import life.qbic.presenter.utils.CustomNotification;
 import life.qbic.view.TabView;
 import submodule.data.ChartConfig;
 import submodule.data.MainConfig;
@@ -18,6 +22,7 @@ import submodule.lexica.ChartNames;
 import submodule.lexica.Kingdoms;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,17 +36,24 @@ public class MainPresenter {
     private static final Logger logger = new Log4j2Logger(MainPresenter.class);
 
     private final StatisticsViewUI mainView;
-    private final MainConfig mainConfig;
+    private  MainConfig mainConfig;
 
     public MainPresenter(StatisticsViewUI mainView) {
         this.mainView = mainView;
-        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
 
-        addCharts();
+        try {
+            this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
+        }catch(IOException e){
+            logger.error("Parsing of YAML file failed. " + e);
+            CustomNotification.error("File not Found",
+                                  "Config file with data could not be parsed");
+            this.mainConfig = new MainConfig();
+        }
+
     }
 
     //Careful: Order matters! Determines in which order tabs are displayed.
-    private void addCharts(){
+    public void addCharts(){
         addOrganismCountPie();
         addWorkflowGrid();
         addSampleCountPie();

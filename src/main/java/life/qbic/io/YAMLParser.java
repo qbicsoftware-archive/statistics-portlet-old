@@ -19,7 +19,7 @@ public final class YAMLParser {
     private final static Logger logger = new Log4j2Logger(YAMLParser.class);
 
 
-    public static MainConfig parseConfig(String inputFile) {
+    public static MainConfig parseConfig(String inputFile) throws IOException{
 
         DumperOptions options = new DumperOptions();
 
@@ -28,18 +28,6 @@ public final class YAMLParser {
         options.setPrettyFlow(true);
         Yaml yaml = new Yaml(options);
 
-        MainConfig mainConfig;
-        try{
-            mainConfig = yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
-            logger.info("Successfully parsed YAML config file");
-
-        }catch(IOException e){
-            e.printStackTrace();
-            logger.error("Parsing of YAML file failed. Reason: " + e.getMessage());
-
-            mainConfig = new MainConfig();
-        }
-
-        return mainConfig;
+        return yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
     }
 }
