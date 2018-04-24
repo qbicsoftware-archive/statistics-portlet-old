@@ -1,13 +1,12 @@
 package life.qbic.presenter;
 
 
-import com.vaadin.data.util.filter.Not;
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
+
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.io.YAMLParser;
 import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.tabs.DummyChartPresenter;
 import life.qbic.presenter.tabs.organisms.SuperKingdomCountPresenter;
 import life.qbic.presenter.tabs.projects.ProjectTechColumnPresenter;
 import life.qbic.presenter.tabs.projects.ProjectTechnologiesPresenter;
@@ -42,11 +41,12 @@ public class MainPresenter {
         this.mainView = mainView;
 
         try {
-            this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
+            this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/");
         }catch(IOException e){
             logger.error("Parsing of YAML file failed. " + e);
-            CustomNotification.error("File not Found",
-                                  "Config file with data could not be parsed");
+            CustomNotification.error("Error",
+                                  e.toString());
+            showDummyChart();
             this.mainConfig = new MainConfig();
         }
 
@@ -59,6 +59,11 @@ public class MainPresenter {
         addSampleCountPie();
         addProjectCountsPie();
         //TODO 5: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
+    }
+
+    private void showDummyChart(){
+        DummyChartPresenter dummyChartPresenter = new DummyChartPresenter(mainView);
+        dummyChartPresenter.specifyView(new TabView(dummyChartPresenter.getView(), dummyChartPresenter.getModel()), "Dummy Chart");
     }
 
     private void addOrganismCountPie(){
