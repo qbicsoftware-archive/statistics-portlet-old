@@ -7,7 +7,7 @@
 	version="2.0">
 
 	<portlet>
-		<description>Visualizes interesting QBiC data on landing page</description>
+		<description>This portlet visualizes QBiC related data and statistics on the landing page.</description>
 		<portlet-name>statistics-portlet</portlet-name>
 		<display-name>Statistics Portlet</display-name>
 
@@ -15,7 +15,7 @@
 
 		<init-param>
 			<name>UI</name>
-			<value>life.qbic.main.StatisticsViewUI</value>
+			<value>life.qbic.portlet.StatisticsViewUI</value>
 		</init-param>
 
 		<init-param>

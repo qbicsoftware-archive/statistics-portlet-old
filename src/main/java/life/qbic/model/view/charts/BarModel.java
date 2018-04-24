@@ -1,5 +1,4 @@
 package life.qbic.model.view.charts;
-
 import com.vaadin.addon.charts.model.*;
 
 import java.util.ArrayList;

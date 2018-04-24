@@ -1,8 +1,9 @@
-package life.qbic.presenter.charts;
+package life.qbic.presenter.tabs;
+
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.view.MainView;
+import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.view.TabView;
 import submodule.data.ChartConfig;
 
@@ -11,22 +12,20 @@ import submodule.data.ChartConfig;
  * Abstract class holds fields and methods that a ChartPresenter generally needs. When extending it, just use your required
  * model and view type.
  */
-public abstract class AChartPresenter<T,V> {
+public abstract class ATabPresenter<T,V> {
 
-    static final Logger logger = new Log4j2Logger(AChartPresenter.class);
+    public static final Logger logger = new Log4j2Logger(ATabPresenter.class);
 
+    private final ChartConfig chartConfig;
+    private final V view;
+    private final StatisticsViewUI mainView;
+    private T model;
+    private TabView tabView;
 
-    final ChartConfig chartConfig;
-    final V view;
-    final MainView mainView;
-    T model;
-    TabView tabView;
-
-    AChartPresenter(ChartConfig chartConfig, MainView mainView,  V view){
+    public ATabPresenter(ChartConfig chartConfig, StatisticsViewUI mainView,  V view){
         this.view = view;
         this.chartConfig = chartConfig;
         this.mainView = mainView;
-
     }
 
     public T getModel(){
@@ -37,7 +36,15 @@ public abstract class AChartPresenter<T,V> {
         return view;
     }
 
-    void setTabView(TabView temp){
+    public void setModel(T model){
+        this.model = model;
+    }
+
+    protected ChartConfig getChartConfig(){
+        return chartConfig;
+    }
+
+    protected void setTabView(TabView temp){
         this.tabView = temp;
     }
 
@@ -45,11 +52,15 @@ public abstract class AChartPresenter<T,V> {
         return tabView;
     }
 
-    abstract void addChartSettings();
+    protected StatisticsViewUI getMainView() {
+        return mainView;
+    }
 
-    abstract void addChartData();
+    abstract public void addChartSettings();
 
-    abstract void addChartListener();
+    abstract public void addChartData();
+
+    abstract public void addChartListener();
 
     abstract public void specifyView(TabView tabView, String title);
 

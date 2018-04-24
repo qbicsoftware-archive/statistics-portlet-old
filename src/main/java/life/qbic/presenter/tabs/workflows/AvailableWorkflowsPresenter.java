@@ -1,4 +1,5 @@
-package life.qbic.presenter.charts;
+package life.qbic.presenter.tabs.workflows;
+
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
@@ -7,7 +8,8 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import life.qbic.model.components.GitHubLabels;
 import life.qbic.model.view.GridModel;
-import life.qbic.view.MainView;
+import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.GridView;
 import submodule.data.ChartConfig;
@@ -16,9 +18,9 @@ import java.util.Arrays;
 /**
  * @author fhanssen
  */
-public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridView> {
+public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridView> {
 
-    AvailableWorkflowPresenter(MainView mainView, ChartConfig chartConfig){
+    public AvailableWorkflowsPresenter(StatisticsViewUI mainView, ChartConfig chartConfig){
         super(chartConfig, mainView, new GridView(3,0,true, true));
 
         addChartSettings();
@@ -27,51 +29,51 @@ public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridV
     }
 
     @Override
-    void addChartSettings() {
-        model = new GridModel("title", "subtitle");
-        logger.info("Settings were added to " + this.getClass() + " with chart title: " + this.model.getTitle());
+    public void addChartSettings() {
+        super.setModel(new GridModel("title", "subtitle"));
+        logger.info("Settings were added to " + this.getClass() + " with chart title: " + super.getModel().getTitle());
     }
 
     @Override
-    void addChartData() {
+    public void addChartData() {
 
         //This is necessary to get from Object to required String arrays
-        Object[] objectArray = chartConfig.getData().keySet().toArray(new Object[chartConfig.getData().keySet().size()]);
+        Object[] objectArray = super.getChartConfig().getData().keySet().toArray(new Object[super.getChartConfig().getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
 
         //Actually adding of data
         for (String aKeySet : keySet) {
-            for (int i = 0; i < chartConfig.getData().get(aKeySet).size(); i++) {
-                String[] title = ((String) chartConfig.getSettings().getxCategories().get(i)).split("/");
-                model.addData(new GitHubLabels(title[title.length - 2].concat("/").concat(title[title.length - 1]),
-                        (String) chartConfig.getSettings().getyCategories().get(i),
-                        (int)(double) chartConfig.getData().get(aKeySet).get(i)));
+            for (int i = 0; i < super.getChartConfig().getData().get(aKeySet).size(); i++) {
+                String[] title = ((String) super.getChartConfig().getSettings().getxCategories().get(i)).split("/");
+                super.getModel().addData(new GitHubLabels(title[title.length - 2].concat("/").concat(title[title.length - 1]),
+                        (String) super.getChartConfig().getSettings().getyCategories().get(i),
+                        (int)(double) super.getChartConfig().getData().get(aKeySet).get(i)));
             }
         }
 
-        logger.info("Data was added to a chart of " + this.getClass() + " with chart titel: " + chartConfig.getSettings().getTitle());
+        logger.info("Data was added to a chart of " + this.getClass() + " with chart titel: " + super.getChartConfig().getSettings().getTitle());
 
 
     }
 
     @Override
-    void addChartListener() {
+    public void addChartListener() {
 
     }
 
     @Override
     public void specifyView(TabView tabView, String title) {
 
-        this.view.setRows(model.getData().size()/3 + 1);
-        for (Object labels : model.getData()) {
+        super.getView().setRows(super.getModel().getData().size()/3 + 1);
+        for (Object labels : super.getModel().getData()) {
             setGridItemLayout((GitHubLabels) labels);
         }
 
 
-        tabView.addSubComponent(model, view);
+        tabView.addSubComponent(super.getModel(), super.getView());
 
-        logger.info("Tab was added in " + this.getClass() + " for " +  model.getTitle());
+        logger.info("Tab was added in " + this.getClass() + " for " +  super.getModel().getTitle());
 
     }
 
@@ -96,7 +98,7 @@ public class AvailableWorkflowPresenter extends AChartPresenter<GridModel, GridV
         verticalLayout.setMargin(true);
 
         panel.setContent(verticalLayout);
-        view.addGridComponents(panel);
+        super.getView().addGridComponents(panel);
 
     }
 }

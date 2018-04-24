@@ -1,5 +1,6 @@
 package life.qbic.view;
 
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;

@@ -1,5 +1,7 @@
 # Statistics Portlet
 
+[![Build status](https://travis-ci.org/qbicsoftware/statistics-portlet.svg?branch=master)][![codecov.io](https://codecov.io/gh/codecov/qbicsoftware/statistics-portlet/branch/master/graphs/badge.svg)](https://codecov.io/gh/codecov/qbicsoftware/statistics-portlet/branch/master)
+
 Statistics Portlet, version 0.0.1-SNAPSHOT - This portlet visualizes QBiC related data and statistics on the landing page.
 
 

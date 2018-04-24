@@ -1,5 +1,6 @@
 package life.qbic.logging;
 
+
 import java.io.Serializable;
 import java.util.Arrays;
 

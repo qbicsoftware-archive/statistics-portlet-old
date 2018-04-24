@@ -1,10 +1,16 @@
 package life.qbic.presenter;
 
+
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.presenter.charts.*;
 import life.qbic.io.YAMLParser;
-import life.qbic.view.MainView;
+import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.tabs.organisms.SuperKingdomCountPresenter;
+import life.qbic.presenter.tabs.projects.ProjectTechColumnPresenter;
+import life.qbic.presenter.tabs.projects.ProjectTechnologiesPresenter;
+import life.qbic.presenter.tabs.samples.SampleTypeBarPresenter;
+import life.qbic.presenter.tabs.samples.SampleTypePresenter;
+import life.qbic.presenter.tabs.workflows.WorkflowUsagePresenter;
 import life.qbic.view.TabView;
 import submodule.data.ChartConfig;
 import submodule.data.MainConfig;
@@ -24,13 +30,12 @@ public class MainPresenter {
 
     private static final Logger logger = new Log4j2Logger(MainPresenter.class);
 
-
-    private final MainView mainView;
+    private final StatisticsViewUI mainView;
     private final MainConfig mainConfig;
 
-    public MainPresenter(MainView mainView) {
+    public MainPresenter(StatisticsViewUI mainView) {
         this.mainView = mainView;
-        this.mainConfig = YAMLParser.parseConfig("/home/luser/liferay-portal-6.2-ce-ga4/config.yaml");
+        this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/config.yaml");
 
         addCharts();
     }

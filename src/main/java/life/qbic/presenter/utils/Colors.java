@@ -1,5 +1,6 @@
 package life.qbic.presenter.utils;
 
+
 import com.vaadin.addon.charts.model.style.Color;
 import com.vaadin.addon.charts.model.style.SolidColor;
 import com.vaadin.addon.charts.themes.ValoLightTheme;

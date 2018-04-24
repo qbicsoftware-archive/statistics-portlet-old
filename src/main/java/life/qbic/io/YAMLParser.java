@@ -19,7 +19,7 @@ public final class YAMLParser {
     private final static Logger logger = new Log4j2Logger(YAMLParser.class);
 
 
-    public static MainConfig parseConfig(String inputFile){
+    public static MainConfig parseConfig(String inputFile) {
 
         DumperOptions options = new DumperOptions();
 
