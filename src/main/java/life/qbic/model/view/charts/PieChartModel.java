@@ -20,6 +20,9 @@ public class PieChartModel extends AChartModel<DataSeries> {
 
         series = new DataSeries();
         super.configuration.setSeries(series);
+
+        options.setAnimation(false);
+
     }
 
 

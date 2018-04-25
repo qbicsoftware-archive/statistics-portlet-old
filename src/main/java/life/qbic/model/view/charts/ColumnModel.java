@@ -28,6 +28,7 @@ public class ColumnModel extends AChartModel<ListSeries>{
         yAxis = super.configuration.getyAxis();
         xAxis.setTitle(xAxisTitle);
         yAxis.setTitle(yAxisTitle);
+        options.setAnimation(false);
 
     }
 

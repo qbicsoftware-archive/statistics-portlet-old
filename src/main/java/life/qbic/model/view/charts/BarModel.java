@@ -27,6 +27,8 @@ public class BarModel extends AChartModel<ListSeries>{
         xAxis.setTitle(xAxisTitle);
         yAxis.setTitle(yAxisTitle);
 
+        options.setAnimation(false);
+
     }
 
     public void addXCategorie(String... cat){

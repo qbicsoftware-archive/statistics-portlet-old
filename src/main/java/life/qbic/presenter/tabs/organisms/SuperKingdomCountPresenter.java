@@ -46,7 +46,6 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
     public void addChartSettings() {
 
         PlotOptionsPie plot = new PlotOptionsPie();
-        plot.setAnimation(false);
 
         plot.setDataLabels(new DataLabels(true));
 
@@ -72,13 +71,16 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
         Color[] innerColors = Arrays.copyOf(Colors.getSolidColors(), kingdomConfig.getSettings().getxCategories().size());
+
         //Actually adding of data
         for (String aKeySet : keySet) {
             for (int i = 0; i <kingdomConfig.getData().get(aKeySet).size(); i++) {
 
-                    this.getModel().addData(new DataSeries(new DataSeriesItem(LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
-                            (Number) kingdomConfig.getData().get(aKeySet).get(i), innerColors[i % Colors.getSolidColors().length])));
-
+                    this.getModel().addData(new DataSeries(new DataSeriesItem(
+                            LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
+                            (Number) kingdomConfig.getData().get(aKeySet).get(i),
+                            innerColors[i % Colors.getSolidColors().length]
+                    )));
             }
         }
 
