@@ -46,6 +46,7 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
     public void addChartSettings() {
 
         PlotOptionsPie plot = new PlotOptionsPie();
+        plot.setAnimation(false);
 
         plot.setDataLabels(new DataLabels(true));
 

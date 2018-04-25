@@ -33,6 +33,8 @@ public abstract class AChartModel<T extends AbstractSeries> implements AModel<T>
 
         this.configuration.setPlotOptions(plotOptions);
 
+        this.configuration.getChart().setAnimation(false);
+
         logger.info("New chart model for " + title + " was successfully created");
     }
 

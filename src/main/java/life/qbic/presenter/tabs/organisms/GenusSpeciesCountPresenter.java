@@ -73,6 +73,7 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
         innerPieOptions.getDataLabels().setFormatter("this.percentage >  10 ? this.point.name : null");
         innerPieOptions.getDataLabels().setColor(new SolidColor(255,255,255));
         innerPieOptions.getDataLabels().setDistance(-30);
+        innerPieOptions.setAnimation(false);
 
         outerPieOptions = new PlotOptionsPie();
         outerPieOptions.setInnerSize("237px");
@@ -81,6 +82,7 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
         outerPieOptions.getDataLabels().setFormatter("function() {var text = ''; for (i = 0; i < 2; i++) {" +
                 " text += ' ' + this.point.name.split(' ')[i] } for (i = 2; i < this.point.name.split(' ').length; i++) {"+
                 " text += ' ' + this.point.name.split(' ')[i].italics() + ' ' }return text;}");
+        outerPieOptions.setAnimation(false);
 
         Tooltip tooltip = new Tooltip();
         tooltip.setValueSuffix("");
