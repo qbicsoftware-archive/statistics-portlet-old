@@ -30,4 +30,16 @@ public final class YAMLParser {
 
         return yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
     }
+
+    public static MainConfig parseConfig(FileInputStream inputStream){
+
+        DumperOptions options = new DumperOptions();
+
+        //this option needs to agree with the respective option set in the writer
+        options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        options.setPrettyFlow(true);
+        Yaml yaml = new Yaml(options);
+
+        return yaml.loadAs(inputStream, MainConfig.class);
+    }
 }

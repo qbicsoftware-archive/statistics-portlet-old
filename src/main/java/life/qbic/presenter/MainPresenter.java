@@ -4,9 +4,8 @@ package life.qbic.presenter;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.io.YAMLParser;
+import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 import life.qbic.portlet.StatisticsViewUI;
-import life.qbic.presenter.tabs.DummyChartPresenter;
 import life.qbic.presenter.tabs.organisms.SuperKingdomCountPresenter;
 import life.qbic.presenter.tabs.projects.ProjectTechColumnPresenter;
 import life.qbic.presenter.tabs.projects.ProjectTechnologiesPresenter;
@@ -20,8 +19,6 @@ import submodule.data.MainConfig;
 import submodule.lexica.ChartNames;
 import submodule.lexica.Kingdoms;
 
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,24 +33,38 @@ public class MainPresenter {
 
     private final StatisticsViewUI mainView;
     private  MainConfig mainConfig;
+    private String inputfilename;
+    private FileLoadPresenter fileLoadPresenter;
 
-    public MainPresenter(StatisticsViewUI mainView) {
+    public MainPresenter(StatisticsViewUI mainView, String inputfilename) {
         this.mainView = mainView;
+        this.mainConfig = new MainConfig();
+        this.inputfilename = inputfilename;
 
-        try {
-            this.mainConfig = YAMLParser.parseConfig("/Users/qbic/Documents/QBiC/");
-        }catch(IOException e){
-            logger.error("Parsing of YAML file failed. " + e);
-            CustomNotification.error("Error",
-                                  e.toString());
-            showDummyChart();
-            this.mainConfig = new MainConfig();
-        }
+        fileLoadPresenter = new FileLoadPresenter(this);
+    }
 
+    public void setMainConfig(MainConfig mainConfig){
+        this.mainConfig = mainConfig;
+    }
+
+    public String getInputfilename() {
+        return inputfilename;
+    }
+
+    public void setInputfilename(String inputfilename) {
+        this.inputfilename = inputfilename;
+    }
+
+    public StatisticsViewUI getMainView(){
+        return mainView;
     }
 
     //Careful: Order matters! Determines in which order tabs are displayed.
     public void addCharts(){
+
+        clear();
+
         addOrganismCountPie();
         addWorkflowGrid();
         addSampleCountPie();
@@ -61,10 +72,28 @@ public class MainPresenter {
         //TODO 5: Add your method to add a new chart doing the following things: 1) Get your ChartConfigs, 2) Create a new AChartPresenter, 3) Set a new Tab 4) Add Button and SubChartsListener, 5) Add Tab to mainView
     }
 
-    private void showDummyChart(){
-        DummyChartPresenter dummyChartPresenter = new DummyChartPresenter(mainView);
-        dummyChartPresenter.specifyView(new TabView(dummyChartPresenter.getView(), dummyChartPresenter.getModel()), "Dummy Chart");
+
+
+    private void clear(){
+        mainView.clearTabSheet();
     }
+
+    public boolean isAdmin(){
+
+        try {
+            for (com.liferay.portal.model.Role r : LiferayAndVaadinUtils.getUser().getRoles()) {
+                if (r.getName().equals("Administrator")) {
+                    return true;
+                }
+            }
+        }catch(Exception e){
+            CustomNotification.error("Error", e.toString());
+        }
+
+        return false;
+    }
+
+
 
     private void addOrganismCountPie(){
 
