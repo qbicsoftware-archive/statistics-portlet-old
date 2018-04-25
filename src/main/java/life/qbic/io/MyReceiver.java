@@ -1,42 +1,52 @@
 package life.qbic.io;
 
 import com.vaadin.ui.Upload;
+import life.qbic.logging.Log4j2Logger;
 import life.qbic.presenter.utils.CustomNotification;
-import submodule.data.MainConfig;
 
 import java.io.*;
 
-public  class MyReceiver implements Upload.Receiver, Upload.SucceededListener {
-    
-    private MainConfig mainConfig;
-    private File file;
+/**
+ * @author fhanssen
+ * Upload a file to use it as config
+ */
+public  class MyReceiver implements Upload.Receiver {
 
-    public OutputStream receiveUpload(String filename, String mimetype) {
-        System.out.println(mimetype);
+    private static final Log4j2Logger logger = new Log4j2Logger(MyReceiver.class);
+
+    private File file;
+    private String filename;
+
+    public OutputStream receiveUpload(String filename, String mimeType) {
+
         // Create upload stream
-        FileOutputStream fos = null; // Stream to write to
+        FileOutputStream fileOutputStream; // Stream to write to
+
         try {
+
             // Open the file for writing.
             file = new File(filename);
+            this.filename = filename;
+            fileOutputStream = new FileOutputStream(file);
 
-            fos = new FileOutputStream(file);
-        } catch (final java.io.FileNotFoundException e) {
+            logger.info("Successfully uploaded file " + filename);
+
+        } catch (FileNotFoundException e) {
+
+            logger.error("Could not upload file: " + e.toString());
             CustomNotification.error("Error", e.toString());
+
             return null;
         }
-        return fos;
+        return fileOutputStream;
     }
 
-    public void uploadSucceeded(Upload.SucceededEvent event) {
-        try {
-            mainConfig = YAMLParser.parseConfig(new FileInputStream(file));
-        }catch(IOException e){
-            CustomNotification.error("Error", e.toString());
-        }
+    public File getFile(){
+        return file;
     }
 
-    public MainConfig getMainConfig() {
-        return mainConfig;
+    public String getFilename() {
+        return filename;
     }
 }
 

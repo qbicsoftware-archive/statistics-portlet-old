@@ -21,6 +21,8 @@ public final class YAMLParser {
 
     public static MainConfig parseConfig(String inputFile) throws IOException{
 
+        logger.info("Parse file " + inputFile + "...");
+
         DumperOptions options = new DumperOptions();
 
         //this option needs to agree with the respective option set in the writer
@@ -31,7 +33,9 @@ public final class YAMLParser {
         return yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
     }
 
-    public static MainConfig parseConfig(FileInputStream inputStream){
+    public static MainConfig parseConfig(FileInputStream inputStream, String inputFilename){
+
+        logger.info("Parse file " + inputFilename + "...");
 
         DumperOptions options = new DumperOptions();
 

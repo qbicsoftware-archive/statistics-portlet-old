@@ -3,77 +3,87 @@ package life.qbic.presenter;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Upload;
 import life.qbic.io.YAMLParser;
+import life.qbic.logging.Log4j2Logger;
 import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 import life.qbic.presenter.tabs.DummyChartPresenter;
 import life.qbic.presenter.utils.CustomNotification;
 import life.qbic.io.MyReceiver;
 import life.qbic.view.TabView;
-import submodule.data.MainConfig;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+
+/**
+ * @author fhanssen
+ */
 
 public class FileLoadPresenter {
 
+    private static final Log4j2Logger logger = new Log4j2Logger(FileLoadPresenter.class);
+
     private final MainPresenter mainPresenter;
+    private final MyReceiver receiver = new MyReceiver();
+    private final Upload upload = new Upload("Upload file", receiver);
+    private final DummyChartPresenter dummyChartPresenter;
 
     public FileLoadPresenter(MainPresenter mainPresenter){
-        this.mainPresenter = mainPresenter;
 
-        try {
-            setConfig(mainPresenter.getInputfilename());
-            mainPresenter.addCharts();
-        }catch(Exception e){
-            configException(e);
-        }
+        this.mainPresenter = mainPresenter;
+        this.upload.setImmediate(true);
+        this.dummyChartPresenter = new DummyChartPresenter(mainPresenter);
+
+
     }
 
     private void addUploadConfigFileOption(TabView tabView){
 
-        MyReceiver receiver = new MyReceiver();
-        Upload upload = new Upload(null, receiver);
-        upload.setImmediate(true);
-        upload.setButtonCaption("Select file");
-
-        upload.addSucceededListener(receiver);
-
-        upload.addFinishedListener(new Upload.FinishedListener() {
-            @Override
-            public void uploadFinished(Upload.FinishedEvent finishedEvent) {
-                try {
-                    setConfig(receiver.getMainConfig());
-                    mainPresenter.addCharts();
-                }catch(Exception e){
-                   configException(e);
-                }
-            }
-        });
-
-        Label status = new Label("Please select a file to upload");
-        tabView.getTab().addComponents(upload, status);
-
+        tabView.addComponents(upload, new Label("Please select a file to upload"));
+        upload.addSucceededListener((Upload.SucceededListener) succeededEvent ->
+                setChartsFromConfig(receiver.getFile(), receiver.getFilename()));
     }
 
     private void showDummyChart(){
-        DummyChartPresenter dummyChartPresenter = new DummyChartPresenter(mainPresenter.getMainView());
-        dummyChartPresenter.specifyView(new TabView(dummyChartPresenter.getView(), dummyChartPresenter.getModel()), "Dummy Chart");
+        dummyChartPresenter.addChart(new TabView(dummyChartPresenter.getView(),
+                                                    dummyChartPresenter.getModel()), "Dummy Chart");
+    }
+
+    void setChartsFromConfig(String filename){
+        try {
+            this.mainPresenter.setMainConfig(YAMLParser.parseConfig(filename));
+            logger.info("Finished parsing");
+            mainPresenter.addChildPresenter();
+            mainPresenter.addCharts();
+            mainPresenter.addReturnButtons();
+        }catch(Exception e){
+            handleConfigParseError(e);
+        }
+    }
+
+    private void setChartsFromConfig(File file, String inputFilename){
+
+        try {
+            this.mainPresenter.setMainConfig(YAMLParser.parseConfig(new FileInputStream(file), inputFilename));
+            logger.info("Finished parsing.");
+            mainPresenter.addChildPresenter();
+            mainPresenter.addCharts();
+            mainPresenter.addReturnButtons();
+        }catch(Exception e){
+            handleConfigParseError(e);
+        }
+    }
+
+    private void handleConfigParseError(Exception e){
+
+        logger.error("Parsing of YAML file failed: " + e);
+        CustomNotification.error("Error", e.toString());
+
+        mainPresenter.clear();
+        showDummyChart();
+
         if(!LiferayAndVaadinUtils.isLiferayPortlet() || mainPresenter.isAdmin()){
             addUploadConfigFileOption(dummyChartPresenter.getTabView());
         }
     }
 
-    public void setConfig(String filename) throws IOException {
-       this.mainPresenter.setMainConfig(YAMLParser.parseConfig(filename));
-    }
 
-    public void setConfig(MainConfig mainConfig){
-        this.mainPresenter.setMainConfig(mainConfig);
-    }
-
-    public void configException(Exception e){
-        //logger.error("Parsing of YAML file failed. " + e);
-        CustomNotification.error("Error",
-                e.toString());
-        showDummyChart();
-        mainPresenter.setMainConfig(new MainConfig());
-    }
 }

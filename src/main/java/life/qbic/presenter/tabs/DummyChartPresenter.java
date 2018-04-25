@@ -2,19 +2,23 @@ package life.qbic.presenter.tabs;
 
 import com.vaadin.addon.charts.model.*;
 import life.qbic.model.view.charts.PieChartModel;
-import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.MainPresenter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieView;
-import submodule.data.ChartConfig;
 
 
 public class DummyChartPresenter extends ATabPresenter<PieChartModel, PieView> {
 
-    public DummyChartPresenter(StatisticsViewUI statisticsViewUI){
-        super(new ChartConfig(), statisticsViewUI, new PieView());
+    public DummyChartPresenter(MainPresenter mainPresenter){
+        super(mainPresenter, new PieView());
 
         addChartSettings();
         addChartData();
+    }
+
+    @Override
+    public void extractData(){
+
     }
 
 
@@ -50,16 +54,11 @@ public class DummyChartPresenter extends ATabPresenter<PieChartModel, PieView> {
     }
 
     @Override
-    public void addChartListener() {
-
-    }
-
-    @Override
-    public void specifyView(TabView tabView, String title) {
+    public void addChart(TabView tabView, String title) {
         //Set new tab
         super.setTabView(tabView);
         super.getTabView().addMainComponent();
-        super.getMainView().addTabView(super.getTabView(), title);
+        super.getMainPresenter().getMainView().addTabView(super.getTabView(), title);
 
         logger.info("Tab was added in " + this.getClass() + " for " +  this.getView().getConfiguration().getTitle().getText() );
 

@@ -3,29 +3,28 @@ package life.qbic.presenter.tabs;
 
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
-import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.MainPresenter;
 import life.qbic.view.TabView;
-import submodule.data.ChartConfig;
+import life.qbic.view.tabs.AView;
+
 
 /**
  * @author fhanssen
  * Abstract class holds fields and methods that a ChartPresenter generally needs. When extending it, just use your required
  * model and view type.
  */
-public abstract class ATabPresenter<T,V> {
+public abstract class ATabPresenter<T, V> {
 
     public static final Logger logger = new Log4j2Logger(ATabPresenter.class);
 
-    private final ChartConfig chartConfig;
     private final V view;
-    private final StatisticsViewUI mainView;
-    private T model;
+    private final MainPresenter mainPresenter;
     private TabView tabView;
+    private T model;
 
-    public ATabPresenter(ChartConfig chartConfig, StatisticsViewUI mainView,  V view){
+    public ATabPresenter(MainPresenter mainPresenter, V view){
         this.view = view;
-        this.chartConfig = chartConfig;
-        this.mainView = mainView;
+        this.mainPresenter = mainPresenter;
     }
 
     public T getModel(){
@@ -36,12 +35,12 @@ public abstract class ATabPresenter<T,V> {
         return view;
     }
 
-    public void setModel(T model){
-        this.model = model;
+    protected MainPresenter getMainPresenter() {
+        return mainPresenter;
     }
 
-    protected ChartConfig getChartConfig(){
-        return chartConfig;
+    public void setModel(T model){
+        this.model = model;
     }
 
     protected void setTabView(TabView temp){
@@ -52,17 +51,13 @@ public abstract class ATabPresenter<T,V> {
         return tabView;
     }
 
-    protected StatisticsViewUI getMainView() {
-        return mainView;
-    }
+    abstract public void extractData();
 
     abstract public void addChartSettings();
 
     abstract public void addChartData();
 
-    abstract public void addChartListener();
-
-    abstract public void specifyView(TabView tabView, String title);
+    abstract public void addChart(TabView tabView, String title);
 
     //TODO 4: Extend this class in order to create a new presenter. As examples you can look at the SuperKingdomCountPresenter or GenusSpeciesCountPresenter
 }

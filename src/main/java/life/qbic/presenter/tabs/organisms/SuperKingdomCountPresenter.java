@@ -6,12 +6,14 @@ import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.PointClickListener;
 import com.vaadin.addon.charts.model.style.Color;
 import life.qbic.model.view.charts.PieChartModel;
-import life.qbic.portlet.StatisticsViewUI;
+import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.presenter.utils.Colors;
+import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieView;
 import submodule.data.ChartConfig;
+import submodule.lexica.ChartNames;
 import submodule.lexica.Kingdoms;
 
 import java.util.*;
@@ -21,24 +23,23 @@ import java.util.*;
  */
 public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, PieView> {
 
-    private final Map<String, ChartConfig> speciesConfig;
-    private final Map<String,ChartConfig> genusConfig;
-    private final ChartConfig speciesGenusMap;
+    private ChartConfig kingdomConfig;
 
-    public SuperKingdomCountPresenter(StatisticsViewUI mainView,
-                                      ChartConfig chartConfig,
-                                      Map<String, ChartConfig> genusConfig,
-                                      Map<String, ChartConfig> speciesConfig,
-                                      ChartConfig speciesGenusMap){
+    public SuperKingdomCountPresenter(MainPresenter mainPresenter){
 
-        super(chartConfig,mainView, new PieView());
-        this.speciesConfig = speciesConfig;
-        this.genusConfig = genusConfig;
-        this.speciesGenusMap = speciesGenusMap;
+        super(mainPresenter, new PieView());
+
+        extractData();
 
         addChartSettings();
         addChartData();
         addChartListener();
+    }
+
+    @Override
+    public void extractData(){
+        kingdomConfig = super.getMainPresenter().getMainConfig().getCharts()
+                .get(ChartNames.SuperKingdom.toString());
     }
 
     @Override
@@ -54,7 +55,7 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
         Legend legend = new Legend();
         legend.setEnabled(false);
 
-        this.setModel(new PieChartModel(this.getView().getConfiguration(), this.getChartConfig().getSettings().getTitle(),
+        this.setModel(new PieChartModel(this.getView().getConfiguration(), kingdomConfig.getSettings().getTitle(),
                 null, tooltip, legend, plot));
 
         logger.info("Settings were added to a chart of "+ this.getClass() +" with chart titel: " + this.getView().getConfiguration().getTitle().getText());
@@ -66,15 +67,17 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
     public void addChartData() {
 
         //This is necessary to get from Object to required String arrays
-        Object[] objectArray = this.getChartConfig().getData().keySet().toArray(new Object[this.getChartConfig().getData().keySet().size()]);
+        Object[] objectArray = kingdomConfig.getData().keySet().toArray(new Object[kingdomConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
-        Color[] innerColors = Arrays.copyOf(Colors.getSolidColors(), this.getChartConfig().getSettings().getxCategories().size());
+        Color[] innerColors = Arrays.copyOf(Colors.getSolidColors(), kingdomConfig.getSettings().getxCategories().size());
         //Actually adding of data
         for (String aKeySet : keySet) {
-            for (int i = 0; i < this.getChartConfig().getData().get(aKeySet).size(); i++) {
-                this.getModel().addData(new DataSeries(new DataSeriesItem((String) this.getChartConfig().getSettings().getxCategories().get(i),
-                        (Number) this.getChartConfig().getData().get(aKeySet).get(i), innerColors[i % Colors.getSolidColors().length])));
+            for (int i = 0; i <kingdomConfig.getData().get(aKeySet).size(); i++) {
+
+                    this.getModel().addData(new DataSeries(new DataSeriesItem(LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
+                            (Number) kingdomConfig.getData().get(aKeySet).get(i), innerColors[i % Colors.getSolidColors().length])));
+
             }
         }
 
@@ -82,30 +85,32 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
 
     }
 
-    @Override
-    public void addChartListener(){
-        ((Chart)getView().getComponent()).addPointClickListener((PointClickListener) event -> {
-            logger.info("Chart of "+ this.getClass() +" with chart titel: " + this.getView().getConfiguration().getTitle().getText() +" was clicked at " + this.getModel().getDataName(event));
-            if(Kingdoms.getList().contains(this.getModel().getDataName(event))) {
-                GenusSpeciesCountPresenter p = new GenusSpeciesCountPresenter(this.getMainView(), genusConfig.get(this.getModel().getDataName(event).concat("_Genus")),
-                        speciesConfig.get(this.getModel().getDataName(event).concat("_Species")), speciesGenusMap);
 
-                p.specifyView(this.getTabView(), "");
+    private void addChartListener(){
+        ((Chart)getView().getComponent()).addPointClickListener((PointClickListener) event -> {
+
+            logger.info("Chart of "+ this.getClass() +" with chart titel: " +
+                        this.getView().getConfiguration().getTitle().getText() +
+                    " was clicked at " + this.getModel().getDataName(event));
+
+            if(Kingdoms.getList().contains(this.getModel().getDataName(event))) {
+                GenusSpeciesCountPresenter p =
+                        new GenusSpeciesCountPresenter(super.getMainPresenter(), this.getModel().getDataName(event));
+
+                p.addChart(this.getTabView(), "");
             }
 
         });
     }
 
     @Override
-    public void specifyView(TabView tabView, String title){
-
+    public void addChart(TabView tabView, String title){
         //Set new tab
         super.setTabView(tabView);
         super.getTabView().addMainComponent();
-        super.getMainView().addTabView(super.getTabView(), title);
+        super.getMainPresenter().getMainView().addTabView(super.getTabView(), title);
 
         logger.info("Tab was added in " + this.getClass() + " for " +  this.getView().getConfiguration().getTitle().getText() );
-
 
     }
 
