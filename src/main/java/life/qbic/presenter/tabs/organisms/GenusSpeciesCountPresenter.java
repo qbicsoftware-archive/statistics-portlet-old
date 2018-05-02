@@ -169,7 +169,6 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
         return value;
     }
 
-
     @Override
     public void addChart(TabView tabView, String title){
 

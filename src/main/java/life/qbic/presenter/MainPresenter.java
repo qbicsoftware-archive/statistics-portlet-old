@@ -9,6 +9,8 @@ import life.qbic.portal.liferayandvaadinhelpers.main.LiferayAndVaadinUtils;
 import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.presenter.tabs.organisms.SuperKingdomCountPresenter;
+import life.qbic.presenter.tabs.projects.ProjectTechColumnPresenter;
+import life.qbic.presenter.tabs.samples.SampleTypeBarPresenter;
 import life.qbic.presenter.utils.CustomNotification;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.AView;
@@ -30,6 +32,8 @@ public class MainPresenter {
     private  MainConfig mainConfig;
 
     private ATabPresenter superKingdomCountPresenter;
+    private ATabPresenter sampleTypePresenter;
+    private ATabPresenter projectPresenter;
 
     public MainPresenter(StatisticsViewUI mainView, String defaultInputFilename) {
         this.mainView = mainView;
@@ -74,6 +78,8 @@ public class MainPresenter {
 
     void addChildPresenter(){
         superKingdomCountPresenter = new SuperKingdomCountPresenter(this);
+        sampleTypePresenter = new SampleTypeBarPresenter(this);
+        projectPresenter = new ProjectTechColumnPresenter(this);
     }
 
     void addCharts(){
@@ -82,6 +88,10 @@ public class MainPresenter {
         //Careful: Order matters! Determines in which order tabs are displayed.
         superKingdomCountPresenter.addChart(new TabView((AView) superKingdomCountPresenter.getView(),
                 (AModel) superKingdomCountPresenter.getModel()), "Organisms");
+        sampleTypePresenter.addChart(new TabView((AView) sampleTypePresenter.getView(),
+                (AModel) sampleTypePresenter.getModel()), "Samples");
+        projectPresenter.addChart(new TabView((AView) projectPresenter.getView(),
+                (AModel) projectPresenter.getModel()), "Projects");
 
     }
 
@@ -89,44 +99,6 @@ public class MainPresenter {
         addReturnButtonListener(superKingdomCountPresenter.getTabView());
     }
 
-
-
-
-
-    private void addOrganismCountPie(){
-
-//        //Get needed configs
-//        Map<String, ChartConfig> speciesCharts = new HashMap<>();
-//        Map<String, ChartConfig> genusCharts = new HashMap<>();
-//
-//        for(String chartName : ChartNames.getList()){
-//            if(Kingdoms.getList().contains(chartName.split("_")[0])){
-//                if(chartName.split("_")[1].equals("Species")) {
-//                    speciesCharts.put(chartName, mainConfig.getCharts().get(chartName));
-//                }else if (chartName.split("_")[1].equals("Genus")){
-//                    genusCharts.put(chartName, mainConfig.getCharts().get(chartName));
-//                }
-//            }
-//        }
-//
-//        //Create Presenter
-//        SuperKingdomCountPresenter organismCountPiePresenter =
-//                new SuperKingdomCountPresenter(this.mainView,
-//                        mainConfig.getCharts().get(ChartNames.SuperKingdom.toString()),
-//                        genusCharts,
-//                        speciesCharts,
-//                        mainConfig.getCharts().get(ChartNames.Species_Genus.toString()));
-//
-//
-//        organismCountPiePresenter.addCharts( new TabView(organismCountPiePresenter.getView(),
-//                        organismCountPiePresenter.getModel()),
-//                "Organisms");
-//        addReturnButtonListener(organismCountPiePresenter.getTabView());
-
-        logger.info("Organism tab was added");
-
-
-    }
 
 //    private void addWorkflowGrid(){
 //
@@ -146,64 +118,6 @@ public class MainPresenter {
 //        addReturnButtonListener(workflowUsagePresenter.getTabView());
 //
 //        logger.info("Workflow tab was added");
-//
-//    }
-//
-//    private void addSampleCountPie(){
-//
-//        //Create Presenter
-//        SampleTypePresenter sampleTypePresenter =
-//                new SampleTypePresenter(this.mainView,
-//                        mainConfig.getCharts().get(ChartNames.Sample_Types.toString()));
-//
-//
-//        sampleTypePresenter.addCharts( new TabView(sampleTypePresenter.getView(),
-//                        sampleTypePresenter.getModel()),
-//                "Sample Types");
-//
-//        logger.info("Sample tab was added");
-//
-//        //Create Presenter
-//        SampleTypeBarPresenter sampleTypeBarPresenter =
-//                new SampleTypeBarPresenter(this.mainView,
-//                        mainConfig.getCharts().get(ChartNames.Sample_Types.toString()));
-//
-//
-//        sampleTypeBarPresenter.addCharts( new TabView(sampleTypeBarPresenter.getView(),
-//                        sampleTypeBarPresenter.getModel()),
-//                "Sample Types");
-//
-//        logger.info("Sample tab was added");
-//
-//
-//    }
-//
-//    private void addProjectCountsPie(){
-//
-//        //Create Presenter
-//        ProjectTechnologiesPresenter projectTechnologiesPresenter =
-//                new ProjectTechnologiesPresenter(this.mainView,
-//                        mainConfig.getCharts().get(ChartNames.Projects_Technology.toString()));
-//
-//
-//        projectTechnologiesPresenter.addCharts( new TabView(projectTechnologiesPresenter.getView(),
-//                        projectTechnologiesPresenter.getModel()),
-//                "Projects");
-//
-//        logger.info("Projects tab was added");
-//
-//        //Create Presenter
-//        ProjectTechColumnPresenter projectTechColumnPresenter =
-//                new ProjectTechColumnPresenter(this.mainView,
-//                        mainConfig.getCharts().get(ChartNames.Projects_Technology.toString()));
-//
-//
-//        projectTechColumnPresenter.addCharts( new TabView(projectTechColumnPresenter.getView(),
-//                        projectTechColumnPresenter.getModel()),
-//                "Projects");
-//
-//        logger.info("Projects tab was added");
-//
 //
 //    }
 
