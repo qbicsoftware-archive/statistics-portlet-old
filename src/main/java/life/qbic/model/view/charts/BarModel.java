@@ -1,5 +1,4 @@
 package life.qbic.model.view.charts;
-
 import com.vaadin.addon.charts.model.*;
 
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ public class BarModel extends AChartModel<ListSeries>{
         yAxis = super.configuration.getyAxis();
         xAxis.setTitle(xAxisTitle);
         yAxis.setTitle(yAxisTitle);
+
+        options.setAnimation(false);
 
     }
 

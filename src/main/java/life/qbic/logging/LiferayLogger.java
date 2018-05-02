@@ -1,5 +1,6 @@
 package life.qbic.logging;
 
+
 import java.util.Arrays;
 
 import com.liferay.portal.kernel.log.Log;
