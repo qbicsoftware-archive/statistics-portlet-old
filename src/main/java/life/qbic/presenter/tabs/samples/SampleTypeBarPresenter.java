@@ -8,10 +8,13 @@ import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.presenter.utils.Colors;
 import life.qbic.presenter.utils.DataSorter;
+import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.BarView;
 import submodule.data.ChartConfig;
 import submodule.lexica.ChartNames;
+import submodule.lexica.CommonAbbr;
+import submodule.lexica.Translator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +75,21 @@ public class SampleTypeBarPresenter extends ATabPresenter<BarModel, BarView> {
        DataSeries series = new DataSeries();
         for (String aKeySet : keySet) {
             for (int i = 0; i < sampleConfig.getData().get(aKeySet).size(); i++) {
-                dataSorterList.add(new DataSorter((String) sampleConfig.getSettings().getxCategories().get(i),
+
+                String label = (String) sampleConfig.getSettings().getxCategories().get(i);
+
+                if(! CommonAbbr.getList().contains(label)){
+                    if(!Translator.getList().contains(label)) {
+                        if (label.contains("_")) {
+                            label = LabelFormatter.firstLowerCaseRestUpperCase(label.replace("_", ""));
+                        } else {
+                            label = LabelFormatter.generateCamelCase(label);
+                        }
+                    }else{
+                        label = Translator.valueOf(label).getTranslation();
+                    }
+                }
+                dataSorterList.add(new DataSorter(label,
                         (int)sampleConfig.getData().get(aKeySet).get(i)));
             }
         }

@@ -63,4 +63,23 @@ public final class LabelFormatter {
 
     }
 
+    public static String firstLowerCaseRestUpperCase(String label){
+        if(label == null || label.isEmpty())
+            return label;
+
+        String[] words = label.split("\\W+");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(Character.toLowerCase(words[0].charAt(0)));
+        if(words[0].length() > 1) {
+            sb.append(words[0].substring(1).toUpperCase());
+        }
+
+        for(int i = 1; i < words.length; i++){
+            sb.append(" ");
+            sb.append(words[i].toUpperCase());
+        }
+
+        return sb.toString();
+    }
 }

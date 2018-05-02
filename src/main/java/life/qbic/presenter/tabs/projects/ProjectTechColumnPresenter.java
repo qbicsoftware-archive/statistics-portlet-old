@@ -8,10 +8,13 @@ import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.presenter.utils.Colors;
 import life.qbic.presenter.utils.DataSorter;
+import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.ColumnView;
 import submodule.data.ChartConfig;
 import submodule.lexica.ChartNames;
+import submodule.lexica.CommonAbbr;
+import submodule.lexica.Translator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +80,16 @@ public class ProjectTechColumnPresenter extends ATabPresenter<ColumnModel, Colum
         DataSeries series = new DataSeries();
         for (String aKeySet : keySet) {
             for (int i = 0; i < projectConfig.getData().get(aKeySet).size(); i++) {
-                dataSorterList.add(new DataSorter((String) projectConfig.getSettings().getxCategories().get(i),
+                String label = (String) projectConfig.getSettings().getxCategories().get(i);
+
+                if(CommonAbbr.getList().contains(label)){
+                    label = CommonAbbr.valueOf(label).toString();
+                }else if(Translator.getList().contains(label)){
+                    label = Translator.valueOf(label).getTranslation();
+                }else{
+                    label = LabelFormatter.generateCamelCase(label);
+                }
+                dataSorterList.add(new DataSorter(label,
                         (int)projectConfig.getData().get(aKeySet).get(i)));
 
             }

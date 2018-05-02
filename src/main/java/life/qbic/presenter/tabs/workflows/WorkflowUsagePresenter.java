@@ -16,6 +16,8 @@ import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieView;
 import submodule.data.ChartConfig;
 import submodule.lexica.ChartNames;
+import submodule.lexica.CommonAbbr;
+import submodule.lexica.Translator;
 
 import java.util.*;
 
@@ -72,7 +74,17 @@ public class WorkflowUsagePresenter extends ATabPresenter<PieChartModel, PieView
         //Actually adding of data
         for (String aKeySet : keySet) {
             for (int i = 0; i < workflowUsageConfig.getData().get(aKeySet).size(); i++) {
-                dataSorters.add(new DataSorter(LabelFormatter.generateCamelCase((String) workflowUsageConfig.getSettings().getxCategories().get(i)),
+                String label = (String) workflowUsageConfig.getSettings().getxCategories().get(i);
+
+                if(CommonAbbr.getList().contains(label)){
+                    label = CommonAbbr.valueOf(label).toString();
+                }else if(Translator.getList().contains(label)){
+                    label = Translator.valueOf(label).getTranslation();
+                }else{
+                    label = LabelFormatter.generateCamelCase(label);
+                }
+
+                dataSorters.add(new DataSorter(label,
                         (int) workflowUsageConfig.getData().get(aKeySet).get(i)));
             }
         }
