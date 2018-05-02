@@ -39,7 +39,7 @@ public class StatisticsViewUI extends QBiCPortletUI {
         layout.addComponent(tabSheet);
 
         try {
-            MainPresenter mainPresenter = new MainPresenter(this,"/Users/qbic/Documents/QBiC/config.yaml" );
+            MainPresenter mainPresenter = new MainPresenter(this,"/home/luser/liferay-portal-6.2-ce-ga4/config.yaml" );
         }catch(Exception e){
             logger.error("Portlet failed due to: " + e.toString());
         }
