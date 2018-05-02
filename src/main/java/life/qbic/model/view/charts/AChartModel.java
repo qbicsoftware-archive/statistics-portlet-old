@@ -1,5 +1,6 @@
 package life.qbic.model.view.charts;
 
+
 import com.vaadin.addon.charts.model.*;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
@@ -19,7 +20,7 @@ public abstract class AChartModel<T extends AbstractSeries> implements AModel<T>
 
     final Configuration configuration;
 
-    AChartModel(Configuration configuration, String title, String subtitle,
+    public AChartModel(Configuration configuration, String title, String subtitle,
                 Tooltip tooltip, Legend legend, AbstractPlotOptions plotOptions){
 
         this.configuration = configuration;

@@ -1,6 +1,5 @@
 package life.qbic.view.tabs;
 
-
 import com.vaadin.ui.Component;
 
 /**

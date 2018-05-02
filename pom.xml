@@ -113,7 +113,6 @@
 		</dependency>
 
 		<!-- Liferay dependencies -->
-
 		<dependency>
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
@@ -155,6 +154,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.2</version>
@@ -172,17 +177,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>1.20-SNAPSHOT</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
@@ -190,10 +188,23 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+
+		<dependency>
+      		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      		<version>4.11</version>
+			<scope>test</scope>
+    	</dependency>
 	</dependencies>
 
 
 	<build>
+		<resources>
+    	    <resource>
+	            <filtering>true</filtering>
+            	<directory>src/main/resources</directory>
+        	</resource>
+    	</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -306,6 +317,32 @@
 					<scanIntervalSeconds>2</scanIntervalSeconds>
 					<useProvidedScope>true</useProvidedScope>
 				</configuration>
+			</plugin>
+
+			<!--plugin to deal with git submodules -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<inherited>false</inherited> <!-- only execute these in the parent -->
+				<executions>
+					<execution>
+						<id>git submodule update</id>
+						<phase>initialize</phase>
+						<configuration>
+							<executable>git</executable>
+							<arguments>
+								<argument>submodule</argument>
+								<argument>update</argument>
+								<argument>--init</argument>
+								<argument>--recursive</argument>
+							</arguments>
+						</configuration>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
