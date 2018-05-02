@@ -51,6 +51,14 @@ public abstract class ATabPresenter<T, V> {
         return tabView;
     }
 
+    public void addReturnButtonListener(TabView tabView){
+        tabView.getReturnButton().addClickListener(clickEvent -> {
+            logger.info("Return button was pressed");
+            tabView.addMainComponent();
+
+        });
+    }
+
     abstract public void extractData();
 
     abstract public void addChartSettings();

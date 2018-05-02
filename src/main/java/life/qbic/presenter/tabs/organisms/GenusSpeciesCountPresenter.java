@@ -174,6 +174,7 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
 
         //Add to existing tab
         tabView.addSubComponent(this.getModel(), this.getView());
+        addReturnButtonListener(tabView);
 
         logger.info("View was added in " + this.getClass() + " for " +  this.getView().getConfiguration().getTitle().getText() );
     }

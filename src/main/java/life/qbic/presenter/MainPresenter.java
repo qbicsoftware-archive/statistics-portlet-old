@@ -11,6 +11,7 @@ import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.presenter.tabs.organisms.SuperKingdomCountPresenter;
 import life.qbic.presenter.tabs.projects.ProjectTechColumnPresenter;
 import life.qbic.presenter.tabs.samples.SampleTypeBarPresenter;
+import life.qbic.presenter.tabs.workflows.WorkflowUsagePresenter;
 import life.qbic.presenter.utils.CustomNotification;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.AView;
@@ -34,6 +35,7 @@ public class MainPresenter {
     private ATabPresenter superKingdomCountPresenter;
     private ATabPresenter sampleTypePresenter;
     private ATabPresenter projectPresenter;
+    private ATabPresenter workflowUsagePresenter;
 
     public MainPresenter(StatisticsViewUI mainView, String defaultInputFilename) {
         this.mainView = mainView;
@@ -80,6 +82,7 @@ public class MainPresenter {
         superKingdomCountPresenter = new SuperKingdomCountPresenter(this);
         sampleTypePresenter = new SampleTypeBarPresenter(this);
         projectPresenter = new ProjectTechColumnPresenter(this);
+        workflowUsagePresenter = new WorkflowUsagePresenter(this);
     }
 
     void addCharts(){
@@ -92,41 +95,13 @@ public class MainPresenter {
                 (AModel) sampleTypePresenter.getModel()), "Samples");
         projectPresenter.addChart(new TabView((AView) projectPresenter.getView(),
                 (AModel) projectPresenter.getModel()), "Projects");
+        workflowUsagePresenter.addChart(new TabView((AView) workflowUsagePresenter.getView(),
+                (AModel) workflowUsagePresenter.getModel()), "Workflow");
 
     }
 
     void addReturnButtons(){
-        addReturnButtonListener(superKingdomCountPresenter.getTabView());
     }
 
-
-//    private void addWorkflowGrid(){
-//
-//        Map<String, ChartConfig> availWorkflows = new HashMap<>();
-//        mainConfig.getCharts().keySet().forEach(key ->{
-//            if(key.startsWith(ChartNames.Available_Workflows_.toString())){
-//                availWorkflows.put(key, mainConfig.getCharts().get(key));
-//            }
-//        });
-//        WorkflowUsagePresenter workflowUsagePresenter = new WorkflowUsagePresenter(mainConfig.getCharts()
-//                .get(ChartNames.Workflow_Execution_Counts.toString()),
-//                mainView,
-//                availWorkflows);
-//        workflowUsagePresenter.addCharts(new TabView(workflowUsagePresenter.getView(), workflowUsagePresenter.getModel()),
-//                "Workflows");
-//
-//        addReturnButtonListener(workflowUsagePresenter.getTabView());
-//
-//        logger.info("Workflow tab was added");
-//
-//    }
-
-    private void addReturnButtonListener(TabView tabView){
-        tabView.getReturnButton().addClickListener(clickEvent -> {
-            logger.info("Return button was pressed");
-            tabView.addMainComponent();
-
-        });
-    }
 
 }
