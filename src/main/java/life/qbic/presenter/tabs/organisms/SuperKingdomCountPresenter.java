@@ -4,11 +4,10 @@ package life.qbic.presenter.tabs.organisms;
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.PointClickListener;
-import com.vaadin.addon.charts.model.style.Color;
 import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
-import life.qbic.presenter.utils.Colors;
+import life.qbic.presenter.utils.DataSorter;
 import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.PieView;
@@ -70,19 +69,21 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
         Object[] objectArray = kingdomConfig.getData().keySet().toArray(new Object[kingdomConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
-        Color[] innerColors = Arrays.copyOf(Colors.getSolidColors(), kingdomConfig.getSettings().getxCategories().size());
+        List<DataSorter> dataSorters = new ArrayList<>();
 
-        //Actually adding of data
+        //Retrieve and Sort data
         for (String aKeySet : keySet) {
             for (int i = 0; i <kingdomConfig.getData().get(aKeySet).size(); i++) {
+                dataSorters.add(new DataSorter(LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
+                        (int)kingdomConfig.getData().get(aKeySet).get(i)));
 
-                    this.getModel().addData(new DataSeries(new DataSeriesItem(
-                            LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
-                            (Number) kingdomConfig.getData().get(aKeySet).get(i),
-                            innerColors[i % Colors.getSolidColors().length]
-                    )));
             }
         }
+
+        Collections.sort(dataSorters);
+
+        //Add data
+        dataSorters.forEach(d -> this.getModel().addData(new DataSeriesItem(d.getName(), d.getCount())));
 
         logger.info("Data was added to a chart of  " + this.getClass() + "  with chart titel: " + this.getView().getConfiguration().getTitle().getText());
 

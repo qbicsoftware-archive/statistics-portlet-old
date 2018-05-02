@@ -30,10 +30,17 @@ public class PieChartModel extends AChartModel<DataSeries> {
         Arrays.stream(dataSeries).forEach(dataSerie -> dataSerie.getData().forEach(series::add));
     }
 
-    public void addDonatPieData(DataSeries... dataSeries){
+    public void addData(DataSeriesItem... item){
+        Arrays.stream(item).forEach(i -> series.add(i));
+    }
+
+    public void addDonutPieData(DataSeries... dataSeries){
         configuration.setSeries(dataSeries);
     }
 
+    public void addDonutPieData(DataSeriesItem... item){
+
+    }
 
     public void clearData(){
         series.clear();
