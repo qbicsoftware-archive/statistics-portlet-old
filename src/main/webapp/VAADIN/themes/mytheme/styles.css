@@ -12994,3 +12994,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .v-gridlayout.workflow {
 	background-color: lightgrey;
 }
+
+.mytheme .v-panel.workflow {
+	overflow: scroll;
+}

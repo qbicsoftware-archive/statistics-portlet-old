@@ -8,13 +8,11 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import life.qbic.model.components.GitHubLabels;
 import life.qbic.model.view.GridModel;
-import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.GridView;
 import submodule.data.ChartConfig;
-import submodule.lexica.ChartNames;
 
 import java.util.Arrays;
 /**
@@ -22,14 +20,14 @@ import java.util.Arrays;
  */
 public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridView> {
 
-    private final String workflowType;
+    private final String chartName;
     private ChartConfig chartConfig;
 
     public AvailableWorkflowsPresenter(MainPresenter mainPresenter,
-                                       String workflowType){
-        super(mainPresenter, new GridView(3,0,true, true));
+                                       String chartName){
+        super(mainPresenter, new GridView(2,0,true, true));
 
-        this.workflowType = workflowType;
+        this.chartName = chartName;
         extractData();
 
         addChartSettings();
@@ -38,14 +36,15 @@ public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridVi
 
     @Override
     public void extractData(){
-        System.out.println(ChartNames.Available_Workflows_.toString().concat(workflowType));
         chartConfig = super.getMainPresenter().getMainConfig().getCharts()
-                .get(ChartNames.Available_Workflows_.toString().concat(workflowType));
+                .get(chartName);
     }
 
     @Override
     public void addChartSettings() {
         super.setModel(new GridModel("title", "subtitle"));
+        super.getView().getComponent().setStyleName("workflow");
+
         logger.info("Settings were added to " + this.getClass() + " with chart title: " + super.getModel().getTitle());
     }
 
@@ -75,13 +74,11 @@ public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridVi
     @Override
     public void addChart(TabView tabView, String title) {
 
-        super.getView().setRows(super.getModel().getData().size()/3 + 1);
+        super.getView().setRows(super.getModel().getData().size()/2 + 1);
         for (Object labels : super.getModel().getData()) {
             setGridItemLayout((GitHubLabels) labels);
         }
 
-        tabView.addSubComponent(super.getModel(), super.getView());
-        addReturnButtonListener(tabView);
         logger.info("Tab was added in " + this.getClass() + " for " +  super.getModel().getTitle());
 
     }
@@ -89,7 +86,9 @@ public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridVi
     private void setGridItemLayout(GitHubLabels labels) {
 
         Panel panel = new Panel(labels.getTitle());
+        panel.setHeight(100.0f, Sizeable.Unit.PERCENTAGE);
 
+        panel.setStyleName("workflow"); //TODO check if this works, or if it has to added to the vertical layout
         Label star = new Label(FontAwesome.STAR_O.getHtml() + " " + labels.getCount(), ContentMode.HTML);
 
         Link link = new Link("",
@@ -107,6 +106,9 @@ public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridVi
 
         panel.setContent(verticalLayout);
         super.getView().addGridComponents(panel);
+    }
 
+    String getChartName() {
+        return chartName;
     }
 }

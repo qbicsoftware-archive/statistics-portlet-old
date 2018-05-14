@@ -53,7 +53,6 @@ public class FileLoadPresenter {
             logger.info("Finished parsing");
             mainPresenter.addChildPresenter();
             mainPresenter.addCharts();
-            mainPresenter.addReturnButtons();
         }catch(Exception e){
             handleConfigParseError(e);
         }
@@ -66,7 +65,6 @@ public class FileLoadPresenter {
             logger.info("Finished parsing.");
             mainPresenter.addChildPresenter();
             mainPresenter.addCharts();
-            mainPresenter.addReturnButtons();
         }catch(Exception e){
             handleConfigParseError(e);
         }
