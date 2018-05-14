@@ -5,7 +5,7 @@ import com.vaadin.ui.*;
 
 /**
  * @author fhanssen
- * 
+ *
  */
 public class GridView extends AView {
 

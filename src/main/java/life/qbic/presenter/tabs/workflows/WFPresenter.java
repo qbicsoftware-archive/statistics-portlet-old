@@ -2,6 +2,7 @@ package life.qbic.presenter.tabs.workflows;
 
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 import life.qbic.model.view.GridModel;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
@@ -30,7 +31,6 @@ public class WFPresenter extends ATabPresenter<GridModel, GridView> {
         this.workflowType = workflowType;
         this.subTypes = new ArrayList<>();
         this.availableWorkflowsPresenters = new ArrayList<>();
-
 
         extractData();
         addChartSettings();
@@ -72,6 +72,7 @@ public class WFPresenter extends ATabPresenter<GridModel, GridView> {
 
     @Override
     public void addChart(TabView tabView, String title) {
+
         for (AvailableWorkflowsPresenter a : availableWorkflowsPresenters) {
             a.addChart(tabView, "");
             setGridItemLayout(a.getView(), a.getChartName());
@@ -80,6 +81,7 @@ public class WFPresenter extends ATabPresenter<GridModel, GridView> {
         super.getView().addGridComponents(accordion);
         tabView.addSubComponent(super.getModel(), super.getView());
         tabView.setTitle(title);
+        this.accordion.setSelectedTab(this.accordion.getComponentCount()-1);
 
         addReturnButtonListener(tabView);
         logger.info("Tab was added in " + this.getClass() + " for " + super.getModel().getTitle());

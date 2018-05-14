@@ -6,6 +6,7 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import life.qbic.model.components.GitHubLabels;
 import life.qbic.model.view.GridModel;
 import life.qbic.presenter.MainPresenter;
@@ -87,8 +88,9 @@ public class AvailableWorkflowsPresenter extends ATabPresenter<GridModel, GridVi
 
         Panel panel = new Panel(labels.getTitle());
         panel.setHeight(100.0f, Sizeable.Unit.PERCENTAGE);
+        panel.setStyleName(ValoTheme.PANEL_SCROLL_INDICATOR);
+        panel.addStyleName("workflow"); //TODO check if this works, or if it has to added to the vertical layout
 
-        panel.setStyleName("workflow"); //TODO check if this works, or if it has to added to the vertical layout
         Label star = new Label(FontAwesome.STAR_O.getHtml() + " " + labels.getCount(), ContentMode.HTML);
 
         Link link = new Link("",
