@@ -2,7 +2,6 @@ package life.qbic.presenter.tabs.workflows;
 
 import com.vaadin.ui.Accordion;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 import life.qbic.model.view.GridModel;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * @author fhanssen
  */
-public class WFPresenter extends ATabPresenter<GridModel, GridView> {
+public class WorkflowTypePresenter extends ATabPresenter<GridModel, GridView> {
 
     private final String workflowType;
     private final List<String> subTypes;
@@ -25,7 +24,7 @@ public class WFPresenter extends ATabPresenter<GridModel, GridView> {
 
     private final Accordion accordion = new Accordion();
 
-    public WFPresenter(MainPresenter mainPresenter, String workflowType) {
+    public WorkflowTypePresenter(MainPresenter mainPresenter, String workflowType) {
         super(mainPresenter, new GridView(1, 2, true, true));
 
         this.workflowType = workflowType;

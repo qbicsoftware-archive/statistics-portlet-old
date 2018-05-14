@@ -99,7 +99,7 @@ public class WorkflowUsagePresenter extends ATabPresenter<PieChartModel, PieView
         ((Chart) super.getView().getComponent()).addPointClickListener((PointClickListener) event -> {
             logger.info("Chart of " + this.getClass() + " with chart titel: " + super.getView().getConfiguration().getTitle().getText() + " was clicked at " + super.getModel().getDataName(event));
 
-            ATabPresenter wfPresenter = new WFPresenter(getMainPresenter(), super.getModel().getDataName(event));
+            ATabPresenter wfPresenter = new WorkflowTypePresenter(getMainPresenter(), super.getModel().getDataName(event));
 
             String title =  ChartNames.Available_Workflows_.toString().replace("_", " ").trim();
             title = title.concat(" for ")
