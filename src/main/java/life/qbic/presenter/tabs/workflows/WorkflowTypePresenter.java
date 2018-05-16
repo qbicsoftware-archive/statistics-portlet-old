@@ -67,6 +67,8 @@ public class WorkflowTypePresenter extends ATabPresenter<GridModel, GridView> {
             AvailableWorkflowsPresenter ap = new AvailableWorkflowsPresenter(getMainPresenter(), s);
             availableWorkflowsPresenters.add(ap);
         });
+        logger.info("Data was added to a chart of " + this.getClass());
+
     }
 
     @Override
