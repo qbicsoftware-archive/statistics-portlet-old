@@ -1,9 +1,9 @@
 package life.qbic.view;
 
 
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import life.qbic.logging.Log4j2Logger;
 import life.qbic.logging.Logger;
 import life.qbic.model.view.AModel;
@@ -21,10 +21,18 @@ public class TabView extends VerticalLayout {
     private final Button returnButton = new Button("Return");
     private final AView mainView;
     private final AModel mainModel;
+    private final Label title;
 
     public TabView(AView view, AModel model){
         this.mainView = view;
         this.mainModel = model;
+        this.title = new Label("", ContentMode.HTML);
+        title.setStyleName(ValoTheme.LABEL_BOLD);
+        title.addStyleName(ValoTheme.LABEL_COLORED);
+        title.addStyleName(ValoTheme.LABEL_HUGE);
+        title.addStyleName(ValoTheme.LABEL_H1);
+        title.setWidth(null);
+        setMargin(true);
     }
 
     public Button getReturnButton() {
@@ -39,6 +47,8 @@ public class TabView extends VerticalLayout {
             ((AChartView) mainView).draw((AChartModel) mainModel);
         }
 
+        addComponent(title);
+        setComponentAlignment(title, Alignment.MIDDLE_CENTER);
         addComponent(mainView.getComponent());
         setComponentAlignment((mainView).getComponent(), Alignment.MIDDLE_CENTER);
 
@@ -48,6 +58,7 @@ public class TabView extends VerticalLayout {
 
     private void removeComponents() {
         removeAllComponents();
+        setTitle("");
         logger.info("All components were removed from tab.");
     }
 
@@ -58,12 +69,15 @@ public class TabView extends VerticalLayout {
         if(view instanceof AChartView) {
             ((AChartView)view).draw((AChartModel) model);
         }
-        addComponents(view.getComponent(), returnButton);
+        addComponents(title, view.getComponent(), returnButton);
+        setComponentAlignment(title, Alignment.MIDDLE_CENTER);
         setComponentAlignment(returnButton, Alignment.TOP_RIGHT);
 
         logger.info("Sub-component and return button was added to tab.");
 
     }
 
-
+    public void setTitle(String title) {
+        this.title.setValue(title);
+    }
 }

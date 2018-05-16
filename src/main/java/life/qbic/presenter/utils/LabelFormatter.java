@@ -14,6 +14,7 @@ public final class LabelFormatter {
         if(label == null || label.isEmpty())
             return label;
 
+        label = label.trim();
         String[] words = label.split("\\W+");
 
         StringBuilder sb = new StringBuilder();
@@ -46,6 +47,7 @@ public final class LabelFormatter {
         if(label == null || label.isEmpty())
             return label;
 
+        label = label.trim();
         String[] words = label.split("\\W+");
 
         StringBuilder sb = new StringBuilder();
@@ -67,6 +69,7 @@ public final class LabelFormatter {
         if(label == null || label.isEmpty())
             return label;
 
+        label = label.trim();
         String[] words = label.split("\\W+");
 
         StringBuilder sb = new StringBuilder();

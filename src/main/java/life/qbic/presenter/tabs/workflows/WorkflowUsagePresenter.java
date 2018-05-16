@@ -4,12 +4,9 @@ package life.qbic.presenter.tabs.workflows;
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.PointClickListener;
 import com.vaadin.addon.charts.model.*;
-import com.vaadin.addon.charts.model.style.Color;
 import life.qbic.model.view.charts.PieChartModel;
-import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
-import life.qbic.presenter.utils.Colors;
 import life.qbic.presenter.utils.DataSorter;
 import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
@@ -101,9 +98,14 @@ public class WorkflowUsagePresenter extends ATabPresenter<PieChartModel, PieView
     private void addChartListener() {
         ((Chart) super.getView().getComponent()).addPointClickListener((PointClickListener) event -> {
             logger.info("Chart of " + this.getClass() + " with chart titel: " + super.getView().getConfiguration().getTitle().getText() + " was clicked at " + super.getModel().getDataName(event));
-            //TODO fix this when all i sproperly formatted
-            AvailableWorkflowsPresenter p = new AvailableWorkflowsPresenter(super.getMainPresenter(),  super.getModel().getDataName(event).toUpperCase());
-            p.addChart(super.getTabView(), "");
+
+            ATabPresenter wfPresenter = new WorkflowTypePresenter(getMainPresenter(), super.getModel().getDataName(event));
+
+            String title =  ChartNames.Available_Workflows_.toString().replace("_", " ").trim();
+            title = title.concat(" for ")
+                    .concat(super.getModel().getDataName(event)).concat(" Analysis");
+            wfPresenter.addChart(super.getTabView(), title);
+
         });
     }
 

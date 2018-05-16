@@ -47,6 +47,12 @@
   }
 
   .v-gridlayout.workflow {
-       background-color:lightgrey;
-    }
+       background-color:white;
+   }
+
+   .v-panel.workflow {
+        overflow: scroll;
+   }
+
+
 }

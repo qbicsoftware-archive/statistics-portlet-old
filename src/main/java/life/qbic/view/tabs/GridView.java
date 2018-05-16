@@ -1,12 +1,11 @@
 package life.qbic.view.tabs;
 
 import com.vaadin.server.Sizeable;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.*;
 
 /**
  * @author fhanssen
+ *
  */
 public class GridView extends AView {
 
@@ -23,7 +22,6 @@ public class GridView extends AView {
         this.gridLayout.setMargin(margin);
         this.gridLayout.setSpacing(spacing);
         this.gridLayout.setSizeFull();
-        this.gridLayout.setStyleName("workflow");
 
         this.gridLayout.setHideEmptyRowsAndColumns(true);
 
@@ -35,6 +33,10 @@ public class GridView extends AView {
         component.setHeight(150, Sizeable.Unit.PIXELS);
         gridLayout.addComponent(component);
 
+    }
+
+    public void addGridComponents(Accordion accordion){
+        gridLayout.addComponent(accordion);
     }
 
     @Override
