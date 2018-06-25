@@ -36,6 +36,7 @@ public class StatisticsViewUI extends QBiCPortletUI {
 
         layout.setMargin(true);
         setContent(layout);
+
         layout.addComponent(tabSheet);
 
         try {
@@ -48,7 +49,6 @@ public class StatisticsViewUI extends QBiCPortletUI {
     }
 
     public void addTabView(TabView tabView, String title){
-
         this.tabSheet.addTab(tabView).setCaption(title);
         logger.info("A new tab with titel " + title +" was added.");
     }

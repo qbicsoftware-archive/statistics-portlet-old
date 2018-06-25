@@ -2,6 +2,7 @@ package life.qbic.presenter.tabs.samples;
 
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.addon.charts.model.style.Color;
+import com.vaadin.addon.charts.model.style.SolidColor;
 import life.qbic.model.view.charts.BarModel;
 import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.presenter.MainPresenter;
@@ -11,15 +12,13 @@ import life.qbic.presenter.utils.DataSorter;
 import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.BarView;
+import org.apache.logging.log4j.core.appender.db.jpa.converter.ContextStackJsonAttributeConverter;
 import submodule.data.ChartConfig;
 import submodule.lexica.ChartNames;
 import submodule.lexica.CommonAbbr;
 import submodule.lexica.Translator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author fhanssen
@@ -46,13 +45,15 @@ public class SampleTypeBarPresenter extends ATabPresenter<BarModel, BarView> {
     public void addChartSettings() {
         PlotOptionsBar plot = new PlotOptionsBar();
 
-        plot.setDataLabels(new DataLabels(true));
+        plot.setStacking(Stacking.NORMAL);
 
         Tooltip tooltip = new Tooltip();
-        tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> Samples'");
+        tooltip.setFormatter("this.series.name + ': <b>'+ this.y + '</b> Samples'");
 
         Legend legend = new Legend();
-        legend.setEnabled(false);
+        legend.setReversed(true);
+        legend.setBackgroundColor(new SolidColor("#FFFFFF"));
+
 
         super.setModel(new BarModel(super.getView().getConfiguration(), sampleConfig.getSettings().getTitle(),
                 null, tooltip, legend, new AxisTitle(sampleConfig.getSettings().getxAxisTitle()),
@@ -70,36 +71,76 @@ public class SampleTypeBarPresenter extends ATabPresenter<BarModel, BarView> {
         Object[] objectArray = sampleConfig.getData().keySet().toArray(new Object[sampleConfig.getData().keySet().size()]);
         String[] keySet = Arrays.asList(objectArray).toArray(new String[objectArray.length]);
 
-        List<DataSorter> dataSorterList = new ArrayList<>();
-        //Actually adding of data
-       DataSeries series = new DataSeries();
+
+        //Get order of sample type counts
+        Map<String, Integer> sampleTypeTotalCount = new HashMap<>();
         for (String aKeySet : keySet) {
             for (int i = 0; i < sampleConfig.getData().get(aKeySet).size(); i++) {
 
-                String label = (String) sampleConfig.getSettings().getxCategories().get(i);
+                Object[] omicsCounts = ((Map)sampleConfig.getData().get(aKeySet).get(i)).keySet().toArray(
+                        new Object[((Map)sampleConfig.getData().get(aKeySet).get(i)).keySet().size()]);
 
-                if(! CommonAbbr.getList().contains(label)){
-                    if(!Translator.getList().contains(label)) {
-                        if (label.contains("_")) {
-                            label = LabelFormatter.firstLowerCaseRestUpperCase(label.replace("_", ""));
-                        } else {
-                            label = LabelFormatter.generateCamelCase(label);
-                        }
-                    }else{
-                        label = Translator.valueOf(label).getTranslation();
+                for(Object o : omicsCounts){
+                    int counter = 0;
+                    if(sampleTypeTotalCount.containsKey(o)){
+                        counter = sampleTypeTotalCount.get(o);
                     }
+                    counter += (Integer)((Map)sampleConfig.getData().get(aKeySet).get(i)).get(o);
+                    sampleTypeTotalCount.put((String)o, counter);
                 }
-                dataSorterList.add(new DataSorter(label,
-                        (int)sampleConfig.getData().get(aKeySet).get(i)));
             }
         }
-        Collections.sort(dataSorterList);
 
-        dataSorterList.forEach(d -> series.add(new DataSeriesItem(d.getName(), d.getCount())));
+        List<String> insertOrder = getInsertOrder(sampleTypeTotalCount);
 
-        super.getModel().addData(series);
+        for (String aKeySet : keySet) {
+            for (int i = 0; i < sampleConfig.getData().get(aKeySet).size(); i++) {
+
+                String seriesName = (String)sampleConfig.getSettings().getxCategories().get(i);
+
+                if(CommonAbbr.getList().contains(seriesName)){
+                    seriesName = CommonAbbr.valueOf(seriesName).toString();
+                }else if(Translator.getList().contains(seriesName)){
+                    seriesName = Translator.valueOf(seriesName).getTranslation();
+                }else{
+                    seriesName = LabelFormatter.generateCamelCase(seriesName);
+                }
+
+                DataSeries series = new DataSeries(seriesName);
+                for(String o : insertOrder){
+                    String label = o;
+                    if(! CommonAbbr.getList().contains(label)){
+                        if(!Translator.getList().contains(label)) {
+                            if (label.contains("_")) {
+                                label = LabelFormatter.firstLowerCaseRestUpperCase(label.replace("_", ""));
+                            } else {
+                                label = LabelFormatter.generateCamelCase(label);
+                            }
+                        }else{
+                            label = Translator.valueOf(label).getTranslation();
+                        }
+                    }
+
+                    series.add(new DataSeriesItem(label, (Number)((Map)sampleConfig.getData().get(aKeySet).get(i)).get(o)));
+                }
+
+                super.getModel().getConfiguration().addSeries(series);
+            }
+        }
+
         logger.info("Data was added to a chart of " + this.getClass() + " with chart titel: " + super.getView().getConfiguration().getTitle().getText());
 
+    }
+
+    private <K, V extends Comparable<? super V>> List<K> getInsertOrder(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        List<K> sortedKeys = new ArrayList<>();
+        for(Map.Entry<K,V> entry :list){
+            sortedKeys.add(entry.getKey());
+        }
+        return sortedKeys;
     }
 
     @Override

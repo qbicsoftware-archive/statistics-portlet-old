@@ -81,8 +81,9 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
         outerPieOptions.setSize("318px");
         outerPieOptions.setDataLabels(new DataLabels());
         outerPieOptions.getDataLabels().setFormatter("function() {var text = ''; for (i = 0; i < 2; i++) {" +
-                " text += ' ' + this.point.name.split(' ')[i] } for (i = 2; i < this.point.name.split(' ').length; i++) {"+
-                " text += ' ' + this.point.name.split(' ')[i].italics() + ' ' }return text;}");
+                " text += ' ' + this.point.name.split(' ')[i] } for (i = 2; i < this.point.name.split(' ').length-1; i++) {"+
+                " text += ' ' + this.point.name.split(' ')[i].italics() + ' ' } for (i = this.point.name.split(' ').length-1; i <  this.point.name.split(' ').length; i++) {" +
+                " text += ' ' + this.point.name.split(' ')[i] } return text;}");
         outerPieOptions.setAnimation(false);
 
         Tooltip tooltip = new Tooltip();
@@ -140,7 +141,10 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
 
                 //Add outer Series sorted
                 for(String s : genusSpeciesMap.get(innerNames[i])) {
-                    dataSorterList.add(new DataSorter(LabelFormatter.firstUpperRestLowerCase(s),  getSpeciesCount(s, (String)dataCategory)));
+                    dataSorterList.add(new DataSorter(LabelFormatter.firstUpperRestLowerCase(s)
+                            .concat(" [")
+                            .concat(getSpeciesPercentage(s, (String)dataCategory))
+                            .concat("%]"),  getSpeciesCount(s, (String)dataCategory)));
                 }
                 Collections.sort(dataSorterList);
                 for(DataSorter d : dataSorterList){
@@ -167,6 +171,17 @@ public class GenusSpeciesCountPresenter extends ATabPresenter<PieChartModel, Pie
             }
         }
         return value;
+    }
+
+    private String getSpeciesPercentage(String species, String dataKey){
+        String percentage = "";
+        for(int j = 0; j < speciesConfig.getSettings().getxCategories().size(); j++){
+            if(speciesConfig.getSettings().getxCategories().get(j).equals(species)){
+                percentage = String.valueOf(speciesConfig.getSettings().getyCategories().get(j));
+                break;
+            }
+        }
+        return percentage;
     }
 
     @Override
