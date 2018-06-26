@@ -1,18 +1,13 @@
 package life.qbic.presenter.tabs.samples;
 
 import com.vaadin.addon.charts.model.*;
-import com.vaadin.addon.charts.model.style.Color;
 import com.vaadin.addon.charts.model.style.SolidColor;
 import life.qbic.model.view.charts.BarModel;
-import life.qbic.portlet.StatisticsViewUI;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
-import life.qbic.presenter.utils.Colors;
-import life.qbic.presenter.utils.DataSorter;
 import life.qbic.presenter.utils.LabelFormatter;
 import life.qbic.view.TabView;
 import life.qbic.view.tabs.charts.BarView;
-import org.apache.logging.log4j.core.appender.db.jpa.converter.ContextStackJsonAttributeConverter;
 import submodule.data.ChartConfig;
 import submodule.lexica.ChartNames;
 import submodule.lexica.CommonAbbr;

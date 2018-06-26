@@ -40,7 +40,8 @@ public class StatisticsViewUI extends QBiCPortletUI {
         layout.addComponent(tabSheet);
 
         try {
-            MainPresenter mainPresenter = new MainPresenter(this,"/Users/qbic/Documents/QBiC/config.yaml" );
+            ///Users/qbic/Documents/QBiC/qbic-statistics/src/main/java/life/qbic/portlet/StatisticsViewUI.java
+            MainPresenter mainPresenter = new MainPresenter(this,"/Users/qbic/Documents/QBiC/qbic-statistics/src/main/resources/config.yaml" );
         }catch(Exception e){
             logger.error("Portlet failed due to: " + e.toString());
         }
