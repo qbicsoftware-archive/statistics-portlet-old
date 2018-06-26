@@ -1,0 +1,457 @@
+!!submodule.data.MainConfig
+charts:
+  Bacteria_Genus:
+    data:
+      Bacteria:
+      - 6
+      - 3
+      - 2
+    settings:
+      subtitle: null
+      title: Sample Count Bacteria
+      xAxisTitle: null
+      xCategories:
+      - Salmonella
+      - Escherichia
+      - Caulobacter
+      yAxisTitle: null
+      yCategories:
+      - 54.5
+      - 27.3
+      - 18.2
+  Available_Workflows_MA_RNA:
+    data:
+      stargazers_count:
+      - 1.0
+    settings:
+      subtitle: null
+      title: Available Workflows MA_RNA
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/qbic-wf-microarrayQC
+      yAxisTitle: null
+      yCategories:
+      - Microarray QC workflow mainly using the R package oligo
+  SuperKingdom:
+    data:
+      SuperKingdom:
+      - 22
+      - 11
+      - 1321
+      - 8
+      - 11
+      - 3399
+      - 88
+    settings:
+      subtitle: null
+      title: Sample Count by Domain
+      xAxisTitle: null
+      xCategories:
+      - unclassified sequences
+      - Other Bacteria
+      - Other Eukaryota
+      - Pseudomonas aeruginosa strain PAO1
+      - Pseudomonas aeruginosa
+      - Homo sapiens
+      - Other
+      yAxisTitle: null
+      yCategories:
+      - 0.5
+      - 0.2
+      - 27.2
+      - 0.2
+      - 0.2
+      - 69.9
+      - 1.8
+  Species_Genus:
+    data:
+      Species_Genus:
+      - Apis
+      - Mus
+      - Cavia
+      - Rosa
+      - Escherichia
+      - Rattus
+      - Asparagus
+      - Arabidopsis
+      - Corylus
+      - Corylus
+      - Pseudomonas
+      - Lolium
+      - null
+      - Capra
+      - Solanum
+      - Corylus
+      - Solanum
+      - Homo
+      - Bos
+      - Caulobacter
+      - Galleria
+      - Caenorhabditis
+      - Salmonella
+      - Pseudomonas
+      - Nicotiana
+      - Saccharomyces
+      - null
+    settings:
+      subtitle: null
+      title: ''
+      xAxisTitle: null
+      xCategories:
+      - ' Apis mellifera mellifera'
+      - Mus musculus
+      - Cavia aperea
+      - Rosa wichurana
+      - Escherichia coli
+      - Rattus norvegicus
+      - Asparagus officinalis
+      - Arabidopsis thaliana
+      - Corylus maxima
+      - Corylus avellana
+      - Pseudomonas aeruginosa
+      - Lolium perenne
+      - Unidentified
+      - Capra hircus
+      - Solanum tuberosum
+      - Corylus spp.
+      - Solanum lycopersicum
+      - Homo sapiens
+      - Bos taurus
+      - Caulobacter crescentus CB15
+      - Galleria mellonella
+      - Caenorhabditis elegans
+      - Salmonella enterica subsp. enterica serovar Typhimurium str. SL1344
+      - Pseudomonas aeruginosa strain PAO1
+      - Nicothiana benthamiana
+      - Saccharomyces cerevisiae
+      - Other
+      yAxisTitle: null
+      yCategories: null
+  Available_Workflows_NGS_RNA:
+    data:
+      stargazers_count:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 1.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    settings:
+      subtitle: null
+      title: Available Workflows NGS_RNA
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/rnamapping
+      - https://api.github.com/repos/qbicsoftware/merge-NGSdata-workflow
+      - https://api.github.com/repos/qbicsoftware/rnacount
+      - https://api.github.com/repos/qbicsoftware/differentialexpression-analysis-workflow
+      - https://api.github.com/repos/qbicsoftware/rnaseq
+      - https://api.github.com/repos/qbicsoftware/ngsqc
+      - https://api.github.com/repos/qbicsoftware/optitype-workflow
+      - https://api.github.com/repos/qbicsoftware/epaa-workflow
+      - https://api.github.com/repos/qbicsoftware/qbic-workflow-epitopeprediction
+      yAxisTitle: null
+      yCategories:
+      - ''
+      - Quality Control on fastq files
+      - ''
+      - RNAseq workflow
+      - ''
+      - ''
+      - Workflow scripts for merging NGS raw data (lanes)
+      - Differential expression analysis using DESeq2
+      - Epitope prediction workflow based on FRED.
+  Available_Workflows_NGS_DNA:
+    data:
+      stargazers_count:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    settings:
+      subtitle: null
+      title: Available Workflows NGS_DNA
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/variantcalling
+      - https://api.github.com/repos/qbicsoftware/mapping
+      - https://api.github.com/repos/qbicsoftware/merge-NGSdata-workflow
+      - https://api.github.com/repos/qbicsoftware/qbic-workflow-indproteome
+      - https://api.github.com/repos/qbicsoftware/variant-annotation-workflow
+      - https://api.github.com/repos/qbicsoftware/exomseq
+      - https://api.github.com/repos/qbicsoftware/ngsqc
+      - https://api.github.com/repos/qbicsoftware/16Smetagenomics-taxonomic-profiling
+      - https://api.github.com/repos/qbicsoftware/optitype-workflow
+      - https://api.github.com/repos/qbicsoftware/somatic-variantcalling-workflow
+      - https://api.github.com/repos/qbicsoftware/epaa-workflow
+      - https://api.github.com/repos/qbicsoftware/qbic-workflow-epitopeprediction
+      yAxisTitle: null
+      yCategories:
+      - ''
+      - Quality Control on fastq files
+      - ''
+      - ''
+      - Repository for variant calling pipeline using FreeBayes
+      - ''
+      - ''
+      - Workflow scripts for merging NGS raw data (lanes)
+      - Workflow scripts for somatic variant calling workflow (Strelka)
+      - Workflow scripts of the variant annotation workflow
+      - Epitope prediction workflow based on FRED.
+      - Workflow to create personalized protein references using FRED2.
+  Eukaryota_Genus:
+    data:
+      Eukaryota:
+      - 34
+      - 16
+      - 237
+      - 153
+      - 14
+      - 1
+      - 13
+      - 587
+      - 2
+      - 1
+      - 12
+      - 15
+      - 1
+      - 200
+      - 3
+      - 32
+    settings:
+      subtitle: null
+      title: Sample Count Eukaryota
+      xAxisTitle: null
+      xCategories:
+      - Nicotiana
+      - Galleria
+      - Arabidopsis
+      - Apis
+      - Bos
+      - Lolium
+      - Asparagus
+      - Mus
+      - Saccharomyces
+      - Rosa
+      - Cavia
+      - Rattus
+      - Caenorhabditis
+      - Solanum
+      - Capra
+      - Corylus
+      yAxisTitle: null
+      yCategories:
+      - 2.6
+      - 1.2
+      - 17.9
+      - 11.6
+      - 1.1
+      - 0.1
+      - 1.0
+      - 44.4
+      - 0.2
+      - 0.1
+      - 0.9
+      - 1.1
+      - 0.1
+      - 15.1
+      - 0.2
+      - 2.4
+  Available_Workflows_MS_PX:
+    data:
+      stargazers_count:
+      - 6.0
+      - 2.0
+    settings:
+      subtitle: null
+      title: Available Workflows MS_PX
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/mqrun
+      - https://api.github.com/repos/qbicsoftware/qcprot
+      yAxisTitle: null
+      yCategories:
+      - Automate MaxQuant
+      - Quality control for mass spec proteomics
+  Available_Workflows_OTHER:
+    data:
+      stargazers_count:
+      - 1.0
+    settings:
+      subtitle: null
+      title: Available Workflows OTHER
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/qbic-workflow-nf-rnaseq
+      yAxisTitle: null
+      yCategories:
+      - Our RNAseq workflow modularized in nextflow
+  Workflow_Execution_Counts:
+    data:
+      Counts:
+      - 11
+      - 222
+      - 747
+    settings:
+      subtitle: null
+      title: Workflow Execution Counts
+      xAxisTitle: null
+      xCategories:
+      - MA
+      - MS
+      - NGS
+      yAxisTitle: null
+      yCategories: null
+  Sample_Types:
+    data:
+      Samples:
+      - PEPTIDES: 107
+        DNA: 1
+        SMALLMOLECULES: 127
+        PHOSPHOPROTEINS: 30
+        PROTEINS: 293
+      - RNA: 57
+        DNA: 94
+        PROTEINS: 3
+      - PEPTIDES: 576
+        RNA: 2088
+        CELL_LYSATE: 88
+        PHOSPHOPEPTIDES: 42
+        DNA: 3396
+        SMALLMOLECULES: 1402
+        PHOSPHOPROTEINS: 125
+        PHOSPHOLIPIDS: 1
+        PROTEINS: 1343
+        CARBOHYDRATES: 158
+        LIPIDS: 76
+      - RNA: 347
+        DNA: 890
+      - RNA: 1
+    settings:
+      subtitle: null
+      title: Sample Type Counts
+      xAxisTitle: null
+      xCategories:
+      - Q_MS_RUN
+      - Q_MICROARRAY_RUN
+      - Unknown
+      - Q_NGS_SINGLE_SAMPLE_RUN
+      - Multi-omics
+      yAxisTitle: null
+      yCategories: null
+  Bacteria_Species:
+    data:
+      Bacteria:
+      - 6
+      - 3
+      - 2
+    settings:
+      subtitle: null
+      title: ''
+      xAxisTitle: null
+      xCategories:
+      - Salmonella enterica subsp. enterica serovar Typhimurium str. SL1344
+      - Escherichia coli
+      - Caulobacter crescentus CB15
+      yAxisTitle: null
+      yCategories:
+      - 54.5
+      - 27.3
+      - 18.2
+  Available_Workflows_MS_LX:
+    data:
+      stargazers_count:
+      - 0.0
+      - 0.0
+      - 0.0
+    settings:
+      subtitle: null
+      title: Available Workflows MS_LX
+      xAxisTitle: null
+      xCategories:
+      - https://api.github.com/repos/qbicsoftware/ligandomics-QC-workflow
+      - https://api.github.com/repos/qbicsoftware/ligandomics-ID-workflow-copro
+      - https://api.github.com/repos/qbicsoftware/ligandomics-ID-workflow
+      yAxisTitle: null
+      yCategories:
+      - ''
+      - ''
+      - Workflow scripts of the ligandomics QC workflow
+  Eukaryota_Species:
+    data:
+      Eukaryota:
+      - 153
+      - 3
+      - 587
+      - 12
+      - 1
+      - 10
+      - 15
+      - 190
+      - 15
+      - 14
+      - 16
+      - 13
+      - 237
+      - 1
+      - 2
+      - 15
+      - 1
+      - 34
+      - 2
+    settings:
+      subtitle: null
+      title: ''
+      xAxisTitle: null
+      xCategories:
+      - ' Apis mellifera mellifera'
+      - Capra hircus
+      - Mus musculus
+      - Cavia aperea
+      - Rosa wichurana
+      - Solanum tuberosum
+      - Corylus spp.
+      - Solanum lycopersicum
+      - Rattus norvegicus
+      - Bos taurus
+      - Galleria mellonella
+      - Asparagus officinalis
+      - Arabidopsis thaliana
+      - Caenorhabditis elegans
+      - Corylus maxima
+      - Corylus avellana
+      - Lolium perenne
+      - Nicothiana benthamiana
+      - Saccharomyces cerevisiae
+      yAxisTitle: null
+      yCategories:
+      - 11.6
+      - 0.2
+      - 44.4
+      - 0.9
+      - 0.1
+      - 0.8
+      - 1.1
+      - 14.4
+      - 1.1
+      - 1.1
+      - 1.2
+      - 1.0
+      - 17.9
+      - 0.1
+      - 0.2
+      - 1.1
+      - 0.1
+      - 2.6
+      - 0.2

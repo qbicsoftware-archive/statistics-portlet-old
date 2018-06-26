@@ -36,10 +36,12 @@ public class StatisticsViewUI extends QBiCPortletUI {
 
         layout.setMargin(true);
         setContent(layout);
+
         layout.addComponent(tabSheet);
 
         try {
-            MainPresenter mainPresenter = new MainPresenter(this,"/home/luser/liferay-portal-6.2-ce-ga4/config.yaml" );
+            MainPresenter mainPresenter = new MainPresenter(this,  "/config.yaml" );
+          
         }catch(Exception e){
             logger.error("Portlet failed due to: " + e.toString());
         }
@@ -48,7 +50,6 @@ public class StatisticsViewUI extends QBiCPortletUI {
     }
 
     public void addTabView(TabView tabView, String title){
-
         this.tabSheet.addTab(tabView).setCaption(title);
         logger.info("A new tab with titel " + title +" was added.");
     }

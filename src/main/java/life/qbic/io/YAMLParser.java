@@ -30,7 +30,7 @@ public final class YAMLParser {
         options.setPrettyFlow(true);
         Yaml yaml = new Yaml(options);
 
-        return yaml.loadAs(new FileInputStream(inputFile), MainConfig.class);
+        return yaml.loadAs(YAMLParser.class.getResourceAsStream(inputFile), MainConfig.class);
     }
 
     public static MainConfig parseConfig(FileInputStream inputStream, String inputFilename){
