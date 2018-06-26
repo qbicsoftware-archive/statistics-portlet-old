@@ -41,6 +41,7 @@ public class StatisticsViewUI extends QBiCPortletUI {
 
         try {
             MainPresenter mainPresenter = new MainPresenter(this,  "/config.yaml" );
+          
         }catch(Exception e){
             logger.error("Portlet failed due to: " + e.toString());
         }
