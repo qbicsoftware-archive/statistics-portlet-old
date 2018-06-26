@@ -81,7 +81,7 @@ public class MainPresenter {
     void addChildPresenter(){
         superKingdomCountPresenter = new SuperKingdomCountPresenter(this);
         sampleTypePresenter = new SampleTypeBarPresenter(this);
-        projectPresenter = new ProjectTechColumnPresenter(this);
+        //projectPresenter = new ProjectTechColumnPresenter(this);
         workflowUsagePresenter = new WorkflowUsagePresenter(this);
     }
 
@@ -93,8 +93,8 @@ public class MainPresenter {
                 (AModel) superKingdomCountPresenter.getModel()), "Organisms");
         sampleTypePresenter.addChart(new TabView((AView) sampleTypePresenter.getView(),
                 (AModel) sampleTypePresenter.getModel()), "Samples");
-        projectPresenter.addChart(new TabView((AView) projectPresenter.getView(),
-                (AModel) projectPresenter.getModel()), "Projects");
+        //projectPresenter.addChart(new TabView((AView) projectPresenter.getView(),
+        //        (AModel) projectPresenter.getModel()), "Projects");
         workflowUsagePresenter.addChart(new TabView((AView) workflowUsagePresenter.getView(),
                 (AModel) workflowUsagePresenter.getModel()), "Workflow");
 

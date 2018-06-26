@@ -23,16 +23,32 @@ public class TabView extends VerticalLayout {
     private final AModel mainModel;
     private final Label title;
 
+
     public TabView(AView view, AModel model){
         this.mainView = view;
         this.mainModel = model;
-        this.title = new Label("", ContentMode.HTML);
+        this.title = new Label("Test", ContentMode.HTML);
         title.setStyleName(ValoTheme.LABEL_BOLD);
         title.addStyleName(ValoTheme.LABEL_COLORED);
         title.addStyleName(ValoTheme.LABEL_HUGE);
         title.addStyleName(ValoTheme.LABEL_H1);
-        title.setWidth(null);
+        title.setWidth(100.0f, Unit.PERCENTAGE);
         setMargin(true);
+
+        addComponent(title);
+        setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+
+        //setSizeFull();
+
+        //panel.setSizeFull();
+
+        //drawingContainer.setWidthUndefined();
+
+//        setSizeFull();
+//        addComponent(panel);
+//        setExpandRatio(panel, 1f);
+//        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
+
     }
 
     public Button getReturnButton() {
@@ -46,12 +62,8 @@ public class TabView extends VerticalLayout {
         if(mainView instanceof AChartView) {
             ((AChartView) mainView).draw((AChartModel) mainModel);
         }
-
-        addComponent(title);
+        addComponents(title, mainView.getComponent());
         setComponentAlignment(title, Alignment.MIDDLE_CENTER);
-        addComponent(mainView.getComponent());
-        setComponentAlignment((mainView).getComponent(), Alignment.MIDDLE_CENTER);
-
         logger.info("Main component was added.");
 
     }
@@ -65,10 +77,10 @@ public class TabView extends VerticalLayout {
     public void addSubComponent(AModel model, AView view){
 
         removeComponents();
-
         if(view instanceof AChartView) {
             ((AChartView)view).draw((AChartModel) model);
         }
+
         addComponents(title, view.getComponent(), returnButton);
         setComponentAlignment(title, Alignment.MIDDLE_CENTER);
         setComponentAlignment(returnButton, Alignment.TOP_RIGHT);
@@ -80,4 +92,5 @@ public class TabView extends VerticalLayout {
     public void setTitle(String title) {
         this.title.setValue(title);
     }
+
 }

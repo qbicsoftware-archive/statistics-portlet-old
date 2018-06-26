@@ -4,6 +4,8 @@ package life.qbic.presenter.tabs.workflows;
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.PointClickListener;
 import com.vaadin.addon.charts.model.*;
+import com.vaadin.addon.charts.model.style.Color;
+import com.vaadin.addon.charts.model.style.SolidColor;
 import life.qbic.model.view.charts.PieChartModel;
 import life.qbic.presenter.MainPresenter;
 import life.qbic.presenter.tabs.ATabPresenter;
@@ -45,8 +47,10 @@ public class WorkflowUsagePresenter extends ATabPresenter<PieChartModel, PieView
     public void addChartSettings() {
 
         PlotOptionsPie plot = new PlotOptionsPie();
+        plot.setCursor(Cursor.POINTER);
 
         plot.setDataLabels(new DataLabels(true));
+        plot.getDataLabels().setColor(SolidColor.ALICEBLUE);
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> times executed <br> Click to show available workflows'");

@@ -50,7 +50,6 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter("this.point.name + ': <b>'+ this.y + '</b> Samples'");
-
         Legend legend = new Legend();
         legend.setEnabled(false);
 
@@ -74,7 +73,11 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
         //Retrieve and Sort data
         for (String aKeySet : keySet) {
             for (int i = 0; i <kingdomConfig.getData().get(aKeySet).size(); i++) {
-                dataSorters.add(new DataSorter(LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i)),
+                String label = LabelFormatter.generateCamelCase((String) kingdomConfig.getSettings().getxCategories().get(i))
+                        .concat(" [")
+                        .concat(String.valueOf(kingdomConfig.getSettings().getyCategories().get(i)))
+                        .concat("%]");
+                dataSorters.add(new DataSorter(label,
                         (int)kingdomConfig.getData().get(aKeySet).get(i)));
 
             }
@@ -97,9 +100,18 @@ public class SuperKingdomCountPresenter extends ATabPresenter<PieChartModel, Pie
                         this.getView().getConfiguration().getTitle().getText() +
                     " was clicked at " + this.getModel().getDataName(event));
 
-            if(Kingdoms.getList().contains(this.getModel().getDataName(event))) {
+            //In case it is Other Bacteria etc.
+            if(Kingdoms.getList().contains(this.getModel().getDataName(event).split(" ")[1])) {
                 GenusSpeciesCountPresenter p =
-                        new GenusSpeciesCountPresenter(super.getMainPresenter(), this.getModel().getDataName(event));
+                        new GenusSpeciesCountPresenter(super.getMainPresenter(), this.getModel().getDataName(event).split(" ")[1]);
+
+                p.addChart(this.getTabView(), "");
+            }
+
+            //In case it is not Other
+            if(Kingdoms.getList().contains(this.getModel().getDataName(event).split(" ")[0])) {
+                GenusSpeciesCountPresenter p =
+                        new GenusSpeciesCountPresenter(super.getMainPresenter(), this.getModel().getDataName(event).split(" ")[0]);
 
                 p.addChart(this.getTabView(), "");
             }

@@ -37,7 +37,7 @@ public class FileLoadPresenter {
 
     private void addUploadConfigFileOption(TabView tabView){
 
-        tabView.addComponents(upload, new Label("Please select a file to upload"));
+        //tabView.addComponents(upload, new Label("Please select a file to upload"));
         upload.addSucceededListener((Upload.SucceededListener) succeededEvent ->
                 setChartsFromConfig(receiver.getFile(), receiver.getFilename()));
     }
